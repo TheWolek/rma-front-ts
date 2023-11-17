@@ -1,0 +1,83 @@
+form {
+  padding: 1em 2em;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: .5em;
+}
+
+form input {
+  width: 70%;
+  padding: .35em 0;
+}
+
+form label {
+  color: var(--vt-c-black-mute)
+}
+
+form input[type="submit"] {
+  margin-top: .3em;
+  width: 40%;
+  cursor: pointer;
+}
+
+form select,
+form input[type="date"],
+form input[type="number"] {
+  width: 90%;
+  padding: 0.35em;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+form textarea {
+  resize: none;
+  font-size: 14px;
+}
+
+form .topBar {
+  display: flex;
+  gap: 2em;
+}
+
+form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: .3em;
+  width: 12%;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  margin-left: .5em;
+  color: var(--vt-c-black-mute)
+}
+
+input {
+  padding: .35em 0;
+}
+
+input[type="text"] {
+  width: 90%;
+  padding-left: .5em;
+}
+
+input:disabled,
+select:disabled,
+select:disabled option,
+textarea:disabled {
+  background: rgb(209 209 209);
+  border: 1px solid #000;
+  color: var(--vt-c-black-mute);
+  cursor: not-allowed;
+}
+
+input:disabled:hover,
+select:disabled:hover,
+textarea:disabled:hover {
+  cursor: not-allowed;
+}

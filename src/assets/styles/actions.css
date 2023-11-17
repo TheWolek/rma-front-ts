@@ -1,0 +1,90 @@
+.actions {
+  padding: .5em;
+  display: flex;
+  gap: 1em;
+  border-bottom: 2px solid rgb(25, 103, 175);
+}
+
+.actions.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.actions.rows .row {
+  display: flex;
+  gap: 1em;
+}
+
+.actions.rows .row:nth-of-type(1) {
+  padding-bottom: 8px;
+}
+
+.actions.rows .row:nth-of-type(2) {
+  margin-left: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #000;
+}
+
+.actionBtn {
+  background: rgb(205, 206, 207);
+  color: var(--vt-c-black-mute);
+  font-weight: bold;
+  transition: background-color .2s ease-out;
+  padding: .2em .5em;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .4em;
+}
+
+.actionBtn:hover {
+  cursor: pointer;
+  background: rgb(195, 196, 197);
+}
+
+.actionBtn.disabled {
+  color: var(--vt-c-gray);
+}
+
+.actionBtn.disabled:hover {
+  cursor: not-allowed;
+}
+
+.actionBtn.disabled img {
+  filter: contrast(0.3);
+}
+
+.actionBtn img {
+  width: 20px;
+}
+
+.actionBtn .addImg {
+  width: 15px;
+}
+
+.actionBtn .saveImg {
+  width: 17px;
+}
+
+.actionBtn .searchImg {
+  width: 17px;
+}
+
+.actionBtn.refreshBtn img {
+  transition: transform .2s ease-out;
+}
+
+.actionBtn.refreshBtn:hover img {
+  transform: rotate(90deg);
+}
+
+.actionBtn.refreshBtn img.active {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
