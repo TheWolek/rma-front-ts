@@ -20,8 +20,10 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["update:modelValue"]);
+
 function onChange(event) {
-  this.$emit("update:modelValue", event.target.value);
+  emit("update:modelValue", event.target.value);
   if (props.change) {
     props.change();
   }

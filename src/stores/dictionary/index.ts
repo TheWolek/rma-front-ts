@@ -50,6 +50,10 @@ export const useDictionaryStore = defineStore("Dictionary", {
         ) || false
       );
     },
+    getDictionaryByName: (state) => (name: string) =>
+      state.dictionaries.find(
+        (d) => d.name.toLowerCase() === name.toLowerCase()
+      ),
   },
   actions: {
     async fetchDictionary(dict) {

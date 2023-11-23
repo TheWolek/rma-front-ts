@@ -1,6 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import RmaPage from "@/components/RMA/rmaPage/RmaPage.vue";
+</script>
 <template>
-  <div id="rmaPage"></div>
+  <div id="rmaPage">
+    <RmaPage />
+  </div>
 </template>
 <style>
 .rmaPage_wrap {

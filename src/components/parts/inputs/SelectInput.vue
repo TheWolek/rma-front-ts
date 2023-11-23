@@ -5,10 +5,7 @@ import { CommonEventHandler, SelectOption } from "../constants";
 const props = defineProps({
   id: String,
   label: String,
-  modelValue: {
-    type: String,
-    required: true,
-  },
+  modelValue: Number,
   change: Function as PropType<CommonEventHandler>,
   error: String,
   options: Array as PropType<SelectOption[]>,
@@ -22,8 +19,10 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["update:modelValue"]);
+
 function onChange(event) {
-  this.$emit("update.modelValue", event.target.value);
+  emit("update:modelValue", event.target.value);
   if (props.change) {
     props.change();
   }
@@ -40,12 +39,7 @@ function onChange(event) {
         :disabled="disabled"
       >
         <option disabled value>{{ label }}</option>
-        <slot v-if="this.display"></slot>
-        <div v-if="!this.display">
-          <option v-for="el in options" :key="el.id" :value="el.id">
-            <span>{{ el.name }}</span>
-          </option>
-        </div>
+        <slot></slot>
       </select>
       <p
         :id="`error_${id}`"

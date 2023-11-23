@@ -10,19 +10,48 @@ defineProps({
   checked: Boolean,
   disabled: Boolean,
 });
+
+const emit = defineEmits(["update:checked"]);
 </script>
 <template>
   <label
-    :for="fieldId"
+    :for="fieldId.toString()"
     class="checkbox-tile"
     :class="{ disabled: this.disabled }"
   >
     <input
       type="checkbox"
       :checked="checked"
-      :id="fieldId"
+      :id="fieldId.toString()"
       :disabled="disabled"
-      v-on:input="(event) => $emit('update:checked', (event.target as HTMLInputElement).checked)"
+      @change="(event) => emit('update:checked', (event.target as HTMLInputElement).checked)"
     />
+    {{ label }}
   </label>
 </template>
+<style scoped>
+.checkbox-tile {
+  padding: 0.4em 1em;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.checkbox-tile.disabled {
+  cursor: default;
+}
+
+.checkbox-tile:nth-of-type(even) {
+  background: #fff;
+}
+
+.checkbox-tile input {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.checkbox-tile input:disabled {
+  cursor: default;
+}
+</style>
