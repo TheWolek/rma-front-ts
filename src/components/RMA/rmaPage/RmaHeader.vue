@@ -5,14 +5,14 @@ import { useDictionaryStore } from "@/stores/dictionary";
 import { formatDateAndHours } from "@/helpers/dateFormatters";
 
 const store = useRmaStore();
-const dictStore = useDictionaryStore();
+const storeDict = useDictionaryStore();
 
 const rmaPage = ref(store.rmaPage);
 const status = ref(store.rmaPage.status);
 
 const getStatusDisplayName = computed(
   () =>
-    dictStore.dictionaries
+    storeDict.dictionaries
       .find((dict) => dict.name === "statusesTypes")
       .items.find(({ id }) => id === status.value).name
 );

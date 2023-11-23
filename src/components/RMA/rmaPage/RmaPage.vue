@@ -6,6 +6,7 @@ import { useDictionaryStore } from "@/stores/dictionary";
 import router from "@/router";
 import RmaHeader from "./RmaHeader.vue";
 import DeviceSection from "./DeviceSection.vue";
+import DiagnoseSection from "./DiagnoseSection.vue";
 
 const route = useRoute();
 const store = useRmaStore();
@@ -29,6 +30,9 @@ onMounted(async () => {
   await storeDict.fetchDictionary(
     storeDict.dictionaries.find((dict) => dict.name === "statusesTypes")
   );
+  await storeDict.fetchDictionary(
+    storeDict.dictionaries.find((dict) => dict.name === "resultTypes")
+  );
   await store.fetchTicketById(Number(route.params.id));
   await store.fetchTicketAccessories(Number(route.params.id));
 
@@ -40,6 +44,7 @@ onMounted(async () => {
     <RmaHeader v-if="!loading" />
     <div class="rmaPage_wrap_details">
       <DeviceSection v-if="!loading" />
+      <DiagnoseSection v-if="!loading" />
     </div>
   </div>
 </template>
