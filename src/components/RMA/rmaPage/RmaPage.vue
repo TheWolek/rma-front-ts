@@ -4,6 +4,7 @@ import { useRoute } from "vue-router";
 import { useRmaStore } from "@/stores/RMA";
 import { useDictionaryStore } from "@/stores/dictionary";
 import router from "@/router";
+import RmaHeader from "./RmaHeader.vue";
 import DeviceSection from "./DeviceSection.vue";
 
 const route = useRoute();
@@ -11,9 +12,9 @@ const store = useRmaStore();
 const storeDict = useDictionaryStore();
 
 const loading = ref(true);
+const editMode = ref(store.editMode);
 
 onMounted(async () => {
-  console.log(route.params.id);
   if (isNaN(parseInt(String(route.params.id)))) {
     router.push({ name: "rma" });
     return;
@@ -25,6 +26,9 @@ onMounted(async () => {
   await storeDict.fetchDictionary(
     storeDict.dictionaries.find((dict) => dict.name === "damageTypes")
   );
+  await storeDict.fetchDictionary(
+    storeDict.dictionaries.find((dict) => dict.name === "statusesTypes")
+  );
   await store.fetchTicketById(Number(route.params.id));
   await store.fetchTicketAccessories(Number(route.params.id));
 
@@ -32,6 +36,10 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <div>{{ route.params.id }}</div>
-  <DeviceSection v-if="!loading" />
+  <div class="rmaPage_wrap">
+    <RmaHeader v-if="!loading" />
+    <div class="rmaPage_wrap_details">
+      <DeviceSection v-if="!loading" />
+    </div>
+  </div>
 </template>

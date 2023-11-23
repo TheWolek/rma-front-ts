@@ -10,7 +10,7 @@ import ActionButton from "@/components/parts/buttons/ActionButton.vue";
 const store = useRmaStore();
 const storeDict = useDictionaryStore();
 
-const editMode = ref(false);
+const editMode = ref(store.editMode);
 const rmaPage = store.rmaPage;
 const sn = ref(store.rmaPage.device_sn);
 const accessories = ref(store.rmaPage.device_accessories);

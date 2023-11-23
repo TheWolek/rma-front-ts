@@ -5,7 +5,7 @@ import axiosInstance from "@/helpers/axiosInstance";
 export const useRmaStore = defineStore("RMA", {
   state: () => ({
     rmaPage: {
-      ticketId: 0,
+      ticket_id: 0,
       email: "",
       name: "",
       phone: "",
@@ -31,6 +31,7 @@ export const useRmaStore = defineStore("RMA", {
       result_type: null,
       result_description: null, //string
     },
+    editMode: false,
   }),
   getters: {},
   actions: {

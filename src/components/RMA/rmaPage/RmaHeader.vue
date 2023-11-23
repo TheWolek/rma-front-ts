@@ -1,0 +1,54 @@
+<script setup lang="ts">
+import { ref, computed } from "vue";
+import { useRmaStore } from "@/stores/RMA";
+import { useDictionaryStore } from "@/stores/dictionary";
+import { formatDateAndHours } from "@/helpers/dateFormatters";
+
+const store = useRmaStore();
+const dictStore = useDictionaryStore();
+
+const rmaPage = ref(store.rmaPage);
+const status = ref(store.rmaPage.status);
+
+const getStatusDisplayName = computed(
+  () =>
+    dictStore.dictionaries
+      .find((dict) => dict.name === "statusesTypes")
+      .items.find(({ id }) => id === status.value).name
+);
+
+const getTypeDisplayName = computed(() =>
+  rmaPage.value.type === 1 ? "Naprawa gwarancyjna" : "Naprawa płatna"
+);
+
+const getFormattedCreatedDate = computed(() =>
+  formatDateAndHours(rmaPage.value.created)
+);
+
+const getFormattedStatusDate = computed(() => {
+  if (rmaPage.value.lastStatusUpdate === null) return "--";
+  return formatDateAndHours(rmaPage.value.lastStatusUpdate);
+});
+</script>
+<template>
+  <h1>Zgłoszenie #{{ rmaPage.ticket_id }}</h1>
+  <div class="ticketDetails">
+    <h3>
+      Status: <b>{{ getStatusDisplayName }}</b>
+    </h3>
+    <h3>
+      Typ: <b>{{ getTypeDisplayName }}</b>
+    </h3>
+    <h3>
+      Utworzono: <b>{{ getFormattedCreatedDate }}</b>
+    </h3>
+    <h3>
+      Ostatnia zmiana statusu: <b>{{ getFormattedStatusDate }}</b>
+    </h3>
+  </div>
+</template>
+<style scoped>
+.ticketDetails {
+  margin-bottom: 1em;
+}
+</style>
