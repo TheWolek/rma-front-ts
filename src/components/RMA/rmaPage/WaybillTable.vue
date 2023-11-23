@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, defineProps } from "vue";
+import { defineProps } from "vue";
 import { useRmaStore } from "@/stores/RMA";
 import WaybillRow from "./WaybillRow.vue";
+import { storeToRefs } from "pinia";
 
 const store = useRmaStore();
 
@@ -12,7 +13,7 @@ defineProps({
   },
 });
 
-const waybills = ref(store.waybills);
+const { waybills } = storeToRefs(store);
 </script>
 <template>
   <table>

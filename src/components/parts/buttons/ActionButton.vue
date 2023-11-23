@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PropType, defineProps } from "vue";
+import { PropType, defineProps, computed } from "vue";
 import { MouseEventHandler } from "../constants";
 
 const props = defineProps({
@@ -12,9 +12,7 @@ const props = defineProps({
   },
 });
 
-function getIcon() {
-  return new URL(`../../assets/${props.icon}`, import.meta.url).href;
-}
+const getIcon = computed(() => require(`../../../assets/${props.icon}`));
 </script>
 <template>
   <div class="actionBtn" @click="event" :class="{ disabled: disabled }">

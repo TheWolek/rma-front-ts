@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { useRmaStore } from "@/stores/RMA";
 import InlineEditInput from "@/components/parts/inputs/InlineEditInput.vue";
+import { storeToRefs } from "pinia";
 
 const store = useRmaStore();
 
-const rmaPage = ref(store.rmaPage);
-const editMode = ref(store.editMode);
+const { rmaPage, editMode } = storeToRefs(store);
 </script>
 <template>
   <div class="shipment">

@@ -10,16 +10,22 @@ import DiagnoseSection from "./DiagnoseSection.vue";
 import OwnerDataSection from "./OwnerDataSection.vue";
 import WaybillTable from "./WaybillTable.vue";
 import ShipmentDataSection from "./ShipmentDataSection.vue";
+import RmaActions from "./RmaActions.vue";
+import { storeToRefs } from "pinia";
 
 const route = useRoute();
 const store = useRmaStore();
 const storeDict = useDictionaryStore();
 
 const loading = ref(true);
-const editMode = ref(store.editMode);
+const { editMode } = storeToRefs(store);
 
 onMounted(async () => {
   if (isNaN(parseInt(String(route.params.id)))) {
+    router.push({ name: "rma" });
+    return;
+  }
+  if (!(await store.fetchTicketById(Number(route.params.id)))) {
     router.push({ name: "rma" });
     return;
   }
@@ -36,7 +42,6 @@ onMounted(async () => {
   await storeDict.fetchDictionary(
     storeDict.dictionaries.find((dict) => dict.name === "resultTypes")
   );
-  await store.fetchTicketById(Number(route.params.id));
   await store.fetchTicketAccessories(Number(route.params.id));
   await store.fetchTicketWaybills(Number(route.params.id));
 
@@ -44,17 +49,23 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <div class="rmaPage_wrap">
-    <RmaHeader v-if="!loading" />
-    <div class="rmaPage_wrap_details">
-      <DeviceSection v-if="!loading" />
-      <DiagnoseSection v-if="!loading" />
-      <OwnerDataSection v-if="!loading" />
-      <ShipmentDataSection v-if="!loading" />
-      <div class="waybills">
-        <h2>Historia listów przewozowych</h2>
-        <div class="wrap">
-          <WaybillTable :withEdit="editMode" v-if="!loading" />
+  <div id="rmaPage">
+    <h1 v-if="loading">LOADING...</h1>
+    <div v-if="!loading">
+      <RmaActions />
+      <div class="rmaPage_wrap">
+        <RmaHeader />
+        <div class="rmaPage_wrap_details">
+          <DeviceSection />
+          <DiagnoseSection />
+          <OwnerDataSection />
+          <ShipmentDataSection />
+          <div class="waybills">
+            <h2>Historia listów przewozowych</h2>
+            <div class="wrap">
+              <WaybillTable :withEdit="editMode" />
+            </div>
+          </div>
         </div>
       </div>
     </div>

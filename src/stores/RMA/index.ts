@@ -33,6 +33,9 @@ export const useRmaStore = defineStore("RMA", {
     },
     waybills: [],
     editMode: false,
+    saving: false,
+    shipmentModalActive: false,
+    processModalActive: false,
   }),
   getters: {},
   actions: {
@@ -41,7 +44,12 @@ export const useRmaStore = defineStore("RMA", {
         `${endpoints.rmaPage}?ticketId=${ticketId}`
       );
 
-      this.rmaPage = response.data[0];
+      if (response.data.length > 0) {
+        this.rmaPage = response.data[0];
+        return true;
+      } else {
+        return false;
+      }
     },
 
     async fetchTicketAccessories(ticketId: number) {

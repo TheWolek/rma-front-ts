@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import SelectInput from "@/components/parts/inputs/SelectInput.vue";
 import { useRmaStore } from "@/stores/RMA";
 import { useDictionaryStore } from "@/stores/dictionary";
+import { storeToRefs } from "pinia";
 
 const store = useRmaStore();
 const storeDict = useDictionaryStore();
 
-const rmaPage = ref(store.rmaPage);
-const editMode = ref(store.editMode);
+const { rmaPage, editMode } = storeToRefs(store);
 
 const getResultTypes = computed(() => {
   return storeDict.dictionaries.find((dict) => dict.name === "resultTypes")

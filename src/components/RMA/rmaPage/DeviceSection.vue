@@ -1,21 +1,17 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useRmaStore } from "@/stores/RMA";
 import { useDictionaryStore } from "@/stores/dictionary";
 import InlineEditInput from "@/components/parts/inputs/InlineEditInput.vue";
 import CheckBoxGroup from "@/components/parts/inputs/CheckBoxGroup.vue";
 import SelectInput from "@/components/parts/inputs/SelectInput.vue";
 import ActionButton from "@/components/parts/buttons/ActionButton.vue";
+import { storeToRefs } from "pinia";
 
 const store = useRmaStore();
 const storeDict = useDictionaryStore();
 
-const editMode = ref(store.editMode);
-const rmaPage = store.rmaPage;
-const sn = ref(store.rmaPage.device_sn);
-const accessories = ref(store.rmaPage.device_accessories);
-const damageType = ref(store.rmaPage.damage_type);
-const damageDescription = ref(store.rmaPage.damage_description);
+const { editMode, rmaPage } = storeToRefs(store);
 
 const getBarcode = computed(() => {
   return "barcode";
@@ -40,9 +36,14 @@ function changeShelve() {
     <h2>Urządzenie</h2>
     <h3>{{ rmaPage.device_cat }}</h3>
     <h3>{{ rmaPage.device_producer }} {{ rmaPage.device_name }}</h3>
-    <InlineEditInput id="sn" label="SN:" v-model="sn" :disabled="!editMode" />
+    <InlineEditInput
+      id="sn"
+      label="SN:"
+      v-model="rmaPage.device_sn"
+      :disabled="!editMode"
+    />
     <CheckBoxGroup
-      v-model="accessories"
+      v-model="rmaPage.device_accessories"
       name="accessories"
       :options="getAccessoriesTypes"
       :disabledAll="!editMode"
@@ -51,7 +52,7 @@ function changeShelve() {
       <SelectInput
         id="damageType"
         label="Stan urządzenia"
-        v-model="damageType"
+        v-model="rmaPage.damage_type"
         :disabled="!editMode"
       >
         <option
@@ -67,7 +68,7 @@ function changeShelve() {
     <textarea
       name="damageDescription"
       id="damageDescription"
-      v-model="damageDescription"
+      v-model="rmaPage.damage_description"
       cols="30"
       rows="5"
       :disabled="!editMode"

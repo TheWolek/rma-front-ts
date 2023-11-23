@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useRmaStore } from "@/stores/RMA";
 import { useDictionaryStore } from "@/stores/dictionary";
 import { formatDateAndHours } from "@/helpers/dateFormatters";
+import { storeToRefs } from "pinia";
 
 const store = useRmaStore();
 const storeDict = useDictionaryStore();
 
-const rmaPage = ref(store.rmaPage);
-const status = ref(store.rmaPage.status);
+const { rmaPage } = storeToRefs(store);
 
 const getStatusDisplayName = computed(
   () =>
     storeDict.dictionaries
       .find((dict) => dict.name === "statusesTypes")
-      .items.find(({ id }) => id === status.value).name
+      .items.find(({ id }) => id === rmaPage.value.status).name
 );
 
 const getTypeDisplayName = computed(() =>

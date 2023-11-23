@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { useRmaStore } from "@/stores/RMA";
 import InlineEditInput from "@/components/parts/inputs/InlineEditInput.vue";
+import { storeToRefs } from "pinia";
 
 const store = useRmaStore();
 
-const name = ref(store.rmaPage.name);
-const email = ref(store.rmaPage.email);
-const phone = ref(store.rmaPage.phone);
-const editMode = ref(store.editMode);
+const { rmaPage, editMode } = storeToRefs(store);
 </script>
 <template>
   <div class="owner">
@@ -17,19 +14,19 @@ const editMode = ref(store.editMode);
       <InlineEditInput
         id="name"
         label="Imię i nazwisko:"
-        v-model="name"
+        v-model="rmaPage.name"
         :disabled="!editMode"
       />
       <InlineEditInput
         id="email"
         label="E-mail:"
-        v-model="email"
+        v-model="rmaPage.email"
         :disabled="!editMode"
       />
       <InlineEditInput
         id="phone"
         label="Telefon:"
-        v-model="phone"
+        v-model="rmaPage.phone"
         :disabled="!editMode"
       />
     </div>
