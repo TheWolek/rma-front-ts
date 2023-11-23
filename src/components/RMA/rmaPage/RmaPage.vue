@@ -7,6 +7,9 @@ import router from "@/router";
 import RmaHeader from "./RmaHeader.vue";
 import DeviceSection from "./DeviceSection.vue";
 import DiagnoseSection from "./DiagnoseSection.vue";
+import OwnerDataSection from "./OwnerDataSection.vue";
+import WaybillTable from "./WaybillTable.vue";
+import ShipmentDataSection from "./ShipmentDataSection.vue";
 
 const route = useRoute();
 const store = useRmaStore();
@@ -35,6 +38,7 @@ onMounted(async () => {
   );
   await store.fetchTicketById(Number(route.params.id));
   await store.fetchTicketAccessories(Number(route.params.id));
+  await store.fetchTicketWaybills(Number(route.params.id));
 
   loading.value = false;
 });
@@ -45,6 +49,14 @@ onMounted(async () => {
     <div class="rmaPage_wrap_details">
       <DeviceSection v-if="!loading" />
       <DiagnoseSection v-if="!loading" />
+      <OwnerDataSection v-if="!loading" />
+      <ShipmentDataSection v-if="!loading" />
+      <div class="waybills">
+        <h2>Historia listów przewozowych</h2>
+        <div class="wrap">
+          <WaybillTable :withEdit="editMode" v-if="!loading" />
+        </div>
+      </div>
     </div>
   </div>
 </template>

@@ -31,6 +31,7 @@ export const useRmaStore = defineStore("RMA", {
       result_type: null,
       result_description: null, //string
     },
+    waybills: [],
     editMode: false,
   }),
   getters: {},
@@ -49,6 +50,14 @@ export const useRmaStore = defineStore("RMA", {
       );
 
       this.rmaPage.device_accessories = response.data.map(({ id }) => id);
+    },
+
+    async fetchTicketWaybills(ticketId: number) {
+      const response = await axiosInstance(true).get(
+        `${endpoints.rmaWaybills}?ticketId=${ticketId}`
+      );
+
+      this.waybills = response.data;
     },
   },
 });

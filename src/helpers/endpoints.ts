@@ -9,6 +9,7 @@ export default {
   rmaDictionaryStatusesTypes: "/rma/dictionary/getDict/statuses",
   rmaDictionaryResultTypes: "/rma/dictionary/getDict/results",
   rmaAccessories: "/rma/accessories",
+  rmaWaybills: "/rma/waybills",
   rmaCreate: "/rma/create",
   rmaPage: "/rma",
 };
