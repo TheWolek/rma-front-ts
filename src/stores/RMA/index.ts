@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import endpoints from "@/helpers/endpoints";
 import axiosInstance from "@/helpers/axiosInstance";
+import { CreateWaybillData, Waybill } from "./constants";
 
 export const useRmaStore = defineStore("RMA", {
   state: () => ({
@@ -13,7 +14,7 @@ export const useRmaStore = defineStore("RMA", {
       device_sn: "",
       device_name: "",
       device_producer: "",
-      device_accessories: [0],
+      device_accessories: [] as number[],
       type: 1,
       issue: "",
       status: 0,
@@ -29,13 +30,16 @@ export const useRmaStore = defineStore("RMA", {
       damage_description: "",
       damage_type: 0,
       result_type: null,
-      result_description: null, //string
+      result_description: null as string, //string
     },
-    waybills: [],
+    waybills: [] as Waybill[],
     editMode: false,
     saving: false,
     shipmentModalActive: false,
+    editWaybillModalActive: false,
+    addWaybillModalActive: false,
     processModalActive: false,
+    waybillEditData: {} as Waybill,
   }),
   getters: {},
   actions: {
@@ -66,6 +70,53 @@ export const useRmaStore = defineStore("RMA", {
       );
 
       this.waybills = response.data;
+    },
+
+    async addWaybill(data: CreateWaybillData) {
+      this.addWaybillModalActive = false;
+
+      try {
+        const response = await axiosInstance(true).post(
+          endpoints.rmaWaybills,
+          data
+        );
+        if (response.status === 200) {
+          this.fetchTicketWaybills(data.ticket_id);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async editWaybill(data: Waybill) {
+      this.editWaybillModalActive = false;
+
+      try {
+        const response = await axiosInstance(true).put(
+          `${endpoints.rmaWaybills}/${data.id}`,
+          {
+            waybillNumber: data.waybill_number,
+            type: data.type,
+            status: data.status,
+          }
+        );
+
+        if (response.status === 200) {
+          this.fetchTicketWaybills(data.ticket_id);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    toggleModal_editWaybill(newState: boolean, editData?: Waybill) {
+      if (editData) {
+        this.waybillEditData = editData;
+      } else {
+        this.waybillEditData = {};
+      }
+
+      this.editWaybillModalActive = newState;
     },
   },
 });
