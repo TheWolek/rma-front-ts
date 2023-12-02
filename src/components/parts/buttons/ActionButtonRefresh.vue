@@ -8,7 +8,7 @@ defineProps({
 });
 </script>
 <template>
-  <div class="actionBtn refreshBtn" @click="event">
+  <button class="actionBtn refreshBtn" @click="event">
     <img src="@/assets/refresh.svg" :class="{ active: this.loading }" />
-  </div>
+  </button>
 </template>

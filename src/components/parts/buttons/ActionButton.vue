@@ -15,7 +15,7 @@ const props = defineProps({
 const getIcon = computed(() => require(`../../../assets/${props.icon}`));
 </script>
 <template>
-  <div class="actionBtn" @click="event" :class="{ disabled: disabled }">
+  <button class="actionBtn" @click="event" :class="{ disabled: disabled }">
     <img v-if="icon" :src="getIcon" /> {{ display }}
-  </div>
+  </button>
 </template>

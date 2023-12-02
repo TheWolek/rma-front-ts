@@ -17,9 +17,13 @@ function getIcon() {
 }
 </script>
 <template>
-  <div class="actionBtn small" @click="event" :class="{ disabled: disabled }">
+  <button
+    class="actionBtn small"
+    @click="event"
+    :class="{ disabled: disabled }"
+  >
     <img v-if="icon" :src="getIcon" /> {{ display }}
-  </div>
+  </button>
 </template>
 <style scoped>
 .actionBtn.small {
