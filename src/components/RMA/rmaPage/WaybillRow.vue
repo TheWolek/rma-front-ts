@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { formatDate } from "@/helpers/dateFormatters";
 import { defineProps, computed, PropType } from "vue";
-import { WaybillRow } from "./constants";
+import { useRmaStore } from "@/stores/RMA";
+import { formatDate } from "@/helpers/dateFormatters";
+import { Waybill } from "@/stores/RMA/constants";
 
 const props = defineProps({
   data: {
-    type: Object as PropType<WaybillRow>,
+    type: Object as PropType<Waybill>,
     required: true,
   },
   withEdit: {
@@ -13,6 +14,8 @@ const props = defineProps({
     default: false,
   },
 });
+
+const store = useRmaStore();
 
 const getCreatedDate = computed(() => formatDate(props.data.created));
 
@@ -25,6 +28,7 @@ const getLastUpdateDate = computed(() => {
 
 const openEditModal = (id: number) => {
   console.log(id);
+  store.toggleModal_editWaybill(true, props.data);
 };
 </script>
 <template>

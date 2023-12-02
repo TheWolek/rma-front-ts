@@ -5,7 +5,7 @@ import { CommonEventHandler, SelectOption } from "../constants";
 const props = defineProps({
   id: String,
   label: String,
-  modelValue: Number,
+  modelValue: Number || String,
   change: Function as PropType<CommonEventHandler>,
   error: String,
   options: Array as PropType<SelectOption[]>,

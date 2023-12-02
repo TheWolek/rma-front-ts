@@ -2,6 +2,7 @@
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useRmaStore } from "@/stores/RMA";
+import { storeToRefs } from "pinia";
 import { useDictionaryStore } from "@/stores/dictionary";
 import router from "@/router";
 import RmaHeader from "./RmaHeader.vue";
@@ -11,7 +12,7 @@ import OwnerDataSection from "./OwnerDataSection.vue";
 import WaybillTable from "./WaybillTable.vue";
 import ShipmentDataSection from "./ShipmentDataSection.vue";
 import RmaActions from "./RmaActions.vue";
-import { storeToRefs } from "pinia";
+import ShipmentModal from "./modals/shipment/ShipmentModal.vue";
 
 const route = useRoute();
 const store = useRmaStore();
@@ -52,6 +53,7 @@ onMounted(async () => {
   <div id="rmaPage">
     <h1 v-if="loading">LOADING...</h1>
     <div v-if="!loading">
+      <ShipmentModal />
       <RmaActions />
       <div class="rmaPage_wrap">
         <RmaHeader />
