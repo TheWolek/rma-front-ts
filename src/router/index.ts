@@ -31,6 +31,9 @@ const routes: Array<RouteRecordRaw> = [
     path: "/rma",
     name: "rma",
     component: RmaView,
+    meta: {
+      requiresAuth: true,
+    },
     children: [
       {
         path: "items",
@@ -38,6 +41,9 @@ const routes: Array<RouteRecordRaw> = [
         components: {
           default: RmaView,
           innerView: RmaListView,
+        },
+        meta: {
+          requiresAuth: true,
         },
       },
       {
@@ -47,6 +53,9 @@ const routes: Array<RouteRecordRaw> = [
           default: RmaView,
           innerView: RmaAddView,
         },
+        meta: {
+          requiresAuth: true,
+        },
       },
       {
         path: "ticket/:id",
@@ -54,6 +63,9 @@ const routes: Array<RouteRecordRaw> = [
         components: {
           default: RmaView,
           innerView: RmaPageView,
+        },
+        meta: {
+          requiresAuth: true,
         },
       },
       {
@@ -63,6 +75,9 @@ const routes: Array<RouteRecordRaw> = [
           default: RmaView,
           innerView: DictionariresView,
         },
+        meta: {
+          requiresAuth: true,
+        },
       },
     ],
   },
@@ -70,6 +85,9 @@ const routes: Array<RouteRecordRaw> = [
     path: "/warehouse",
     name: "warehouse",
     component: WarehouseView,
+    meta: {
+      requiresAuth: true,
+    },
     children: [
       {
         path: "items",
@@ -77,6 +95,9 @@ const routes: Array<RouteRecordRaw> = [
         components: {
           default: WarehouseView,
           innerView: ItemsView,
+        },
+        meta: {
+          requiresAuth: true,
         },
       },
       {
@@ -87,6 +108,9 @@ const routes: Array<RouteRecordRaw> = [
           innerView: ChangeShelveView,
         },
         props: true,
+        meta: {
+          requiresAuth: true,
+        },
       },
       {
         path: "spareparts",
@@ -95,6 +119,9 @@ const routes: Array<RouteRecordRaw> = [
           default: WarehouseView,
           innerView: SparepartsView,
         },
+        meta: {
+          requiresAuth: true,
+        },
       },
       {
         path: "spareparts/orders",
@@ -102,6 +129,9 @@ const routes: Array<RouteRecordRaw> = [
         components: {
           default: WarehouseView,
           innerView: OrdersView,
+        },
+        meta: {
+          requiresAuth: true,
         },
       },
     ],
