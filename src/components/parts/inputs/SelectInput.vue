@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PropType, defineProps } from "vue";
-import { CommonEventHandler, SelectOption } from "../constants";
+import { CommonEventHandler } from "../constants";
 
 const props = defineProps({
   id: String,
@@ -8,7 +8,6 @@ const props = defineProps({
   modelValue: String || Number,
   change: Function as PropType<CommonEventHandler>,
   error: String,
-  options: Array as PropType<SelectOption[]>,
   disabled: {
     type: Boolean,
     default: false,

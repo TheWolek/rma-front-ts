@@ -9,7 +9,6 @@ export type MouseEventHandler = (payload: MouseEvent) => void;
 export type CommonEventHandler = (() => void) | undefined;
 
 export type SelectOption = {
-  id: string;
-  value: number | string;
+  id: string | number;
   name: string;
 };

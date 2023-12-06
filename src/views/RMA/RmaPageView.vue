@@ -2,9 +2,7 @@
 import RmaPage from "@/components/RMA/rmaPage/RmaPage.vue";
 </script>
 <template>
-  <div id="rmaPage">
-    <RmaPage />
-  </div>
+  <RmaPage />
 </template>
 <style>
 .rmaPage_wrap {

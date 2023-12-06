@@ -13,6 +13,7 @@ import WaybillTable from "./WaybillTable.vue";
 import ShipmentDataSection from "./ShipmentDataSection.vue";
 import RmaActions from "./RmaActions.vue";
 import ShipmentModal from "./modals/shipment/ShipmentModal.vue";
+import LoadingDots from "@/components/parts/LoadingDots.vue";
 
 const route = useRoute();
 const store = useRmaStore();
@@ -51,7 +52,9 @@ onMounted(async () => {
 </script>
 <template>
   <div id="rmaPage">
-    <h1 v-if="loading">LOADING...</h1>
+    <div class="loadingWrap" v-if="loading">
+      <LoadingDots :active="loading" />
+    </div>
     <div v-if="!loading">
       <ShipmentModal />
       <RmaActions />
@@ -73,3 +76,11 @@ onMounted(async () => {
     </div>
   </div>
 </template>
+<style scoped>
+.loadingWrap {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: calc(100vh - 10vh);
+}
+</style>
