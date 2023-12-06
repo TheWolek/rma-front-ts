@@ -1,9 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import RmaList from "@/components/RMA/rmaList/RmaList.vue";
+</script>
 <template>
   <div id="rmaList">
-    <div class="rmaList_wrap">
-      <h1>Otwarte zgłoszenia serwisowe</h1>
-    </div>
+    <RmaList />
   </div>
 </template>
 <style>

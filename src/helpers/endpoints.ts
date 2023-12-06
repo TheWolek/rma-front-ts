@@ -11,5 +11,6 @@ export default {
   rmaAccessories: "/rma/accessories",
   rmaWaybills: "/rma/waybills",
   rmaCreate: "/rma/create",
-  rmaPage: "/rma",
+  rmaPage: "/rma/details",
+  rmaList: "/rma",
 };

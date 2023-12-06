@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import endpoints from "@/helpers/endpoints";
 import axiosInstance from "@/helpers/axiosInstance";
-import { CreateWaybillData, Waybill } from "./constants";
+import { CreateWaybillData, Filter, Waybill, Ticket } from "./constants";
 
 export const useRmaStore = defineStore("RMA", {
   state: () => ({
@@ -40,8 +40,19 @@ export const useRmaStore = defineStore("RMA", {
     addWaybillModalActive: false,
     processModalActive: false,
     waybillEditData: {} as Waybill,
+    filtersModalActive: false,
+    appliedFilter: {
+      active: false,
+      filters: [] as Filter[],
+    },
+    loadingRmaList: false,
+    rmaList: [] as Ticket[],
   }),
-  getters: {},
+  getters: {
+    getActiveFilters(): Filter[] {
+      return this.appliedFilter.filters;
+    },
+  },
   actions: {
     async fetchTicketById(ticketId: number) {
       const response = await axiosInstance(true).get(
@@ -117,6 +128,79 @@ export const useRmaStore = defineStore("RMA", {
       }
 
       this.editWaybillModalActive = newState;
+    },
+
+    setFilters(newFilters: Filter[]) {
+      this.appliedFilter.filters = newFilters;
+      this.appliedFilter.active = true;
+    },
+
+    clearAllFilters() {
+      this.appliedFilter.filters = [];
+      this.appliedFilter.active = false;
+    },
+
+    clearFilter(filterToDelete: Filter) {
+      this.appliedFilter.filters = this.appliedFilter.filters.filter(
+        (filter: Filter) => filter.name !== filterToDelete.name
+      );
+    },
+
+    async fetchTicketListByFilters() {
+      this.loadingRmaList = true;
+      if (this.appliedFilter.filters.length === 0) {
+        this.appliedFilter.active = false;
+        this.rmaList = [];
+        this.loadingRmaList = false;
+        return;
+      }
+      let url = `${endpoints.rmaList}?`;
+      const filters: Filter[] = this.appliedFilter.filters;
+      let q = 0;
+
+      filters.forEach((filter) => {
+        if (filter.name === "zgłoszenie") {
+          url += `ticketId=${filter.value}`;
+          q++;
+        }
+        if (filter.name === "list") {
+          if (q > 0) url += "&";
+          url += `waybill=${filter.value}`;
+          q++;
+        }
+        if (filter.name === "status") {
+          if (q > 0) url += "&";
+          url += `status=${filter.value}`;
+          q++;
+        }
+        if (filter.name === "typ") {
+          if (q > 0) url += "&";
+          url += `type=${filter.value}`;
+          q++;
+        }
+        if (filter.name === "sn") {
+          if (q > 0) url += "&";
+          url += `sn=${filter.value}`;
+          q++;
+        }
+        if (filter.name === "producent") {
+          if (q > 0) url += "&";
+          url += `deviceProducer=${filter.value}`;
+          q++;
+        }
+      });
+
+      try {
+        const response = await axiosInstance(true).get(url);
+
+        if (response.status === 200) {
+          this.rmaList = response.data;
+        }
+
+        this.loadingRmaList = false;
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 });

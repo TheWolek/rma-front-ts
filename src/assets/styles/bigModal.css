@@ -28,6 +28,7 @@
 .bigModal .formWrap {
   background: #fff;
   width: 40%;
+  border-left: 1px solid #444;
 }
 
 .bigModal .formWrap #close {

@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import endpoints from "@/helpers/endpoints";
 import axiosInstance from "@/helpers/axiosInstance";
+import { DictionaryItem } from "./constants";
 
 export const useDictionaryStore = defineStore("Dictionary", {
   state: () => ({
@@ -11,7 +12,7 @@ export const useDictionaryStore = defineStore("Dictionary", {
         displayName: "Typy akcesoriów",
         url: endpoints.rmaDictionaryAccessoriesTypes,
         mutation: "setAccessoriesTypes",
-        items: [],
+        items: [] as DictionaryItem[],
       },
       {
         id: 2,
