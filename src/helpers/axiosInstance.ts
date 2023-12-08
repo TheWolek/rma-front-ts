@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 export default (requiresAuth = true) => {
   const options: { baseURL: string; headers: { Authorization?: string } } = {
-    baseURL: "http://localhost:3000/",
+    baseURL: process.env.VUE_APP_API_BASE_URL,
     headers: {},
   };
 

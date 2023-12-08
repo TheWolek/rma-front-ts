@@ -2,7 +2,15 @@
 import LoginForm from "../../components/Auth/LoginForm.vue";
 </script>
 <template>
-  <div class="loginPage">
+  <div id="loginPage">
     <LoginForm />
   </div>
 </template>
+<style scoped>
+#loginPage {
+  width: 100%;
+  height: calc(100vh - 10vh);
+  display: grid;
+  place-items: center;
+}
+</style>
