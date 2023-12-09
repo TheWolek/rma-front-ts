@@ -1,5 +1,13 @@
 <script setup lang="ts">
+import { computed } from "vue";
+import { storeToRefs } from "pinia";
+import { useUserStore } from "@/stores/user";
 import ModuleNavLink from "../Nav/ModuleNavLink.vue";
+
+const store = useUserStore();
+const { userRole } = storeToRefs(store);
+
+const dictionariesAvailable = computed(() => "Admin" === userRole.value);
 </script>
 <template>
   <div class="moduleNav">
@@ -12,6 +20,7 @@ import ModuleNavLink from "../Nav/ModuleNavLink.vue";
         ]"
       />
       <ModuleNavLink
+        v-if="dictionariesAvailable"
         text="słowniki"
         v-bind:children="[
           { path: '/rma/dictionary/accessoriesTypes', text: 'typy akcesoriów' },

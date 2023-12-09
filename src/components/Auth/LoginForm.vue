@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import router from "@/router";
+import { useUserStore } from "@/stores/user";
 import TextInput from "../parts/inputs/TextInput.vue";
 import SubmitButton from "../parts/buttons/SubmitButton.vue";
 import axiosInstance from "@/helpers/axiosInstance";
 import endpoints from "@/helpers/endpoints";
 import LoadingDots from "../parts/LoadingDots.vue";
+
+const store = useUserStore();
 
 const login = ref("");
 const password = ref("");
@@ -30,7 +33,8 @@ async function handleSubmit() {
     if (result.status === 200) {
       loading.value = false;
       error.value = "";
-      Cookies.set("authToken", `Bearer ${result.data.token}`);
+      // Cookies.set("authToken", `Bearer ${result.data.token}`);
+      store.login(result.data.token);
       router.push("/");
     }
   } catch (error) {

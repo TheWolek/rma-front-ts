@@ -1,17 +1,25 @@
 <script setup lang="ts">
+import { ref } from "vue";
+import decodeToken from "@/helpers/decodeToken";
 import DateClock from "@/components/HomePage/DateClock.vue";
 import TilesLinks from "@/components/HomePage/TilesLinks.vue";
-import { ref } from "vue";
+
+const { userRole } = decodeToken();
+const warehouseAvailable = "Admin" === userRole || "LS" === userRole;
 
 const linkList = ref([
   {
     link: "/rma",
     label: "RMA",
   },
-  {
-    link: "/warehouse",
-    label: "warehouse",
-  },
+  ...(warehouseAvailable
+    ? [
+        {
+          link: "/warehouse",
+          label: "warehouse",
+        },
+      ]
+    : []),
 ]);
 </script>
 <template>

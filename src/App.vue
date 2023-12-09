@@ -1,15 +1,18 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
+import { onMounted } from "vue";
+import { RouterView } from "vue-router";
+import { useUserStore } from "./stores/user";
+import MainNav from "./components/Nav/MainNav.vue";
+
+const store = useUserStore();
+
+onMounted(() => {
+  store.tryToLogin();
+});
 </script>
 <template>
   <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/rma">RMA</RouterLink>
-        <RouterLink to="/warehouse">Magazyn</RouterLink>
-      </nav>
-    </div>
+    <MainNav />
   </header>
   <RouterView />
 </template>
@@ -39,9 +42,9 @@ header {
 
 header .wrapper {
   display: flex;
-  place-items: flex-start;
+  justify-content: space-between;
   flex-wrap: wrap;
-  padding-left: 5vw;
+  padding: 0 5vw;
   width: 100%;
 }
 

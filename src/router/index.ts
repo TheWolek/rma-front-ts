@@ -12,6 +12,20 @@ import ItemsView from "@/views/Warehouse/Items/ItemsView.vue";
 import ChangeShelveView from "@/views/Warehouse/Items/ChangeShelve.vue";
 import SparepartsView from "@/views/Warehouse/Spareparts/SparepartsView.vue";
 import OrdersView from "@/views/Warehouse/Spareparts/OrdersView.vue";
+import decodeToken from "@/helpers/decodeToken";
+
+declare module "vue-router" {
+  interface RouteMeta {
+    requiresAuth: boolean;
+    requiredRole?: string[];
+  }
+}
+
+const rmaRoles = ["Admin", "LS", "CC", "TECH"];
+const rmaAddRoles = ["Admin", "CC", "TECH"];
+const dictionaryRoles = ["Admin"];
+const warehouseRoles = ["Admin", "LS", "TECH"];
+const warehouseLSRoles = ["Admin", "LS"];
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -33,6 +47,7 @@ const routes: Array<RouteRecordRaw> = [
     component: RmaView,
     meta: {
       requiresAuth: true,
+      requiredRole: rmaRoles,
     },
     children: [
       {
@@ -44,6 +59,7 @@ const routes: Array<RouteRecordRaw> = [
         },
         meta: {
           requiresAuth: true,
+          requiredRole: rmaRoles,
         },
       },
       {
@@ -55,6 +71,7 @@ const routes: Array<RouteRecordRaw> = [
         },
         meta: {
           requiresAuth: true,
+          requiredRole: rmaAddRoles,
         },
       },
       {
@@ -66,6 +83,7 @@ const routes: Array<RouteRecordRaw> = [
         },
         meta: {
           requiresAuth: true,
+          requiredRole: rmaRoles,
         },
       },
       {
@@ -77,6 +95,7 @@ const routes: Array<RouteRecordRaw> = [
         },
         meta: {
           requiresAuth: true,
+          requiredRole: dictionaryRoles,
         },
       },
     ],
@@ -87,6 +106,7 @@ const routes: Array<RouteRecordRaw> = [
     component: WarehouseView,
     meta: {
       requiresAuth: true,
+      requiredRole: warehouseRoles,
     },
     children: [
       {
@@ -98,6 +118,7 @@ const routes: Array<RouteRecordRaw> = [
         },
         meta: {
           requiresAuth: true,
+          requiredRole: warehouseLSRoles,
         },
       },
       {
@@ -110,6 +131,7 @@ const routes: Array<RouteRecordRaw> = [
         props: true,
         meta: {
           requiresAuth: true,
+          requiredRole: warehouseLSRoles,
         },
       },
       {
@@ -121,6 +143,7 @@ const routes: Array<RouteRecordRaw> = [
         },
         meta: {
           requiresAuth: true,
+          requiredRole: warehouseRoles,
         },
       },
       {
@@ -132,6 +155,7 @@ const routes: Array<RouteRecordRaw> = [
         },
         meta: {
           requiresAuth: true,
+          requiredRole: warehouseRoles,
         },
       },
     ],
@@ -146,6 +170,19 @@ const router = createRouter({
 router.beforeEach((to) => {
   if (to.meta.requiresAuth && !Cookies.get("authToken")) {
     return "/logowanie";
+  }
+
+  if (to.meta.requiredRole) {
+    const { userRole } = decodeToken();
+    if (!userRole) {
+      Cookies.remove("authToken");
+      return "/logowanie";
+    }
+    const isAuthorized = to.meta.requiredRole.includes(userRole);
+
+    if (!isAuthorized) {
+      return "/";
+    }
   }
 });
 
