@@ -10,13 +10,23 @@ import { storeToRefs } from "pinia";
 
 const store = useRmaStore();
 
-const { editMode, saving, rmaPage, shipmentModalActive, processModalActive } =
-  storeToRefs(store);
+const {
+  editMode,
+  loadingRmaPage,
+  rmaPage,
+  shipmentModalActive,
+  processModalActive,
+} = storeToRefs(store);
 const loading = ref(false);
 
-const isSaveBtnActive = computed(() => editMode.value && saving.value);
-const isEditBtnActive = computed(() => ![9, 11].includes(rmaPage.value.status));
+const isSaveBtnActive = computed(() => editMode.value && loadingRmaPage.value);
+const isEditBtnActive = computed(
+  () => ![9, 10, 11].includes(rmaPage.value.status)
+);
 const isProcessBtnActive = computed(() => rmaPage.value.status === 5);
+const isShipmentBtnActive = computed(
+  () => ![10].includes(rmaPage.value.status)
+);
 const editBtnIcon = computed(() =>
   editMode.value ? "cancel.svg" : "edit.svg"
 );
@@ -36,10 +46,12 @@ const onSave = () => {
 };
 
 const onEdit = () => {
-  if (!editMode.value) {
-    store.editMode = !store.editMode;
-  } else {
-    router.go(0);
+  if (isEditBtnActive.value) {
+    if (!editMode.value) {
+      store.editMode = !store.editMode;
+    } else {
+      router.go(0);
+    }
   }
 };
 
@@ -52,11 +64,15 @@ const onRefresh = () => {
 };
 
 const toggleShipmentModal = () => {
-  shipmentModalActive.value = !shipmentModalActive.value;
+  if (isShipmentBtnActive.value) {
+    shipmentModalActive.value = !shipmentModalActive.value;
+  }
 };
 
 const toggleProcessModal = () => {
-  processModalActive.value = !processModalActive.value;
+  if (isProcessBtnActive.value) {
+    processModalActive.value = !processModalActive.value;
+  }
 };
 
 const toggleHistoryModal = () => {
@@ -83,6 +99,7 @@ const toggleHistoryModal = () => {
         :event="toggleShipmentModal"
         display="Przesyłka"
         :icon="`box.svg`"
+        :disabled="!isShipmentBtnActive"
       />
       <ActionButton
         :event="toggleProcessModal"
@@ -139,14 +156,19 @@ const toggleHistoryModal = () => {
         v-if="nextSteps.includes('addWaybillOut')"
       />
       <ActionButton
-        display="Wyślij (1)"
+        display="Do wysyłki (1)"
         :event="() => actions('send')"
         v-if="nextSteps.includes('send')"
       />
       <ActionButton
-        display="Wyślij (2)"
+        display="Do wysyłki (2)"
         :event="() => actions('sendCanceled')"
         v-if="nextSteps.includes('sendCanceled')"
+      />
+      <ActionButton
+        display="Zakończ"
+        :event="() => actions('end')"
+        v-if="nextSteps.includes('end')"
       />
       <ActionButton
         display="Anuluj (1)"

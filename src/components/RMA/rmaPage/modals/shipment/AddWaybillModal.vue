@@ -37,7 +37,7 @@ const onSubmit = () => {
   }
 
   store.addWaybill({
-    ticket_id: rmaPage.value.ticket_id,
+    ticketId: rmaPage.value.ticket_id,
     waybillNumber: waybill.value,
     type: type.value,
   });

@@ -1,7 +1,13 @@
 import { defineStore } from "pinia";
 import endpoints from "@/helpers/endpoints";
 import axiosInstance from "@/helpers/axiosInstance";
-import { CreateWaybillData, Filter, Waybill, Ticket } from "./constants";
+import {
+  CreateWaybillData,
+  Filter,
+  Waybill,
+  Ticket,
+  ChangeTicketStatusData,
+} from "./constants";
 
 export const useRmaStore = defineStore("RMA", {
   state: () => ({
@@ -14,7 +20,6 @@ export const useRmaStore = defineStore("RMA", {
       device_sn: "",
       device_name: "",
       device_producer: "",
-      device_accessories: [] as number[],
       type: 1,
       issue: "",
       status: 0,
@@ -33,8 +38,9 @@ export const useRmaStore = defineStore("RMA", {
       result_description: null as string, //string
     },
     waybills: [] as Waybill[],
+    deviceAccessories: [] as number[],
     editMode: false,
-    saving: false,
+    loadingRmaPage: true,
     shipmentModalActive: false,
     editWaybillModalActive: false,
     addWaybillModalActive: false,
@@ -72,7 +78,7 @@ export const useRmaStore = defineStore("RMA", {
         `${endpoints.rmaAccessories}/${ticketId}`
       );
 
-      this.rmaPage.device_accessories = response.data.map(({ id }) => id);
+      this.deviceAccessories = response.data.map(({ id }) => id);
     },
 
     async fetchTicketWaybills(ticketId: number) {
@@ -92,7 +98,7 @@ export const useRmaStore = defineStore("RMA", {
           data
         );
         if (response.status === 200) {
-          this.fetchTicketWaybills(data.ticket_id);
+          this.fetchTicketWaybills(data.ticketId);
         }
       } catch (error) {
         console.log(error);
@@ -128,6 +134,24 @@ export const useRmaStore = defineStore("RMA", {
       }
 
       this.editWaybillModalActive = newState;
+    },
+
+    async changeTicketStatus(data: ChangeTicketStatusData) {
+      this.loadingRmaPage = true;
+      try {
+        const response = await axiosInstance(true).put(
+          `${endpoints.rmaChangeStatus}/${data.ticketId}`,
+          { status: data.status }
+        );
+
+        if (response.status === 200) {
+          this.fetchTicketById(data.ticketId);
+          this.fetchTicketAccessories(data.ticketId);
+          this.loadingRmaPage = false;
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
 
     setFilters(newFilters: Filter[]) {

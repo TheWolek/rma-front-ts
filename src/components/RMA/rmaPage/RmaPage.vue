@@ -19,8 +19,7 @@ const route = useRoute();
 const store = useRmaStore();
 const storeDict = useDictionaryStore();
 
-const loading = ref(true);
-const { editMode } = storeToRefs(store);
+const { editMode, loadingRmaPage } = storeToRefs(store);
 
 onMounted(async () => {
   if (isNaN(parseInt(String(route.params.id)))) {
@@ -47,15 +46,15 @@ onMounted(async () => {
   await store.fetchTicketAccessories(Number(route.params.id));
   await store.fetchTicketWaybills(Number(route.params.id));
 
-  loading.value = false;
+  loadingRmaPage.value = false;
 });
 </script>
 <template>
   <div id="rmaPage">
-    <div class="loadingWrap" v-if="loading">
-      <LoadingDots :active="loading" />
+    <div class="loadingWrap" v-if="loadingRmaPage">
+      <LoadingDots :active="loadingRmaPage" />
     </div>
-    <div v-if="!loading">
+    <div v-if="!loadingRmaPage">
       <ShipmentModal />
       <RmaActions />
       <div class="rmaPage_wrap">

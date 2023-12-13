@@ -42,7 +42,7 @@ export default (): string[] => {
   }
 
   //Zlecono kontakt
-  if (status === 6) {
+  if (status === 7) {
     output.push("repair");
     output.push("toCancel");
   }
@@ -57,8 +57,13 @@ export default (): string[] => {
     }
   }
 
+  //Koniec
+  if (status === 9) {
+    output.push("end");
+  }
+
   //Do anulowania
-  if (status === 10) {
+  if (status === 11) {
     const waybill = waybills.find((o) => o.type === "wychodzący");
     if (waybill) {
       output.push("sendCanceled");

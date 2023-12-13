@@ -14,14 +14,14 @@ export interface Waybill {
   id: number;
   waybill_number: string;
   ticket_id: number;
-  status: string;
-  type: string;
+  status: WaybillStatus;
+  type: WaybillType;
   created: string;
   lastUpdate: string | null;
 }
 
 export interface CreateWaybillData {
-  ticket_id: number;
+  ticketId: number;
   waybillNumber: string;
   type: WaybillType;
 }
@@ -40,4 +40,9 @@ export interface Ticket {
   type: number;
   created: string;
   lastStatusUpdate: string | null;
+}
+
+export interface ChangeTicketStatusData {
+  ticketId: number;
+  status: number;
 }

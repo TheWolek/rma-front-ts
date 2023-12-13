@@ -11,7 +11,7 @@ import { storeToRefs } from "pinia";
 const store = useRmaStore();
 const storeDict = useDictionaryStore();
 
-const { editMode, rmaPage } = storeToRefs(store);
+const { editMode, rmaPage, deviceAccessories } = storeToRefs(store);
 
 const getBarcode = computed(() => {
   return "barcode";
@@ -43,7 +43,7 @@ function changeShelve() {
       :disabled="!editMode"
     />
     <CheckBoxGroup
-      v-model="rmaPage.device_accessories"
+      v-model="deviceAccessories"
       name="accessories"
       :options="getAccessoriesTypes"
       :disabledAll="!editMode"

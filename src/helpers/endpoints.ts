@@ -8,5 +8,6 @@ export default {
   rmaWaybills: "rma/waybills",
   rmaCreate: "rma/create",
   rmaPage: "rma/details",
+  rmaChangeStatus: "rma/changeState",
   rmaList: "rma",
 };
