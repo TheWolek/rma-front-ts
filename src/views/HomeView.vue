@@ -5,7 +5,10 @@ import DateClock from "@/components/HomePage/DateClock.vue";
 import TilesLinks from "@/components/HomePage/TilesLinks.vue";
 
 const { userRole } = decodeToken();
-const warehouseAvailable = "Admin" === userRole || "LS" === userRole;
+const warehouseModuleActive =
+  JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE) || false;
+const warehouseAvailable =
+  warehouseModuleActive && ("Admin" === userRole || "LS" === userRole);
 
 const linkList = ref([
   {

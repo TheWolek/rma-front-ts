@@ -7,8 +7,15 @@ import ModuleNavLink from "../Nav/ModuleNavLink.vue";
 const store = useUserStore();
 const { userRole } = storeToRefs(store);
 
+const sparepartsModuleActive =
+  JSON.parse(process.env.VUE_APP_MODULE_SPAREPARTS) || false;
 const coreWarehouseAvailable = computed(
   () => "Admin" === userRole.value || "LS" === userRole.value
+);
+const sparepartsAvailable = computed(
+  () =>
+    (sparepartsModuleActive && "Admin" === userRole.value) ||
+    "LS" === userRole.value
 );
 </script>
 <template>
@@ -23,6 +30,7 @@ const coreWarehouseAvailable = computed(
         ]"
       />
       <ModuleNavLink
+        v-if="sparepartsAvailable"
         text="Części zamienne"
         :children="[
           { path: '/warehouse/spareparts/orders', text: 'Dostawy części' },

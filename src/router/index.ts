@@ -18,6 +18,7 @@ declare module "vue-router" {
   interface RouteMeta {
     requiresAuth: boolean;
     requiredRole?: string[];
+    requiredModule?: string;
   }
 }
 
@@ -107,6 +108,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
       requiredRole: warehouseRoles,
+      requiredModule: "warehouse",
     },
     children: [
       {
@@ -119,6 +121,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           requiresAuth: true,
           requiredRole: warehouseLSRoles,
+          requiredModule: "warehouse",
         },
       },
       {
@@ -132,6 +135,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           requiresAuth: true,
           requiredRole: warehouseLSRoles,
+          requiredModule: "warehouse",
         },
       },
       {
@@ -144,6 +148,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           requiresAuth: true,
           requiredRole: warehouseRoles,
+          requiredModule: "spareparts",
         },
       },
       {
@@ -156,6 +161,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           requiresAuth: true,
           requiredRole: warehouseRoles,
+          requiredModule: "spareparts",
         },
       },
     ],
@@ -168,6 +174,23 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
+  const warehouseModuleActive =
+    JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE) || false;
+  const sparepartsModuleActive =
+    JSON.parse(process.env.VUE_APP_MODULE_SPAREPARTS) || false;
+
+  if (to.meta.requiredModule) {
+    if (to.meta.requiredModule === "warehouse" && !warehouseModuleActive) {
+      return "/";
+    }
+
+    if (to.meta.requiredModule === "spareparts") {
+      if (!warehouseModuleActive || !sparepartsModuleActive) {
+        return "/";
+      }
+    }
+  }
+
   if (to.meta.requiresAuth && !Cookies.get("authToken")) {
     return "/logowanie";
   }

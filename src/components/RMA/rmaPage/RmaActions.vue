@@ -19,6 +19,10 @@ const {
 } = storeToRefs(store);
 const loading = ref(false);
 
+const isWarehouseModule = JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE);
+const isSparepartsModule =
+  JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE) &&
+  JSON.parse(process.env.VUE_APP_MODULE_SPAREPARTS);
 const isSaveBtnActive = computed(() => editMode.value && loadingRmaPage.value);
 const isEditBtnActive = computed(
   () => ![9, 10, 11].includes(rmaPage.value.status)
@@ -102,6 +106,7 @@ const toggleHistoryModal = () => {
         :disabled="!isShipmentBtnActive"
       />
       <ActionButton
+        v-if="isSparepartsModule"
         :event="toggleProcessModal"
         display="Procesuj"
         :icon="`gear.svg`"
@@ -168,7 +173,7 @@ const toggleHistoryModal = () => {
       <ActionButton
         display="Zakończ"
         :event="() => actions('end')"
-        v-if="nextSteps.includes('end')"
+        v-if="!isWarehouseModule && nextSteps.includes('end')"
       />
       <ActionButton
         display="Anuluj (1)"

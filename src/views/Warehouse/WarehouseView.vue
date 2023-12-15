@@ -5,6 +5,9 @@ import TilesLinks from "../../components/HomePage/TilesLinks.vue";
 import WarehouseNav from "../../components/Warehouse/WarehouseNav.vue";
 import { ref, computed } from "vue";
 
+const sparepartsModuleActive =
+  JSON.parse(process.env.VUE_APP_MODULE_SPAREPARTS) || false;
+
 const linkList = ref([
   {
     link: "/warehouse/items",
@@ -14,14 +17,18 @@ const linkList = ref([
     link: "/warehouse/items/changeshelve",
     label: "Zmiana lokalizacji",
   },
-  {
-    link: "/warehouse/spareparts/orders",
-    label: "Dostawy części",
-  },
-  {
-    link: "/warehouse/spareparts",
-    label: "Zarejestrowane części",
-  },
+  ...(sparepartsModuleActive
+    ? [
+        {
+          link: "/warehouse/spareparts/orders",
+          label: "Dostawy części",
+        },
+        {
+          link: "/warehouse/spareparts",
+          label: "Zarejestrowane części",
+        },
+      ]
+    : []),
 ]);
 
 const isDefaultView = computed(() => useRoute().name === "warehouse");

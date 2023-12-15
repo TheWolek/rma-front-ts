@@ -16,8 +16,12 @@ const rmaAvailable = computed(
     "TECH" === userRole.value ||
     "LS" === userRole.value
 );
+const warehouseModuleActive =
+  JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE) || false;
 const warehouseAvailable = computed(
-  () => "Admin" === userRole.value || "LS" === userRole.value
+  () =>
+    warehouseModuleActive &&
+    ("Admin" === userRole.value || "LS" === userRole.value)
 );
 
 const logoutAction = () => {
