@@ -10,17 +10,28 @@ import EditWaybillModal from "./EditWaybillModal.vue";
 
 const store = useRmaStore();
 
-const { shipmentModalActive, editWaybillModalActive, addWaybillModalActive } =
-  storeToRefs(store);
+const {
+  shipmentModalActive,
+  editWaybillModalActive,
+  addWaybillModalActive,
+  rmaPage,
+} = storeToRefs(store);
 
-const isAddActive = computed(() => true);
+const isAddActive = computed(
+  () =>
+    rmaPage.value.status <= 2 ||
+    rmaPage.value.status === 8 ||
+    rmaPage.value.status === 10
+);
 
 const toggleModal_shipment = () => {
   shipmentModalActive.value = !shipmentModalActive.value;
 };
 
 const toggleModal_addWaybill = () => {
-  addWaybillModalActive.value = !addWaybillModalActive.value;
+  if (isAddActive.value) {
+    addWaybillModalActive.value = !addWaybillModalActive.value;
+  }
 };
 </script>
 <template>

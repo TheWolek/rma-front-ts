@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { storeToRefs } from "pinia";
 import { useRmaStore } from "@/stores/RMA";
 import SmallModal from "@/components/parts/SmallModal.vue";
@@ -11,6 +11,10 @@ const store = useRmaStore();
 const { editWaybillModalActive, waybillEditData } = storeToRefs(store);
 
 const error_waybill = ref("");
+
+const isEditActive = computed(
+  () => waybillEditData.value.status === "potwierdzony"
+);
 
 const toggleModal_editWaybill = () => {
   store.toggleModal_editWaybill(false);
@@ -32,6 +36,7 @@ const onSubmit = () => {
         label="Numer listu"
         v-model="waybillEditData.waybill_number"
         :error="error_waybill"
+        :disabled="!isEditActive"
       />
 
       <SelectInput
@@ -50,6 +55,7 @@ const onSubmit = () => {
         label="Typ"
         v-model="waybillEditData.type"
         :display="true"
+        :disabled="!isEditActive"
       >
         <option value="przychodzący">Przychodzący</option>
         <option value="wychodzący">Wychodzący</option>
