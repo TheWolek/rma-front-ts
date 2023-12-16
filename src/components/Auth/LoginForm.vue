@@ -94,7 +94,7 @@ async function handleSubmit() {
 .loginWrap .form-group,
 .loginWrap input,
 .loginWrap form {
-  width: 100%;
+  width: 100% !important;
 }
 
 .loginWrap form {
