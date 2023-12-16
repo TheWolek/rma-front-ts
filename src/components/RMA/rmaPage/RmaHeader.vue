@@ -31,8 +31,8 @@ const getFormattedStatusDate = computed(() => {
 });
 </script>
 <template>
-  <h1>Zgłoszenie #{{ rmaPage.ticket_id }}</h1>
   <div class="ticketDetails">
+    <h1>Zgłoszenie #{{ rmaPage.ticket_id }}</h1>
     <h3>
       Status: <b>{{ getStatusDisplayName }}</b>
     </h3>
@@ -50,5 +50,6 @@ const getFormattedStatusDate = computed(() => {
 <style scoped>
 .ticketDetails {
   margin-bottom: 1em;
+  padding: 0 0 8px 8px;
 }
 </style>

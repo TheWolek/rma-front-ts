@@ -154,6 +154,38 @@ export const useRmaStore = defineStore("RMA", {
       }
     },
 
+    async saveTicketData() {
+      this.loadingRmaPage = true;
+      try {
+        const response = await axiosInstance(true).put(
+          `${endpoints.rmaEdit}/${this.rmaPage.ticket_id}`,
+          {
+            email: this.rmaPage.email,
+            name: this.rmaPage.name,
+            phone: this.rmaPage.phone,
+            type: this.rmaPage.type,
+            deviceSn: this.rmaPage.device_sn,
+            issue: this.rmaPage.issue,
+            lines: this.rmaPage.lines,
+            postCode: this.rmaPage.postCode,
+            city: this.rmaPage.city,
+            damage_type: this.rmaPage.damage_type,
+            damage_description: this.rmaPage.damage_description,
+            result_type: this.rmaPage.result_type,
+            result_description: this.rmaPage.result_description,
+          }
+        );
+
+        if (response.status === 200) {
+          this.fetchTicketById(this.rmaPage.ticket_id);
+          this.fetchTicketAccessories(this.rmaPage.ticket_id);
+          this.loadingRmaPage = false;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     setFilters(newFilters: Filter[]) {
       this.appliedFilter.filters = newFilters;
       this.appliedFilter.active = true;

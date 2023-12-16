@@ -20,17 +20,25 @@ const {
 const loading = ref(false);
 
 const isWarehouseModule = JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE);
+
 const isSparepartsModule =
   JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE) &&
   JSON.parse(process.env.VUE_APP_MODULE_SPAREPARTS);
-const isSaveBtnActive = computed(() => editMode.value && loadingRmaPage.value);
+
+const isSaveBtnActive = computed(() => editMode.value && !loadingRmaPage.value);
+
 const isEditBtnActive = computed(
   () => ![9, 10, 11].includes(rmaPage.value.status)
 );
+
 const isProcessBtnActive = computed(() => rmaPage.value.status === 5);
+
 const isShipmentBtnActive = computed(
   () => ![10].includes(rmaPage.value.status)
 );
+
+const isResult = computed(() => rmaPage.value.result_description !== null);
+
 const editBtnIcon = computed(() =>
   editMode.value ? "cancel.svg" : "edit.svg"
 );
@@ -44,7 +52,8 @@ const onBack = () => {
 };
 
 const onSave = () => {
-  if (!isSaveBtnActive.value) {
+  if (isSaveBtnActive.value) {
+    store.saveTicketData();
     return;
   }
 };
@@ -153,6 +162,7 @@ const toggleHistoryModal = () => {
       <ActionButton
         display="Zakończone"
         :event="() => actions('endRepair')"
+        :disabled="!isResult"
         v-if="nextSteps.includes('endRepair')"
       />
       <ActionButton
@@ -183,6 +193,7 @@ const toggleHistoryModal = () => {
       <ActionButton
         display="Anuluj (2)"
         :event="() => actions('toCancel')"
+        :disabled="!isResult"
         v-if="nextSteps.includes('toCancel')"
       />
     </div>

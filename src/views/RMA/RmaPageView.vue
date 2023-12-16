@@ -25,10 +25,22 @@ import RmaPage from "@/components/RMA/rmaPage/RmaPage.vue";
   width: 70%;
 }
 
+.inlineEdit + .inlineEdit {
+  margin-top: 8px;
+}
+
 .inlineEdit input:disabled {
   background: none;
   border: 2px solid transparent;
   cursor: default;
+}
+
+.checkbox-group {
+  margin: 12px 0;
+}
+
+.sectionWrap {
+  padding: 8px;
 }
 
 .btn {
@@ -60,7 +72,7 @@ h2 {
 }
 h3 {
   font-size: 1em;
-  padding: 0 0 0.1em 0.5em;
+  margin-bottom: 2px;
 }
 
 h3.email {

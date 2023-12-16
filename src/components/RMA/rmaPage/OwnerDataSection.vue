@@ -10,7 +10,7 @@ const { rmaPage, editMode } = storeToRefs(store);
 <template>
   <div class="owner">
     <h2>Dane zleceniodawcy</h2>
-    <div class="wrap">
+    <div class="sectionWrap">
       <InlineEditInput
         id="name"
         label="Imię i nazwisko:"

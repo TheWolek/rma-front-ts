@@ -66,7 +66,7 @@ onMounted(async () => {
           <ShipmentDataSection />
           <div class="waybills">
             <h2>Historia listów przewozowych</h2>
-            <div class="wrap">
+            <div class="sectionWrap">
               <WaybillTable :withEdit="editMode" />
             </div>
           </div>

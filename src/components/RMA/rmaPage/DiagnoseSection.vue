@@ -18,42 +18,44 @@ const getResultTypes = computed(() => {
 <template>
   <div class="issue">
     <h2>Diagnoza</h2>
-    <div class="issueWrap">
-      <textarea
-        name="issue"
-        id="issue"
-        v-model="rmaPage.issue"
-        cols="70"
-        rows="10"
-        :disabled="!editMode"
-      ></textarea>
-    </div>
-    <div class="resultWrap" v-if="rmaPage.status >= 5">
-      <div class="form-group">
-        <SelectInput
-          id="result_type"
-          label="Rezultat zgłoszenia"
-          v-model="rmaPage.result_type"
+    <div class="sectionWrap">
+      <div class="issueWrap">
+        <textarea
+          name="issue"
+          id="issue"
+          v-model="rmaPage.issue"
+          cols="70"
+          rows="10"
           :disabled="!editMode"
-        >
-          <option
-            v-for="el in getResultTypes"
-            :key="el.id.toString()"
-            :value="el.id"
-          >
-            {{ el.name }}
-          </option>
-        </SelectInput>
+        ></textarea>
       </div>
-      <h3>Opis rezultatu zgłoszenia</h3>
-      <textarea
-        name="resultDescription"
-        id="resultDescription"
-        v-model="rmaPage.result_description"
-        cols="70"
-        rows="10"
-        :disabled="!editMode"
-      ></textarea>
+      <div class="resultWrap" v-if="rmaPage.status >= 5">
+        <div class="form-group">
+          <SelectInput
+            id="result_type"
+            label="Rezultat zgłoszenia"
+            v-model="rmaPage.result_type"
+            :disabled="!editMode"
+          >
+            <option
+              v-for="el in getResultTypes"
+              :key="el.id.toString()"
+              :value="el.id"
+            >
+              {{ el.name }}
+            </option>
+          </SelectInput>
+        </div>
+        <h3>Opis rezultatu zgłoszenia</h3>
+        <textarea
+          name="resultDescription"
+          id="resultDescription"
+          v-model="rmaPage.result_description"
+          cols="70"
+          rows="10"
+          :disabled="!editMode"
+        ></textarea>
+      </div>
     </div>
   </div>
 </template>

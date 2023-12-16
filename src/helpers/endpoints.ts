@@ -9,5 +9,6 @@ export default {
   rmaCreate: "rma/create",
   rmaPage: "rma/details",
   rmaChangeStatus: "rma/changeState",
+  rmaEdit: "rma",
   rmaList: "rma",
 };

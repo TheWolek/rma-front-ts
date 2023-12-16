@@ -34,61 +34,67 @@ function changeShelve() {
 <template>
   <div class="device">
     <h2>Urządzenie</h2>
-    <h3>{{ rmaPage.device_cat }}</h3>
-    <h3>{{ rmaPage.device_producer }} {{ rmaPage.device_name }}</h3>
-    <InlineEditInput
-      id="sn"
-      label="SN:"
-      v-model="rmaPage.device_sn"
-      :disabled="!editMode"
-    />
-    <CheckBoxGroup
-      v-model="deviceAccessories"
-      name="accessories"
-      :options="getAccessoriesTypes"
-      :disabledAll="!editMode"
-    />
-    <div class="form-group">
-      <SelectInput
-        id="damageType"
-        label="Stan urządzenia"
-        v-model="rmaPage.damage_type"
+    <div class="sectionWrap">
+      <h3>
+        Kategoria: <b>{{ rmaPage.device_cat }}</b>
+      </h3>
+      <h3>
+        Model: <b>{{ rmaPage.device_producer }} {{ rmaPage.device_name }}</b>
+      </h3>
+      <InlineEditInput
+        id="sn"
+        label="SN:"
+        v-model="rmaPage.device_sn"
         :disabled="!editMode"
-      >
-        <option
-          v-for="el in getDamageTypes"
-          :key="el.id.toString()"
-          :value="el.id"
+      />
+      <CheckBoxGroup
+        v-model="deviceAccessories"
+        name="accessories"
+        :options="getAccessoriesTypes"
+        :disabledAll="!editMode"
+      />
+      <div class="form-group">
+        <SelectInput
+          id="damageType"
+          label="Stan urządzenia"
+          v-model="rmaPage.damage_type"
+          :disabled="!editMode"
         >
-          {{ el.name }}
-        </option>
-      </SelectInput>
-    </div>
-    <h3>Opis stanu technicznego</h3>
-    <textarea
-      name="damageDescription"
-      id="damageDescription"
-      v-model="rmaPage.damage_description"
-      cols="30"
-      rows="5"
-      :disabled="!editMode"
-    ></textarea>
+          <option
+            v-for="el in getDamageTypes"
+            :key="el.id.toString()"
+            :value="el.id"
+          >
+            {{ el.name }}
+          </option>
+        </SelectInput>
+      </div>
+      <h3>Opis stanu technicznego</h3>
+      <textarea
+        name="damageDescription"
+        id="damageDescription"
+        v-model="rmaPage.damage_description"
+        cols="30"
+        rows="5"
+        :disabled="!editMode"
+      ></textarea>
 
-    <div class="barcode" v-if="store.rmaPage.inWarehouse">
-      <h3>
-        Barcode: <b>{{ getBarcode }}</b>
-      </h3>
-    </div>
-    <div class="register" v-if="store.rmaPage.inWarehouse">
-      <h3>
-        Warehouse ID: <b>#{{ rmaPage.item_id }}</b>
-      </h3>
-    </div>
-    <div class="shelve" v-if="store.rmaPage.inWarehouse">
-      <ActionButton :event="changeShelve" display="Zmień lokalizacje" />
-      <h3>
-        Lokalizacja: <b>{{ rmaPage.code }}</b>
-      </h3>
+      <div class="barcode" v-if="store.rmaPage.inWarehouse">
+        <h3>
+          Barcode: <b>{{ getBarcode }}</b>
+        </h3>
+      </div>
+      <div class="register" v-if="store.rmaPage.inWarehouse">
+        <h3>
+          Warehouse ID: <b>#{{ rmaPage.item_id }}</b>
+        </h3>
+      </div>
+      <div class="shelve" v-if="store.rmaPage.inWarehouse">
+        <ActionButton :event="changeShelve" display="Zmień lokalizacje" />
+        <h3>
+          Lokalizacja: <b>{{ rmaPage.code }}</b>
+        </h3>
+      </div>
     </div>
   </div>
 </template>

@@ -1,9 +1,12 @@
 import { useRmaStore } from "@/stores/RMA";
 export default (action: string) => {
   const store = useRmaStore();
+
+  store.editMode = false;
   switch (action) {
     case "addWaybillIn":
       store.shipmentModalActive = true;
+      store.addWaybillModalActive = true;
       break;
 
     case "toService":
@@ -48,10 +51,13 @@ export default (action: string) => {
       break;
 
     case "endRepair":
-      store.changeTicketStatus({
-        ticketId: store.rmaPage.ticket_id,
-        status: 8,
-      });
+      if (store.rmaPage.result_description !== null) {
+        store.changeTicketStatus({
+          ticketId: store.rmaPage.ticket_id,
+          status: 8,
+        });
+        store.saveTicketData();
+      }
       break;
 
     case "addWaybillOut":
@@ -88,10 +94,12 @@ export default (action: string) => {
       break;
 
     case "toCancel":
-      store.changeTicketStatus({
-        ticketId: store.rmaPage.ticket_id,
-        status: 10,
-      });
+      if (store.rmaPage.result_description !== null) {
+        store.changeTicketStatus({
+          ticketId: store.rmaPage.ticket_id,
+          status: 10,
+        });
+      }
       break;
   }
 };

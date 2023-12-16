@@ -56,12 +56,10 @@ const formErros = ref({
 async function onSubmit() {
   clearErrors();
   if (validate()) {
-    console.log("submit");
     const response = await axiosInstance().post(
       ednpoints.rmaCreate,
       toRaw(formData.value)
     );
-    console.log(response);
     router.push({
       name: "rmaPage",
       params: {
