@@ -1,9 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ItemsList from "@/components/Warehouse/items/ItemsList.vue";
+</script>
 <template>
   <div id="warehouseItems">
-    <div class="warehouseItems_wrap">
-      <h1>Wszystkie zarejestrowane produkty</h1>
-    </div>
+    <ItemsList />
   </div>
 </template>
 <style>
@@ -12,9 +12,5 @@
   display: flex;
   flex-direction: column;
   position: relative;
-}
-
-.warehouseItems_wrap {
-  padding: 0.5em;
 }
 </style>

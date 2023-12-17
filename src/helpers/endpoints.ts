@@ -10,5 +10,7 @@ export default {
   rmaPage: "rma/details",
   rmaChangeStatus: "rma/changeState",
   rmaEdit: "rma",
+  rmaRegisterItem: "rma/register",
   rmaList: "rma",
+  warehouseCreateItem: "warehouse/items",
 };

@@ -28,7 +28,7 @@ export const useRmaStore = defineStore("RMA", {
       city: "",
       created: "",
       lastStatusUpdate: "",
-      inWarehouse: 0,
+      inWarehouse: false,
       item_id: null,
       shelve_id: null,
       code: "",
@@ -65,8 +65,8 @@ export const useRmaStore = defineStore("RMA", {
         `${endpoints.rmaPage}?ticketId=${ticketId}`
       );
 
-      if (response.data.length > 0) {
-        this.rmaPage = response.data[0];
+      if (response.data !== undefined) {
+        this.rmaPage = response.data;
         return true;
       } else {
         return false;
@@ -180,6 +180,20 @@ export const useRmaStore = defineStore("RMA", {
           this.fetchTicketById(this.rmaPage.ticket_id);
           this.fetchTicketAccessories(this.rmaPage.ticket_id);
           this.loadingRmaPage = false;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async registerDeviceInWarehouse(ticketId: number) {
+      try {
+        const response = await axiosInstance(true).put(
+          `${endpoints.rmaRegisterItem}/${ticketId}`
+        );
+
+        if (response.status === 200) {
+          this.rmaPage.inWarehouse = true;
         }
       } catch (error) {
         console.log(error);
