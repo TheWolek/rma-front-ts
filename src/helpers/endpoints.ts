@@ -13,4 +13,6 @@ export default {
   rmaRegisterItem: "rma/register",
   rmaList: "rma",
   warehouseCreateItem: "warehouse/items",
+  warehouseShelves: "warehouse/shelve",
+  warehouseItems: "warehouse/items",
 };
