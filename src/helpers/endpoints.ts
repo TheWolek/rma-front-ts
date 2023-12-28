@@ -15,4 +15,5 @@ export default {
   warehouseCreateItem: "warehouse/items",
   warehouseShelves: "warehouse/shelve",
   warehouseItems: "warehouse/items",
+  warehouseChangeShelve: "warehouse/items/changeshelve",
 };

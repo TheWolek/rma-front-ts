@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const barcodeReg = /^(\d{1,})-([A-ż(),. 0-9]{1,})-([A-z(),. 0-9]{1,})$/;
+export const barcodeReg = /^(\d{1,})-([A-ż(),. 0-9]{1,})-([A-z(),. 0-9]{1,})$/;
 const snReg = /^[A-z0-9]{3,}$/;
 
 export default {

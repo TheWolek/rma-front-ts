@@ -1,9 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ChangeShelve from "@/components/Warehouse/changeShelve/ChangeShelve.vue";
+</script>
 <template>
   <div id="warehouseItemsChangeShelve">
-    <div class="warehouseItemsChangeShelve_wrap">
-      <h1>Zmiana lokalizacji produktu</h1>
-    </div>
+    <ChangeShelve />
   </div>
 </template>
 <style>
@@ -12,9 +12,5 @@
   display: flex;
   flex-direction: column;
   position: relative;
-}
-
-.warehouseItemsChangeShelve_wrap {
-  padding: 0.5em;
 }
 </style>

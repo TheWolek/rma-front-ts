@@ -1,7 +1,12 @@
 import { defineStore } from "pinia";
 import endpoints from "@/helpers/endpoints";
 import axiosInstance from "@/helpers/axiosInstance";
-import { CreateNewItemData, ItemRow, Shelve } from "./constants";
+import {
+  CreateNewItemData,
+  ItemRow,
+  Shelve,
+  NotificationType,
+} from "./constants";
 
 export const useWarehouseStore = defineStore("Warehouse", {
   state: () => ({
@@ -13,6 +18,19 @@ export const useWarehouseStore = defineStore("Warehouse", {
     },
     itemsList: [] as ItemRow[],
     shelves: [] as Shelve[],
+    changeShelveModalActive: false,
+    changeShelveForm: {
+      active: false,
+      activeShelve: "",
+      newShelve: "",
+    },
+    changeShelveFetching: false,
+    changeShelveItems: [] as string[],
+    changeShelveAllowedItems: [] as string[],
+    chanageShelveMessage: {
+      message: "",
+      type: "" as NotificationType,
+    },
   }),
   actions: {
     async fetchShelves() {
@@ -59,8 +77,8 @@ export const useWarehouseStore = defineStore("Warehouse", {
 
         if (shelveId !== undefined) {
           this.filters.barcode
-            ? (query += `&shelve=${this.filters.shelve}`)
-            : (query += `shelve=${this.filters.shelve}`);
+            ? (query += `&shelve=${shelveId}`)
+            : (query += `shelve=${shelveId}`);
         }
       }
 
@@ -76,6 +94,85 @@ export const useWarehouseStore = defineStore("Warehouse", {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    async fetchProductsOnShelve(shelve: string) {
+      this.changeShelveFetching = true;
+      const activeShelve = this.shelves.find(
+        (o: Shelve) => o.code === shelve
+      )?.shelve_id;
+
+      try {
+        const response = await axiosInstance(true).get(
+          `${endpoints.warehouseItems}?shelve=${activeShelve}`
+        );
+
+        if (response.status === 200) {
+          const temp: string[] = [];
+          response.data.forEach((item: ItemRow) => {
+            const barcode = `${item.ticket_id}-${item.name}-${item.category}`;
+            temp.push(barcode);
+          });
+          this.changeShelveAllowedItems = temp;
+          this.changeShelveFetching = false;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async changeItemShevle() {
+      try {
+        const activeShelve = this.shelves.find(
+          (o: Shelve) => o.code === this.changeShelveForm.activeShelve
+        )?.shelve_id;
+        const newShelve = this.shelves.find(
+          (o: Shelve) => o.code === this.changeShelveForm.newShelve
+        )?.shelve_id;
+
+        const response = await axiosInstance(true).put(
+          endpoints.warehouseChangeShelve,
+          {
+            barcodes: this.changeShelveItems,
+            new_shelve: newShelve,
+            shelve: activeShelve,
+          }
+        );
+
+        if (response.status === 200) {
+          this.chanageShelveMessage.type = "Success";
+          this.chanageShelveMessage.message =
+            "Produkty zostały pomyślnie przeniesione";
+          this.clearChangeShelveData();
+          setTimeout(() => {
+            this.clearNotification();
+          }, 2800);
+        }
+      } catch (error) {
+        console.log(error);
+        this.chanageShelveMessage.type = "Fail";
+        this.chanageShelveMessage.message = `${error}`;
+      }
+    },
+
+    deleteItemFromChangeShelve(barcode: string) {
+      const index = this.changeShelveItems.findIndex((str) => str === barcode);
+      this.changeShelveItems.splice(index, 1);
+    },
+
+    clearChangeShelveData() {
+      this.changeShelveForm = {
+        active: false,
+        activeShelve: "",
+        newShelve: "",
+      };
+      this.changeShelveItems = [];
+      this.changeShelveAllowedItems = [];
+    },
+
+    clearNotification() {
+      this.chanageShelveMessage.type = "";
+      this.chanageShelveMessage.message = "";
     },
   },
 });

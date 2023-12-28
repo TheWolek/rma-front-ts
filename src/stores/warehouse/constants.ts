@@ -17,3 +17,12 @@ export interface Shelve {
   shelve_id: number;
   code: string;
 }
+
+export interface ChangeShelveItem {
+  barcode: string;
+  ticketId: string;
+  category: string;
+  model: string;
+}
+
+export type NotificationType = "" | "Success" | "Fail";

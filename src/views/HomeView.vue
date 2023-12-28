@@ -19,7 +19,7 @@ const linkList = ref([
     ? [
         {
           link: "/warehouse",
-          label: "warehouse",
+          label: "Magazyn",
         },
       ]
     : []),

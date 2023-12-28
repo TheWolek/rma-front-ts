@@ -19,7 +19,7 @@ const onRefresh = () => {
 <template>
   <div class="actions">
     <ActionButton :event="toggleNewModal" display="Dodaj" :icon="`add.svg`" />
-    <form @submit.prevent="onRefresh">
+    <form @submit.prevent="">
       <InlineEditInput
         id="barcode"
         label="kod kreskowy"
