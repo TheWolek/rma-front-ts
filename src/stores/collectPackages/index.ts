@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import endpoints from "@/helpers/endpoints";
 import axiosInstance from "@/helpers/axiosInstance";
-import { CollectItem, CollectStatus } from "./constants";
+import { CollectItem, CollectStatus, Collect } from "./constants";
 
 export const useCollectStore = defineStore("CollectStore", {
   state: () => ({
@@ -14,9 +14,13 @@ export const useCollectStore = defineStore("CollectStore", {
     },
     collectItems: [] as CollectItem[],
     waybillError: "",
+    collectList: [] as Collect[],
+    loadingCollectList: false,
+    filter: "",
   }),
   actions: {
     async fetchCollectById(collectId: number) {
+      this.loadingCollectPage = true;
       const response = await axiosInstance(true).get(
         `${endpoints.collectPackages}/${collectId}`
       );
@@ -29,8 +33,10 @@ export const useCollectStore = defineStore("CollectStore", {
           status: response.data.status,
         };
         this.collectItems = response.data.items;
+        this.loadingCollectPage = false;
         return true;
       } else {
+        this.loadingCollectPage = false;
         return false;
       }
     },
@@ -69,6 +75,28 @@ export const useCollectStore = defineStore("CollectStore", {
         }
 
         this.loadingCollectPage = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async fetchCollectListByFilters() {
+      this.loadingCollectList = true;
+      let query = "";
+
+      if (this.filter !== "") {
+        query = `?refName=${this.filter}`;
+      }
+
+      try {
+        const response = await axiosInstance(true).get(
+          `${endpoints.collectPackages}${query}`
+        );
+
+        if (response.status === 200) {
+          this.collectList = response.data;
+          this.loadingCollectList = false;
+        }
       } catch (error) {
         console.log(error);
       }

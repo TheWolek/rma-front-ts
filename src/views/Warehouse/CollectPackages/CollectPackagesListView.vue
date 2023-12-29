@@ -1,4 +1,16 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import CollectPackagesList from "@/components/Warehouse/collectPackages/collectList/CollectPackagesList.vue";
+</script>
 <template>
-  <div></div>
+  <div id="warehouseCollectPackagesList">
+    <CollectPackagesList />
+  </div>
 </template>
+<style>
+#warehouseCollectPackagesList {
+  min-height: 94vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+</style>

@@ -5,3 +5,10 @@ export interface CollectItem {
   ticket_id: number;
   barcode: string;
 }
+
+export interface Collect {
+  id: number;
+  ref_name: string;
+  created: string | Date;
+  status: CollectStatus;
+}
