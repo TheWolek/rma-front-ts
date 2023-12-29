@@ -30,6 +30,14 @@ const sparepartsAvailable = computed(
         ]"
       />
       <ModuleNavLink
+        v-if="coreWarehouseAvailable"
+        text="Odbiór paczek"
+        :children="[
+          { path: '/warehouse/collect/add', text: 'Nowy odbiór' },
+          { path: '/warehouse/collect', text: 'Wszystkie odbiory paczek' },
+        ]"
+      />
+      <ModuleNavLink
         v-if="sparepartsAvailable"
         text="Części zamienne"
         :children="[

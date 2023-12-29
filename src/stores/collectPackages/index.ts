@@ -1,0 +1,77 @@
+import { defineStore } from "pinia";
+import endpoints from "@/helpers/endpoints";
+import axiosInstance from "@/helpers/axiosInstance";
+import { CollectItem, CollectStatus } from "./constants";
+
+export const useCollectStore = defineStore("CollectStore", {
+  state: () => ({
+    loadingCollectPage: true,
+    collectPage: {
+      id: 0,
+      ref_name: "",
+      created: "",
+      status: "" as CollectStatus,
+    },
+    collectItems: [] as CollectItem[],
+    waybillError: "",
+  }),
+  actions: {
+    async fetchCollectById(collectId: number) {
+      const response = await axiosInstance(true).get(
+        `${endpoints.collectPackages}/${collectId}`
+      );
+
+      if (response.data !== undefined) {
+        this.collectPage = {
+          id: response.data.id,
+          ref_name: response.data.ref_name,
+          created: response.data.created,
+          status: response.data.status,
+        };
+        this.collectItems = response.data.items;
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    async addNewItemToList(waybill: string) {
+      this.loadingCollectPage = true;
+      try {
+        const response = await axiosInstance(true).post(
+          `${endpoints.collectPackageItems}/${this.collectPage.id}/add`,
+          {
+            waybill,
+          }
+        );
+
+        if (response.status === 200) {
+          this.fetchCollectById(this.collectPage.id);
+        } else {
+          this.waybillError = response.data.message;
+        }
+
+        this.loadingCollectPage = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async finishCollect() {
+      this.loadingCollectPage = true;
+      try {
+        const response = await axiosInstance(true).put(
+          `${endpoints.collectPackages}/${this.collectPage.id}`
+        );
+
+        if (response.status === 200) {
+          this.fetchCollectById(this.collectPage.id);
+        }
+
+        this.loadingCollectPage = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+});

@@ -9,9 +9,12 @@ import RmaPageView from "@/views/RMA/RmaPageView.vue";
 import DictionariresView from "@/views/RMA/DictionariesView.vue";
 import WarehouseView from "@/views/Warehouse/WarehouseView.vue";
 import ItemsView from "@/views/Warehouse/Items/ItemsView.vue";
-import ChangeShelveView from "@/views/Warehouse/Items/ChangeShelve.vue";
+import ChangeShelveView from "@/views/Warehouse/Items/ChangeShelveView.vue";
 import SparepartsView from "@/views/Warehouse/Spareparts/SparepartsView.vue";
 import OrdersView from "@/views/Warehouse/Spareparts/OrdersView.vue";
+import CollectPackageView from "@/views/Warehouse/CollectPackages/CollectPackageView.vue";
+import CollectPackagesCreateView from "@/views/Warehouse/CollectPackages/CollectPackagesCreateView.vue";
+import CollectPackagesListView from "@/views/Warehouse/CollectPackages/CollectPackagesListView.vue";
 import decodeToken from "@/helpers/decodeToken";
 
 declare module "vue-router" {
@@ -130,6 +133,47 @@ const routes: Array<RouteRecordRaw> = [
         components: {
           default: WarehouseView,
           innerView: ChangeShelveView,
+        },
+        props: true,
+        meta: {
+          requiresAuth: true,
+          requiredRole: warehouseLSRoles,
+          requiredModule: "warehouse",
+        },
+      },
+      {
+        path: "collect/add",
+        name: "addCollectPackages",
+        components: {
+          default: WarehouseView,
+          innerView: CollectPackagesCreateView,
+        },
+        meta: {
+          requiresAuth: true,
+          requiredRole: warehouseLSRoles,
+          requiredModule: "warehouse",
+        },
+      },
+      {
+        path: "collect/:id",
+        name: "collectPackage",
+        components: {
+          default: WarehouseView,
+          innerView: CollectPackageView,
+        },
+        props: true,
+        meta: {
+          requiresAuth: true,
+          requiredRole: warehouseLSRoles,
+          requiredModule: "warehouse",
+        },
+      },
+      {
+        path: "collect",
+        name: "collectPackagesList",
+        components: {
+          default: WarehouseView,
+          innerView: CollectPackagesListView,
         },
         props: true,
         meta: {
