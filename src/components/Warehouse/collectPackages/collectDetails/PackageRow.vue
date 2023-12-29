@@ -10,5 +10,19 @@ defineProps({
   <tr>
     <td>{{ item.waybill }}</td>
     <td>{{ item.barcode }}</td>
+    <td>
+      <RouterLink
+        :to="{ name: 'rmaPage', params: { id: item.ticket_id } }"
+        target="_blank"
+        >{{ item.ticket_id }}</RouterLink
+      >
+    </td>
   </tr>
 </template>
+<style scoped>
+a,
+a:visited {
+  color: #000;
+  font-weight: bold;
+}
+</style>
