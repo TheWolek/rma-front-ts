@@ -1,4 +1,4 @@
-export type CollectStatus = "Odebrany" | "W trakcie" | "Anulowany";
+export type CollectStatus = "Odebrany" | "W trakcie";
 
 export interface CollectItem {
   waybill: string;

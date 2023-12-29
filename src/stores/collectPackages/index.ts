@@ -16,7 +16,11 @@ export const useCollectStore = defineStore("CollectStore", {
     waybillError: "",
     collectList: [] as Collect[],
     loadingCollectList: false,
-    filter: "",
+    filter: {
+      refName: "",
+      created: "",
+      status: null as CollectStatus,
+    },
   }),
   actions: {
     async fetchCollectById(collectId: number) {
@@ -82,10 +86,25 @@ export const useCollectStore = defineStore("CollectStore", {
 
     async fetchCollectListByFilters() {
       this.loadingCollectList = true;
-      let query = "";
+      let query = "?";
 
-      if (this.filter !== "") {
-        query = `?refName=${this.filter}`;
+      if (this.filter.refName !== "") {
+        query += `refName=${this.filter.refName}`;
+      }
+
+      if (this.filter.created !== "") {
+        if (this.filter.refName !== "") {
+          query += "&";
+        }
+        query += `created=${this.filter.created}`;
+      }
+
+      if (this.filter.status !== null) {
+        if (this.filter.refName !== "" || this.filter.created !== "") {
+          query += "&";
+        }
+
+        query += `status=${this.filter.status}`;
       }
 
       try {
