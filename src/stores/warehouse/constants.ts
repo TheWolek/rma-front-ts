@@ -26,3 +26,9 @@ export interface ChangeShelveItem {
 }
 
 export type NotificationType = "" | "Success" | "Fail";
+
+export interface DataFromMoveTask {
+  taskName: string;
+  from: string;
+  to: string;
+}

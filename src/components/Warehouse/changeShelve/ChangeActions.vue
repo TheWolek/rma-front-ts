@@ -5,16 +5,14 @@ import { storeToRefs } from "pinia";
 import ActionButton from "@/components/parts/buttons/ActionButton.vue";
 
 const store = useWarehouseStore();
-const { changeShelveForm, chanageShelveMessage } = storeToRefs(store);
+const { changeShelveForm, changeShelveMessage } = storeToRefs(store);
 
 const isSubmitActive = computed(() => changeShelveForm.value.active);
-const notificationVisible = computed(() => {
-  return {
-    active: chanageShelveMessage.value.type !== "",
-    succ: chanageShelveMessage.value.type === "Success",
-    fail: chanageShelveMessage.value.type === "Fail",
-  };
-});
+const notificationVisible = computed(() => ({
+  active: changeShelveMessage.value.type !== "",
+  succ: changeShelveMessage.value.type === "Success",
+  fail: changeShelveMessage.value.type === "Fail",
+}));
 
 const toggleChangeModal = () => {
   store.changeShelveModalActive = true;
@@ -52,7 +50,7 @@ const cancel = () => {
       :disabled="!isSubmitActive"
     />
     <div id="changeShelveResponse-msg" :class="notificationVisible">
-      {{ chanageShelveMessage.message
+      {{ changeShelveMessage.message
       }}<span id="close_notifi" @click="dismissNotification"></span>
     </div>
   </div>

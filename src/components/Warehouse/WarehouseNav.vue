@@ -38,6 +38,13 @@ const sparepartsAvailable = computed(
         ]"
       />
       <ModuleNavLink
+        v-if="coreWarehouseAvailable"
+        text="Zadania"
+        :children="[
+          { path: '/warehouse/tasks/move', text: 'Zadania przeniesienia' },
+        ]"
+      />
+      <ModuleNavLink
         v-if="sparepartsAvailable"
         text="Części zamienne"
         :children="[

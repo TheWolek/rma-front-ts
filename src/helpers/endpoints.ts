@@ -19,4 +19,5 @@ export default {
   collectPackages: "warehouse/collect",
   collectPackagesAdd: "warehouse/collect/add",
   collectPackageItems: "warehouse/collect/items",
+  tasks: "warehouse/tasks",
 };

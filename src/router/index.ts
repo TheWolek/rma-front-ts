@@ -15,6 +15,7 @@ import OrdersView from "@/views/Warehouse/Spareparts/OrdersView.vue";
 import CollectPackageView from "@/views/Warehouse/CollectPackages/CollectPackageView.vue";
 import CollectPackagesCreateView from "@/views/Warehouse/CollectPackages/CollectPackagesCreateView.vue";
 import CollectPackagesListView from "@/views/Warehouse/CollectPackages/CollectPackagesListView.vue";
+import TaskMoveView from "@/views/Warehouse/Tasks/TaskMoveView.vue";
 import decodeToken from "@/helpers/decodeToken";
 
 declare module "vue-router" {
@@ -174,6 +175,20 @@ const routes: Array<RouteRecordRaw> = [
         components: {
           default: WarehouseView,
           innerView: CollectPackagesListView,
+        },
+        props: true,
+        meta: {
+          requiresAuth: true,
+          requiredRole: warehouseLSRoles,
+          requiredModule: "warehouse",
+        },
+      },
+      {
+        path: "tasks/move",
+        name: "taskMove",
+        components: {
+          default: WarehouseView,
+          innerView: TaskMoveView,
         },
         props: true,
         meta: {

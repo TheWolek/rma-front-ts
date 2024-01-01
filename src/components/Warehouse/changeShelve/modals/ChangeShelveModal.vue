@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { useWarehouseStore } from "@/stores/warehouse";
 import { storeToRefs } from "pinia";
 import BigModal from "@/components/parts/BigModal.vue";
@@ -19,10 +19,6 @@ const active_code = ref("");
 const new_code = ref("");
 const error_active_code = ref("");
 const error_new_code = ref("");
-
-onMounted(() => {
-  console.log();
-});
 
 const toggleModal = () => {
   changeShelveModalActive.value = !changeShelveModalActive.value;

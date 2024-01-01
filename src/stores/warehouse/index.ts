@@ -6,7 +6,9 @@ import {
   ItemRow,
   Shelve,
   NotificationType,
+  DataFromMoveTask,
 } from "./constants";
+import { TaskItem } from "../tasks/constants";
 
 export const useWarehouseStore = defineStore("Warehouse", {
   state: () => ({
@@ -27,10 +29,12 @@ export const useWarehouseStore = defineStore("Warehouse", {
     changeShelveFetching: false,
     changeShelveItems: [] as string[],
     changeShelveAllowedItems: [] as string[],
-    chanageShelveMessage: {
+    changeShelveMessage: {
       message: "",
       type: "" as NotificationType,
     },
+    taskListActive: false,
+    taskList: [] as TaskItem[],
   }),
   actions: {
     async fetchShelves() {
@@ -140,8 +144,8 @@ export const useWarehouseStore = defineStore("Warehouse", {
         );
 
         if (response.status === 200) {
-          this.chanageShelveMessage.type = "Success";
-          this.chanageShelveMessage.message =
+          this.changeShelveMessage.type = "Success";
+          this.changeShelveMessage.message =
             "Produkty zostały pomyślnie przeniesione";
           this.clearChangeShelveData();
           setTimeout(() => {
@@ -150,8 +154,8 @@ export const useWarehouseStore = defineStore("Warehouse", {
         }
       } catch (error) {
         console.log(error);
-        this.chanageShelveMessage.type = "Fail";
-        this.chanageShelveMessage.message = `${error}`;
+        this.changeShelveMessage.type = "Fail";
+        this.changeShelveMessage.message = `${error}`;
       }
     },
 
@@ -171,8 +175,29 @@ export const useWarehouseStore = defineStore("Warehouse", {
     },
 
     clearNotification() {
-      this.chanageShelveMessage.type = "";
-      this.chanageShelveMessage.message = "";
+      this.changeShelveMessage.type = "";
+      this.changeShelveMessage.message = "";
+    },
+
+    async setDataFromMoveTask(data: DataFromMoveTask) {
+      try {
+        const response = await axiosInstance(true).get(
+          `${endpoints.tasks}/${data.taskName}/tasks`
+        );
+
+        if (response.status === 200) {
+          this.changeShelveForm = {
+            active: true,
+            activeShelve: data.from,
+            newShelve: data.to,
+          };
+
+          this.taskListActive = true;
+          this.taskList = response.data;
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 });
