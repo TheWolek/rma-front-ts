@@ -1,6 +1,11 @@
 import { useRmaStore } from "@/stores/RMA";
+import { useWarehouseStore } from "@/stores/warehouse";
+
 export default (action: string) => {
   const store = useRmaStore();
+  const warehouseStore = useWarehouseStore();
+  const warehouseModuleActive: boolean =
+    JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE) || false;
 
   store.editMode = false;
   switch (action) {
@@ -34,6 +39,14 @@ export default (action: string) => {
         ticketId: store.rmaPage.ticket_id,
         status: 4,
       });
+
+      if (warehouseModuleActive) {
+        warehouseStore.changeItemShevle({
+          from: "SH_INWER_1",
+          to: "SH_OUTWER_2",
+          item: [store.getBarcode],
+        });
+      }
       break;
 
     case "contact":
@@ -41,6 +54,14 @@ export default (action: string) => {
         ticketId: store.rmaPage.ticket_id,
         status: 7,
       });
+
+      if (warehouseModuleActive) {
+        warehouseStore.changeItemShevle({
+          from: "SH_INDIN_1",
+          to: "SH_OUTDIN_1",
+          item: [store.getBarcode],
+        });
+      }
       break;
 
     case "repair":
@@ -54,9 +75,17 @@ export default (action: string) => {
       if (store.rmaPage.result_description !== null) {
         store.changeTicketStatus({
           ticketId: store.rmaPage.ticket_id,
-          status: 8,
+          status: 9,
         });
         store.saveTicketData();
+
+        if (warehouseModuleActive) {
+          warehouseStore.changeItemShevle({
+            from: "SH_INDIN_1",
+            to: "SH_OUTDIN_1",
+            item: [store.getBarcode],
+          });
+        }
       }
       break;
 
@@ -68,8 +97,15 @@ export default (action: string) => {
     case "send":
       store.changeTicketStatus({
         ticketId: store.rmaPage.ticket_id,
-        status: 9,
+        status: 10,
       });
+
+      if (warehouseModuleActive) {
+        warehouseStore.removeItem({
+          barcode: store.getBarcode,
+          shelve: 9,
+        });
+      }
       break;
 
     case "end":
@@ -82,14 +118,21 @@ export default (action: string) => {
     case "sendCancelled":
       store.changeTicketStatus({
         ticketId: store.rmaPage.ticket_id,
-        status: 11,
+        status: 12,
       });
+
+      if (warehouseModuleActive) {
+        warehouseStore.removeItem({
+          barcode: store.getBarcode,
+          shelve: 9,
+        });
+      }
       break;
 
     case "cancel":
       store.changeTicketStatus({
         ticketId: store.rmaPage.ticket_id,
-        status: 11,
+        status: 12,
       });
       break;
 
@@ -97,8 +140,16 @@ export default (action: string) => {
       if (store.rmaPage.result_description !== null) {
         store.changeTicketStatus({
           ticketId: store.rmaPage.ticket_id,
-          status: 10,
+          status: 11,
         });
+
+        if (warehouseModuleActive) {
+          warehouseStore.changeItemShevle({
+            from: "SH_INWER_1",
+            to: "SH_OUTWER_2",
+            item: [store.getBarcode],
+          });
+        }
       }
       break;
   }

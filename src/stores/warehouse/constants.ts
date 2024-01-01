@@ -32,3 +32,14 @@ export interface DataFromMoveTask {
   from: string;
   to: string;
 }
+
+export interface ChangeItemShelveData {
+  from?: string;
+  to?: string;
+  item?: string[];
+}
+
+export interface RemoveItemData {
+  barcode: string;
+  shelve: number;
+}

@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const regLines = /\s\d$/;
+const regLines = /\s(\d){1,}$/;
 const regEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const validator = Joi.object({

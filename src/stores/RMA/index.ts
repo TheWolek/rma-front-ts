@@ -58,6 +58,9 @@ export const useRmaStore = defineStore("RMA", {
     getActiveFilters(): Filter[] {
       return this.appliedFilter.filters;
     },
+    getBarcode() {
+      return `${this.rmaPage.ticket_id}-${this.rmaPage.device_producer}-${this.rmaPage.device_name}`;
+    },
   },
   actions: {
     async fetchTicketById(ticketId: number) {

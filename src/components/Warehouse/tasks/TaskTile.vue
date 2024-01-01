@@ -27,6 +27,8 @@ const onClick = async () => {
     to: shelveIn.value,
   });
 
+  await warehouseStore.fetchProductsOnShelve(shelveOut.value);
+
   router.push({
     name: "itemsChangeShelve",
   });

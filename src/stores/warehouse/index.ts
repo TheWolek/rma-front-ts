@@ -7,6 +7,8 @@ import {
   Shelve,
   NotificationType,
   DataFromMoveTask,
+  ChangeItemShelveData,
+  RemoveItemData,
 } from "./constants";
 import { TaskItem } from "../tasks/constants";
 
@@ -125,19 +127,25 @@ export const useWarehouseStore = defineStore("Warehouse", {
       }
     },
 
-    async changeItemShevle() {
+    async changeItemShevle(props?: ChangeItemShelveData) {
+      await this.fetchShelves();
       try {
-        const activeShelve = this.shelves.find(
-          (o: Shelve) => o.code === this.changeShelveForm.activeShelve
+        const from: string = props?.from ?? this.changeShelveForm.activeShelve;
+        const to: string = props?.to ?? this.changeShelveForm.newShelve;
+
+        const activeShelve: number = this.shelves.find(
+          (o: Shelve) => o.code === from
         )?.shelve_id;
-        const newShelve = this.shelves.find(
-          (o: Shelve) => o.code === this.changeShelveForm.newShelve
+        const newShelve: number = this.shelves.find(
+          (o: Shelve) => o.code === to
         )?.shelve_id;
+
+        console.log(from, activeShelve);
 
         const response = await axiosInstance(true).put(
           endpoints.warehouseChangeShelve,
           {
-            barcodes: this.changeShelveItems,
+            barcodes: props?.item ?? this.changeShelveItems,
             new_shelve: newShelve,
             shelve: activeShelve,
           }
@@ -159,6 +167,23 @@ export const useWarehouseStore = defineStore("Warehouse", {
       }
     },
 
+    async removeItem(props: RemoveItemData) {
+      try {
+        const response = await axiosInstance(true).delete(
+          endpoints.warehouseItems,
+          {
+            data: props,
+          }
+        );
+
+        if (response.status === 200) {
+          return true;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     deleteItemFromChangeShelve(barcode: string) {
       const index = this.changeShelveItems.findIndex((str) => str === barcode);
       this.changeShelveItems.splice(index, 1);
@@ -172,6 +197,8 @@ export const useWarehouseStore = defineStore("Warehouse", {
       };
       this.changeShelveItems = [];
       this.changeShelveAllowedItems = [];
+      this.taskList = [];
+      this.taskListActive = false;
     },
 
     clearNotification() {

@@ -130,7 +130,7 @@ const toggleHistoryModal = () => {
     </div>
     <div class="row" v-if="nextSteps.length > 0">
       <ActionButton
-        display="Dodaj list (In)"
+        display="Dodaj list"
         :event="() => actions('addWaybillIn')"
         v-if="nextSteps.includes('addWaybillIn')"
       />
@@ -166,17 +166,17 @@ const toggleHistoryModal = () => {
         v-if="nextSteps.includes('endRepair')"
       />
       <ActionButton
-        display="Dodaj list (out)"
+        display="Dodaj list"
         :event="() => actions('addWaybillOut')"
         v-if="nextSteps.includes('addWaybillOut')"
       />
       <ActionButton
-        display="Do wysyłki (1)"
+        display="Do wysyłki"
         :event="() => actions('send')"
         v-if="nextSteps.includes('send')"
       />
       <ActionButton
-        display="Do wysyłki (2)"
+        display="Do wysyłki anulowanych"
         :event="() => actions('sendCanceled')"
         v-if="nextSteps.includes('sendCanceled')"
       />
@@ -186,12 +186,12 @@ const toggleHistoryModal = () => {
         v-if="!isWarehouseModule && nextSteps.includes('end')"
       />
       <ActionButton
-        display="Anuluj (1)"
+        display="Anuluj"
         :event="() => actions('cancel')"
         v-if="nextSteps.includes('cancel')"
       />
       <ActionButton
-        display="Anuluj (2)"
+        display="Anuluj"
         :event="() => actions('toCancel')"
         :disabled="!isResult"
         v-if="nextSteps.includes('toCancel')"

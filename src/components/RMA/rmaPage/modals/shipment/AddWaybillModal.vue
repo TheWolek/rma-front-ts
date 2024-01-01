@@ -17,7 +17,7 @@ const error_type = ref("");
 
 const incommingActive = computed(() => rmaPage.value.status <= 2);
 const outcomingActive = computed(
-  () => rmaPage.value.status === 8 || rmaPage.value.status === 10
+  () => rmaPage.value.status === 9 || rmaPage.value.status === 11
 );
 
 const toggleModal_addWaybill = () => {
