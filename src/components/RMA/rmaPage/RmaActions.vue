@@ -37,6 +37,8 @@ const isShipmentBtnActive = computed(
   () => ![10].includes(rmaPage.value.status)
 );
 
+const isBarcodeBtnActive = computed(() => rmaPage.value.barcodeURL !== null);
+
 const isResult = computed(() => rmaPage.value.result_description !== null);
 
 const editBtnIcon = computed(() =>
@@ -82,6 +84,15 @@ const toggleShipmentModal = () => {
   }
 };
 
+const openBarcodeFile = () => {
+  if (isBarcodeBtnActive.value) {
+    window.open(
+      `${process.env.VUE_APP_API_BASE_URL}${rmaPage.value.barcodeURL}`,
+      "_blank"
+    );
+  }
+};
+
 const toggleProcessModal = () => {
   if (isProcessBtnActive.value) {
     processModalActive.value = !processModalActive.value;
@@ -113,6 +124,12 @@ const toggleHistoryModal = () => {
         display="Przesyłka"
         :icon="`box.svg`"
         :disabled="!isShipmentBtnActive"
+      />
+      <ActionButton
+        :event="openBarcodeFile"
+        display="Kod QR"
+        :icon="`barcode.svg`"
+        :disabled="!isBarcodeBtnActive"
       />
       <ActionButton
         v-if="isSparepartsModule"

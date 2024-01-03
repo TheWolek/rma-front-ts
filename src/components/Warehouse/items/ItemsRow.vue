@@ -9,7 +9,14 @@ const props = defineProps({
 <template>
   <tr :id="props.data.item_id?.toString()">
     <td><input type="checkbox" :id="props.data.item_id?.toString()" /></td>
-    <td>{{ data.ticket_id }}</td>
+    <td>
+      <RouterLink
+        :to="{ name: 'rmaPage', params: { id: data.ticket_id } }"
+        target="_blank"
+      >
+        {{ data.barcode }}
+      </RouterLink>
+    </td>
     <td>{{ data.category }}</td>
     <td>{{ data.name }}</td>
     <td :id="data.shelve?.toString()">
@@ -26,3 +33,10 @@ const props = defineProps({
     </td>
   </tr>
 </template>
+<style scoped>
+a,
+a:visited {
+  color: #000;
+  font-weight: bold;
+}
+</style>

@@ -32,7 +32,7 @@ const getFormattedStatusDate = computed(() => {
 </script>
 <template>
   <div class="ticketDetails">
-    <h1>Zgłoszenie #{{ rmaPage.ticket_id }}</h1>
+    <h1>Zgłoszenie {{ rmaPage.barcode }}</h1>
     <h3>
       Status: <b>{{ getStatusDisplayName }}</b>
     </h3>

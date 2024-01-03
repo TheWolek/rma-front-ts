@@ -35,7 +35,7 @@ const getFormattedUpdateDate = computed(() => {
     <td></td>
     <td>
       <router-link :to="{ path: `ticket/${data.ticket_id}` }">{{
-        data.ticket_id
+        data.barcode
       }}</router-link>
     </td>
     <td>{{ data.device_cat }}</td>

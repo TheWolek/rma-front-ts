@@ -13,9 +13,6 @@ const { changeShelveItems } = storeToRefs(store);
     <tr>
       <th></th>
       <th>Kod kreskowy</th>
-      <th>ID zgłoszenia</th>
-      <th>Kategoria</th>
-      <th>Model</th>
     </tr>
     <ChangeItemRow
       v-for="item in changeShelveItems"
@@ -28,25 +25,15 @@ const { changeShelveItems } = storeToRefs(store);
 <style scoped>
 table#changeShelve tr th:nth-child(1),
 table#changeShelve tr td:nth-child(1) {
-  width: 2%;
+  width: 8%;
 }
 
-table#changeShelve tr th:nth-child(3),
-table#changeShelve tr td:nth-child(3) {
+/* table#changeShelve tr th:nth-child(2),
+table#changeShelve tr td:nth-child(2) {
   width: 9%;
-}
-
-table#changeShelve tr th:nth-child(4),
-table#changeShelve tr td:nth-child(4) {
-  width: 25%;
-}
-
-table#changeShelve tr th:nth-child(5),
-table#changeShelve tr td:nth-child(5) {
-  width: 30%;
-}
+} */
 
 table#changeShelve {
-  width: 80%;
+  width: 25%;
 }
 </style>

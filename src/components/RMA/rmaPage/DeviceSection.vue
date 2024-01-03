@@ -13,10 +13,6 @@ const storeDict = useDictionaryStore();
 
 const { editMode, rmaPage, deviceAccessories } = storeToRefs(store);
 
-const getBarcode = computed(() => {
-  return "barcode";
-});
-
 const getAccessoriesTypes = computed(() => {
   return storeDict.dictionaries.find((dict) => dict.name === "accessoriesTypes")
     .items;
@@ -81,7 +77,7 @@ function changeShelve() {
 
       <div class="barcode" v-if="store.rmaPage.inWarehouse">
         <h3>
-          Barcode: <b>{{ getBarcode }}</b>
+          <b>{{ rmaPage.barcode }}</b>
         </h3>
       </div>
       <div class="register" v-if="store.rmaPage.inWarehouse">

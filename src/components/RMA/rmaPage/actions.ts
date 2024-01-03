@@ -44,7 +44,7 @@ export default (action: string) => {
         warehouseStore.changeItemShevle({
           from: "SH_INWER_1",
           to: "SH_OUTWER_2",
-          item: [store.getBarcode],
+          item: [store.rmaPage.barcode],
         });
       }
       break;
@@ -59,7 +59,7 @@ export default (action: string) => {
         warehouseStore.changeItemShevle({
           from: "SH_INDIN_1",
           to: "SH_OUTDIN_1",
-          item: [store.getBarcode],
+          item: [store.rmaPage.barcode],
         });
       }
       break;
@@ -83,7 +83,7 @@ export default (action: string) => {
           warehouseStore.changeItemShevle({
             from: "SH_INDIN_1",
             to: "SH_OUTDIN_1",
-            item: [store.getBarcode],
+            item: [store.rmaPage.barcode],
           });
         }
       }
@@ -102,8 +102,9 @@ export default (action: string) => {
 
       if (warehouseModuleActive) {
         warehouseStore.removeItem({
-          barcode: store.getBarcode,
+          barcode: store.rmaPage.barcode,
           shelve: 9,
+          ticket_id: store.rmaPage.ticket_id,
         });
       }
       break;
@@ -123,8 +124,9 @@ export default (action: string) => {
 
       if (warehouseModuleActive) {
         warehouseStore.removeItem({
-          barcode: store.getBarcode,
+          barcode: store.rmaPage.barcode,
           shelve: 9,
+          ticket_id: store.rmaPage.ticket_id,
         });
       }
       break;
@@ -147,7 +149,7 @@ export default (action: string) => {
           warehouseStore.changeItemShevle({
             from: "SH_INWER_1",
             to: "SH_OUTWER_2",
-            item: [store.getBarcode],
+            item: [store.rmaPage.barcode],
           });
         }
       }

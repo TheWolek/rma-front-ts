@@ -13,6 +13,8 @@ export const useRmaStore = defineStore("RMA", {
   state: () => ({
     rmaPage: {
       ticket_id: 0,
+      barcode: "",
+      barcodeURL: "",
       email: "",
       name: "",
       phone: "",
@@ -57,9 +59,6 @@ export const useRmaStore = defineStore("RMA", {
   getters: {
     getActiveFilters(): Filter[] {
       return this.appliedFilter.filters;
-    },
-    getBarcode() {
-      return `${this.rmaPage.ticket_id}-${this.rmaPage.device_producer}-${this.rmaPage.device_name}`;
     },
   },
   actions: {

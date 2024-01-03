@@ -16,9 +16,6 @@ const removeItem = () => {
   <tr>
     <td><div class="deleteIcon" @click="removeItem"></div></td>
     <td>{{ barcode }}</td>
-    <td>{{ barcode.split("-")[0] }}</td>
-    <td>{{ barcode.split("-")[1] }}</td>
-    <td>{{ barcode.split("-")[2] }}</td>
   </tr>
 </template>
 <style scoped>

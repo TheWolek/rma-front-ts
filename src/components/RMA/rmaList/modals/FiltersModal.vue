@@ -12,7 +12,6 @@ import SubmitButton from "@/components/parts/buttons/SubmitButton.vue";
 const storeDict = useDictionaryStore();
 const store = useRmaStore();
 
-const ticketId = ref("");
 const barcode = ref("");
 const waybill = ref("");
 const status = ref("");
@@ -32,7 +31,7 @@ const activeFilters = computed(() => store.getActiveFilters);
 onMounted(() => {
   if (activeFilters.value.length !== 0) {
     activeFilters.value.forEach((filter) => {
-      if (filter.name === "zgłoszenie") ticketId.value = filter.value;
+      if (filter.name === "zgłoszenie") barcode.value = filter.value;
       if (filter.name === "status") status.value = filter.value;
       if (filter.name === "typ") type.value = filter.value;
       if (filter.name === "sn") sn.value = filter.value;
@@ -48,7 +47,6 @@ const toggleModal_filters = () => {
 };
 
 const clearData = () => {
-  ticketId.value = "";
   barcode.value = "";
   waybill.value = "";
   status.value = "";
@@ -61,11 +59,8 @@ const clearData = () => {
 const onSubmit = () => {
   const filters: Filter[] = [];
 
-  if (ticketId.value !== "") {
-    filters.push({ name: "zgłoszenie", value: ticketId.value });
-  }
   if (barcode.value !== "") {
-    filters.push({ name: "zgłoszenie", value: barcode.value.split("-")[0] });
+    filters.push({ name: "zgłoszenie", value: barcode.value });
   }
   if (waybill.value !== "") {
     filters.push({ name: "list", value: waybill.value });
@@ -97,12 +92,6 @@ const onSubmit = () => {
     modalTitle="Filtry wyszukiwania zgłoszenia serwisowego"
   >
     <form v-on:submit.prevent="onSubmit">
-      <TextInput
-        id="ticketId"
-        label="Numer zgłoszenia"
-        inputType="number"
-        v-model="ticketId"
-      />
       <TextInput id="barcode" label="Kod kreskowy" v-model="barcode" />
       <TextInput
         id="waybill"

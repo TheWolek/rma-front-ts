@@ -61,9 +61,6 @@ const clearFail = () => {
         :disabled="!changeShelveForm.active"
       />
     </td>
-    <td></td>
-    <td></td>
-    <td></td>
   </tr>
 </template>
 <style scoped>

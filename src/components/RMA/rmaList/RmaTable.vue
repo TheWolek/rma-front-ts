@@ -16,7 +16,7 @@ const { rmaList, loadingRmaList } = storeToRefs(store);
     <table>
       <tr>
         <th id="checkboxCol"></th>
-        <th id="ticketIdCol">ID zgłoszenia</th>
+        <th id="ticketIdCol">Kod kreskowy</th>
         <th id="catCol">kategoria</th>
         <th id="modelCol">model</th>
         <th id="statusCol">status</th>
@@ -41,7 +41,7 @@ table,
   width: 4%;
 }
 #ticketIdCol {
-  width: 9%;
+  width: 15%;
 }
 #catCol {
   width: 14%;

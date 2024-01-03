@@ -33,6 +33,7 @@ export interface Filter {
 
 export interface Ticket {
   ticket_id: number;
+  barcode: string;
   device_cat: string;
   device_name: string;
   device_producer: string;

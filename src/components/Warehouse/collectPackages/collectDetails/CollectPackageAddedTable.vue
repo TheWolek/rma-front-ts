@@ -11,7 +11,6 @@ const { collectItems } = storeToRefs(store);
   <table>
     <tr>
       <th>Nr listu</th>
-      <th>Kod kreskowy</th>
       <th>Numer RMA</th>
     </tr>
     <PackageRow v-for="item in collectItems" :key="item.waybill" :item="item" />

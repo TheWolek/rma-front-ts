@@ -6,6 +6,7 @@ export interface CreateNewItemData {
 export interface ItemRow {
   item_id: number;
   ticket_id: number;
+  barcode: string;
   category: string;
   name: string;
   shelve: number;
@@ -42,4 +43,5 @@ export interface ChangeItemShelveData {
 export interface RemoveItemData {
   barcode: string;
   shelve: number;
+  ticket_id: number;
 }

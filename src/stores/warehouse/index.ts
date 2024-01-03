@@ -114,12 +114,9 @@ export const useWarehouseStore = defineStore("Warehouse", {
         );
 
         if (response.status === 200) {
-          const temp: string[] = [];
-          response.data.forEach((item: ItemRow) => {
-            const barcode = `${item.ticket_id}-${item.name}-${item.category}`;
-            temp.push(barcode);
-          });
-          this.changeShelveAllowedItems = temp;
+          this.changeShelveAllowedItems = response.data.map(
+            (item: ItemRow) => item.barcode
+          );
           this.changeShelveFetching = false;
         }
       } catch (error) {
