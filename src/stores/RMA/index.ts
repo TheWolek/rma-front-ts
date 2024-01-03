@@ -232,7 +232,7 @@ export const useRmaStore = defineStore("RMA", {
 
       filters.forEach((filter) => {
         if (filter.name === "zgłoszenie") {
-          url += `ticketId=${filter.value}`;
+          url += `barcode=${filter.value}`;
           q++;
         }
         if (filter.name === "list") {
