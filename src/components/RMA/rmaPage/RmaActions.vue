@@ -16,6 +16,7 @@ const {
   rmaPage,
   shipmentModalActive,
   processModalActive,
+  historyModalActive,
 } = storeToRefs(store);
 const loading = ref(false);
 
@@ -100,7 +101,7 @@ const toggleProcessModal = () => {
 };
 
 const toggleHistoryModal = () => {
-  console.log("to do history");
+  historyModalActive.value = !historyModalActive.value;
 };
 </script>
 <template>

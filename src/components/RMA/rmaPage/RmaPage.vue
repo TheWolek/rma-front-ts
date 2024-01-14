@@ -14,6 +14,7 @@ import ShipmentDataSection from "./ShipmentDataSection.vue";
 import RmaActions from "./RmaActions.vue";
 import ShipmentModal from "./modals/shipment/ShipmentModal.vue";
 import LoadingDots from "@/components/parts/LoadingDots.vue";
+import HistoryModal from "./modals/history/HistoryModal.vue";
 
 const route = useRoute();
 const store = useRmaStore();
@@ -45,6 +46,7 @@ onMounted(async () => {
   );
   await store.fetchTicketAccessories(Number(route.params.id));
   await store.fetchTicketWaybills(Number(route.params.id));
+  await store.fetchTicketHistory(Number(route.params.id));
 
   loadingRmaPage.value = false;
 });
@@ -56,6 +58,7 @@ onMounted(async () => {
     </div>
     <div v-if="!loadingRmaPage">
       <ShipmentModal />
+      <HistoryModal />
       <RmaActions />
       <div class="rmaPage_wrap">
         <RmaHeader />

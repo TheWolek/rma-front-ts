@@ -55,6 +55,8 @@ export const useRmaStore = defineStore("RMA", {
     },
     loadingRmaList: false,
     rmaList: [] as Ticket[],
+    historyModalActive: false,
+    history: [],
   }),
   getters: {
     getActiveFilters(): Filter[] {
@@ -117,6 +119,7 @@ export const useRmaStore = defineStore("RMA", {
             waybillNumber: data.waybill_number,
             type: data.type,
             status: data.status,
+            ticketId: data.ticket_id,
           }
         );
 
@@ -126,6 +129,14 @@ export const useRmaStore = defineStore("RMA", {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    async fetchTicketHistory(ticketId: number) {
+      const response = await axiosInstance(true).get(
+        `${endpoints.logs}/${ticketId}`
+      );
+
+      this.history = response.data;
     },
 
     toggleModal_editWaybill(newState: boolean, editData?: Waybill) {

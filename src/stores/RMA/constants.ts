@@ -47,3 +47,13 @@ export interface ChangeTicketStatusData {
   ticketId: number;
   status: number;
 }
+
+export interface HistoryRow {
+  action: string;
+  log: string;
+  created: Date | string;
+  log_id: number;
+  login: string;
+  user_id: number;
+  ticket_id: number;
+}
