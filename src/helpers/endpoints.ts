@@ -1,5 +1,7 @@
 export default {
   login: "auth/login",
+  createUser: "auth/register",
+  users: "users",
   rmaDictionaryDamageTypes: "rma/dictionary/getDict/damages",
   rmaDictionaryAccessoriesTypes: "rma/dictionary/getDict/accessories",
   rmaDictionaryStatusesTypes: "rma/dictionary/getDict/statuses",

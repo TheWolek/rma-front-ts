@@ -16,6 +16,9 @@ import CollectPackageView from "@/views/Warehouse/CollectPackages/CollectPackage
 import CollectPackagesCreateView from "@/views/Warehouse/CollectPackages/CollectPackagesCreateView.vue";
 import CollectPackagesListView from "@/views/Warehouse/CollectPackages/CollectPackagesListView.vue";
 import TaskMoveView from "@/views/Warehouse/Tasks/TaskMoveView.vue";
+import AdminView from "@/views/Admin/AdminView.vue";
+import AdminUsersView from "@/views/Admin/AdminUsersView.vue";
+import AdminUserDetailsView from "@/views/Admin/AdminUserDetailsView.vue";
 import decodeToken from "@/helpers/decodeToken";
 
 declare module "vue-router" {
@@ -31,6 +34,7 @@ const rmaAddRoles = ["Admin", "CC", "TECH"];
 const dictionaryRoles = ["Admin"];
 const warehouseRoles = ["Admin", "LS", "TECH"];
 const warehouseLSRoles = ["Admin", "LS"];
+const adminRoles = ["Admin"];
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -45,6 +49,41 @@ const routes: Array<RouteRecordRaw> = [
     path: "/logowanie",
     name: "login",
     component: LoginPage,
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: AdminView,
+    meta: {
+      requiresAuth: true,
+      requiredRole: adminRoles,
+    },
+    children: [
+      {
+        path: "users",
+        name: "usersList",
+        components: {
+          default: AdminView,
+          innerView: AdminUsersView,
+        },
+        meta: {
+          requiresAuth: true,
+          requiredRole: adminRoles,
+        },
+      },
+      {
+        path: "users/:id",
+        name: "userDetails",
+        components: {
+          default: AdminView,
+          innerView: AdminUserDetailsView,
+        },
+        meta: {
+          requiresAuth: true,
+          requiredRole: adminRoles,
+        },
+      },
+    ],
   },
   {
     path: "/rma",

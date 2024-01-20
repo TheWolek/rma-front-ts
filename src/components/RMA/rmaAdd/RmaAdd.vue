@@ -7,7 +7,7 @@ import SubmitButton from "@/components/parts/buttons/SubmitButton.vue";
 import SelectInput from "@/components/parts/inputs/SelectInput.vue";
 import CheckboxGroup from "@/components/parts/inputs/CheckBoxGroup.vue";
 import axiosInstance from "@/helpers/axiosInstance";
-import ednpoints from "@/helpers/endpoints";
+import endpoints from "@/helpers/endpoints";
 import validation from "./validation";
 
 const store = useDictionaryStore();
@@ -57,7 +57,7 @@ async function onSubmit() {
   clearErrors();
   if (validate()) {
     const response = await axiosInstance().post(
-      ednpoints.rmaCreate,
+      endpoints.rmaCreate,
       toRaw(formData.value)
     );
     router.push({

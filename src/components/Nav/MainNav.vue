@@ -5,6 +5,7 @@ import { RouterLink } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import ActionButton from "../parts/buttons/ActionButton.vue";
 import router from "@/router";
+import AccountBadge from "./AccountBadge.vue";
 
 const store = useUserStore();
 const { isLoggedIn, userRole } = storeToRefs(store);
@@ -37,14 +38,19 @@ const logoutAction = () => {
       <RouterLink v-if="rmaAvailable" to="/rma">RMA</RouterLink>
       <RouterLink v-if="warehouseAvailable" to="/warehouse">Magazyn</RouterLink>
     </nav>
-    <div class="logout" v-if="isLoggedIn">
+    <div class="account" v-if="isLoggedIn">
+      <AccountBadge />
       <ActionButton display="Wyloguj" :event="logoutAction" />
+      <RouterLink to="/admin">
+        <ActionButton display="Admin Panel" />
+      </RouterLink>
     </div>
   </div>
 </template>
 <style>
-.logout {
+.account {
   display: flex;
   align-items: center;
+  gap: 25px;
 }
 </style>
