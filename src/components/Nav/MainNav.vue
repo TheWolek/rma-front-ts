@@ -17,12 +17,19 @@ const rmaAvailable = computed(
     "TECH" === userRole.value ||
     "LS" === userRole.value
 );
+
 const warehouseModuleActive =
   JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE) || false;
 const warehouseAvailable = computed(
   () =>
     warehouseModuleActive &&
     ("Admin" === userRole.value || "LS" === userRole.value)
+);
+
+const adminPanelModuleActive =
+  JSON.parse(process.env.VUE_APP_MODULE_ADMIN) || false;
+const adminPanelAvailable = computed(
+  () => adminPanelModuleActive && "Admin" === userRole.value
 );
 
 const logoutAction = () => {
@@ -41,7 +48,7 @@ const logoutAction = () => {
     <div class="account" v-if="isLoggedIn">
       <AccountBadge />
       <ActionButton display="Wyloguj" :event="logoutAction" />
-      <RouterLink to="/admin">
+      <RouterLink to="/admin" v-if="adminPanelAvailable">
         <ActionButton display="Admin Panel" />
       </RouterLink>
     </div>

@@ -57,6 +57,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
       requiredRole: adminRoles,
+      requiredModule: "adminPanel",
     },
     children: [
       {
@@ -69,6 +70,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           requiresAuth: true,
           requiredRole: adminRoles,
+          requiredModule: "adminPanel",
         },
       },
       {
@@ -81,6 +83,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           requiresAuth: true,
           requiredRole: adminRoles,
+          requiredModule: "adminPanel",
         },
       },
     ],
@@ -276,9 +279,15 @@ router.beforeEach((to) => {
     JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE) || false;
   const sparepartsModuleActive =
     JSON.parse(process.env.VUE_APP_MODULE_SPAREPARTS) || false;
+  const adminPanelModuleActive =
+    JSON.parse(process.env.VUE_APP_MODULE_ADMIN) || false;
 
   if (to.meta.requiredModule) {
     if (to.meta.requiredModule === "warehouse" && !warehouseModuleActive) {
+      return "/";
+    }
+
+    if (to.meta.requiredModule === "adminPanel" && !adminPanelModuleActive) {
       return "/";
     }
 
