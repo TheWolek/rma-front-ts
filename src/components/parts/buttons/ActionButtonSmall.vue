@@ -26,16 +26,5 @@ function getIcon() {
   </button>
 </template>
 <style scoped>
-.actionBtn.small {
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
-.actionBtn.small img {
-  width: 14px;
-}
-
-.actionBtn.small:nth-child(1) {
-  width: 74px;
-}
+@import "../../../assets/styles/actionButton.scss";
 </style>

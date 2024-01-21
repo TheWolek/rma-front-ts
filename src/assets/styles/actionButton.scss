@@ -1,0 +1,62 @@
+.actionBtn {
+  background-color: rgb(205, 206, 207);
+  outline: none;
+  border: none;
+  color: var(--vt-c-black-mute);
+  font-weight: bold;
+  transition: background-color 0.2s ease-out;
+  padding: 0.2em 0.5em;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  height: 28px;
+  font-family: "Segoe UI";
+  font-size: 0.85rem;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(195, 196, 197);
+  }
+
+  &.disabled {
+    color: var(--vt-c-gray);
+
+    &:hover {
+      cursor: not-allowed;
+    }
+
+    img {
+      filter: contrast(0.3);
+    }
+  }
+
+  &.small {
+    font-size: 13px;
+    font-weight: 700;
+
+    &:nth-child(1) {
+      width: 74px;
+    }
+
+    img {
+      width: 14px;
+    }
+  }
+
+  img {
+    width: 20px;
+  }
+
+  .addImg {
+    width: 15px;
+  }
+
+  .saveImg {
+    width: 17px;
+  }
+
+  .searchImg {
+    width: 17px;
+  }
+}

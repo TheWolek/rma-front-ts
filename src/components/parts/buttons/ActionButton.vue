@@ -19,3 +19,6 @@ const getIcon = computed(() => require(`../../../assets/${props.icon}`));
     <img v-if="icon" :src="getIcon" /> {{ display }}
   </button>
 </template>
+<style scoped lang="scss">
+@import "../../../assets/styles/actionButton.scss";
+</style>
