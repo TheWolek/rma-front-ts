@@ -152,13 +152,6 @@ select {
   width: 100%;
 }
 
-form input[type="submit"] {
-  background: rgb(21, 129, 230);
-  color: #fff;
-  border: 0;
-  padding: 0.6em;
-}
-
 .messageWrap {
   min-height: 50px;
 }

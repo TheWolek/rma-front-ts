@@ -15,12 +15,6 @@ form label {
   color: var(--vt-c-black-mute)
 }
 
-form input[type="submit"] {
-  margin-top: .3em;
-  width: 40%;
-  cursor: pointer;
-}
-
 form select,
 form input[type="date"],
 form input[type="number"] {

@@ -108,12 +108,8 @@ const onBack = () => {
   justify-content: center;
 }
 
-input[type="submit"] {
+.submitButton {
   width: 100px;
-  outline: none;
-  border: none;
-  background-color: rgb(21, 129, 230);
-  color: #fff;
 }
 
 input[type="checkbox"] {

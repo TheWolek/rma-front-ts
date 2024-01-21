@@ -353,14 +353,8 @@ p.error.err_issue {
   bottom: -22px;
 }
 
-input[type="submit"] {
-  background: rgb(21, 129, 230);
-  color: #fff;
-  border: 0px;
-  padding: 0.5em;
-  margin-top: 2.3em;
-  grid-row: 3;
-  width: 25%;
+.submitButton {
+  margin-top: 12px;
 }
 
 textarea {

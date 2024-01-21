@@ -161,14 +161,6 @@ const handleSubmitResetPassword = async () => {
   padding-top: 40px;
 }
 
-.loginWrap form input[type="submit"] {
-  background: rgb(21, 129, 230);
-  color: #fff;
-  border: 0;
-  padding: 0.6em;
-  width: 50%;
-}
-
 .loginWrap .formError {
   position: absolute;
   top: 4px;

@@ -54,7 +54,7 @@ const onSubmit = async () => {
   width: 40%;
 }
 
-input[type="submit"] {
+.submitButton {
   width: 150px;
 }
 </style>
