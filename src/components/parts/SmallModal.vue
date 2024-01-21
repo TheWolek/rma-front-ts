@@ -23,7 +23,5 @@ defineProps({
   </div>
 </template>
 <style>
-.smallModal .form-group {
-  width: 100%;
-}
+@import "../../assets/styles/smallModal.scss";
 </style>
