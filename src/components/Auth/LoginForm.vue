@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue";
-// import Cookies from "js-cookie";
 import router from "@/router";
 import { useUserStore } from "@/stores/user";
 import TextInput from "../parts/inputs/TextInput.vue";
@@ -15,8 +14,12 @@ const login = ref("");
 const password = ref("");
 const error = ref("");
 const loading = ref(false);
+const changePasswordFormActive = ref(false);
+const newPassword = ref("");
+const repeatPassword = ref("");
+const error_newPassword = ref("");
 
-async function handleSubmit() {
+const handleSubmit = async () => {
   const data = {
     login: login.value,
     password: password.value,
@@ -27,20 +30,57 @@ async function handleSubmit() {
 
     if (result.status === 400) {
       loading.value = false;
-      return (error.value = result.data.message);
+
+      if (result.data.message === "Zmień pierwsze hasło") {
+        changePasswordFormActive.value = true;
+        return false;
+      } else {
+        return (error.value = result.data.message);
+      }
     }
 
     if (result.status === 200) {
       loading.value = false;
       error.value = "";
-      // Cookies.set("authToken", `Bearer ${result.data.token}`);
       store.login(result.data.token);
       router.push("/");
     }
   } catch (error) {
     console.log(error);
   }
-}
+};
+
+const handleSubmitResetPassword = async () => {
+  loading.value = true;
+  error_newPassword.value = "";
+
+  if (newPassword.value !== repeatPassword.value) {
+    error_newPassword.value = "Podane hasła różnią się";
+    loading.value = false;
+    return;
+  }
+
+  const data = {
+    login: login.value,
+    password: password.value,
+    newPassword: newPassword.value,
+  };
+
+  try {
+    const response = await axiosInstance(true).put(
+      `${endpoints.changePassword}`,
+      data
+    );
+
+    if (response.status === 200) {
+      loading.value = false;
+      store.login(response.data.token);
+      router.push("/");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>
 <template>
   <div class="loginWrap">
@@ -49,7 +89,7 @@ async function handleSubmit() {
     </div>
     <div class="content">
       <h1>System RMA</h1>
-      <form @submit.prevent="handleSubmit">
+      <form @submit.prevent="handleSubmit" v-if="!changePasswordFormActive">
         <p class="formError" :class="{ active: error }">
           {{ error }}
         </p>
@@ -61,6 +101,25 @@ async function handleSubmit() {
           v-model="password"
         />
         <SubmitButton label="Zaloguj się" />
+      </form>
+      <form
+        @submit.prevent="handleSubmitResetPassword"
+        v-if="changePasswordFormActive"
+      >
+        <TextInput
+          id="newPassword"
+          inputType="password"
+          label="Nowe hasło"
+          v-model="newPassword"
+        />
+        <TextInput
+          id="repeatPassword"
+          inputType="password"
+          label="Powtórz nowe hasło"
+          v-model="repeatPassword"
+          :error="error_newPassword"
+        />
+        <SubmitButton labe="Zmień hasło i zaloguj się" />
       </form>
     </div>
   </div>
