@@ -39,7 +39,9 @@ const deleteFilter = () => {
     </div>
   </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
+@import "../../../assets/styles/filters.scss";
+
 .filter {
   display: flex;
 }

@@ -1,0 +1,30 @@
+.filterWrap {
+  display: flex;
+  gap: 12px;
+  opacity: 0;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+.filterChip {
+  padding: 2px 4px 2px 8px;
+  border: 1px solid rgb(85, 85, 85);
+  color: var(--vt-c-black-mute);
+  border-radius: 5px;
+  font-size: 13px;
+  transition: 0.1s all ease-out;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+    background: rgba(235, 235, 235, 0.8);
+  }
+
+  img {
+    width: 15px;
+  }
+}

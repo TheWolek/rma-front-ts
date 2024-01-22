@@ -19,7 +19,6 @@ onMounted(() => {
 
 <style lang="scss">
 @import "@/assets/styles/base.css";
-@import "@/assets/styles/filters.css";
 
 #app {
   margin: 0;
