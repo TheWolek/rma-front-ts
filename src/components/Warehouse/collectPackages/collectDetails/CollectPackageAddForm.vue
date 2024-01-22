@@ -31,9 +31,10 @@ const onSubmit = async () => {
     />
   </form>
 </template>
-<style scoped>
-.form-group {
-  width: 45%;
+<style scoped lang="scss">
+@import "../../../../assets/styles/form.scss";
+form {
+  width: 25%;
   padding-bottom: 20px;
 }
 </style>

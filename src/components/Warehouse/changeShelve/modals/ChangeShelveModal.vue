@@ -112,3 +112,14 @@ const handleSubmit = async () => {
     </form>
   </BigModal>
 </template>
+<style scoped lang="scss">
+@import "../../../../assets/styles/form.scss";
+
+form {
+  width: 50%;
+
+  .submitButton {
+    width: 150px;
+  }
+}
+</style>

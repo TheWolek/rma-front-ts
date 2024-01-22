@@ -306,63 +306,63 @@ function formatPostCode() {
     </form>
   </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
+@import "../../../assets/styles/form.scss";
+
 form {
   display: grid;
   width: 90%;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 0.95fr 1fr;
   padding: 1em 2em 0 2em;
-}
+  gap: 12px 32px;
 
-.owner,
-.device {
-  width: 100%;
-}
+  .submitButton {
+    width: 150px;
+    margin-top: 12px;
+  }
 
-.ticket {
-  grid-column: 3;
-}
+  .owner,
+  .device {
+    width: 100%;
+  }
 
-h3 {
-  color: var(--vt-c-black-mute);
-  margin-bottom: 10px;
-  font-weight: 600;
-  font-size: 17px;
-}
+  .ticket {
+    grid-column: 3;
+  }
 
-.form-group {
-  width: 100%;
-}
+  h3 {
+    color: var(--vt-c-black-mute);
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 17px;
+  }
 
-input[type="radio"] {
-  width: auto;
-  margin-right: 0.5em;
-}
+  input[type="radio"] {
+    width: auto;
+    margin-right: 0.5em;
+  }
 
-input {
-  position: relative;
-}
+  input {
+    position: relative;
+  }
 
-.radioLabel {
-  cursor: pointer;
-  width: fit-content;
-}
+  .radioLabel {
+    cursor: pointer;
+    width: fit-content;
+  }
 
-p.error.err_issue {
-  bottom: -22px;
-}
+  p.error.err_issue {
+    bottom: -22px;
+  }
 
-.submitButton {
-  margin-top: 12px;
-}
+  textarea {
+    width: 90%;
+  }
 
-textarea {
-  width: 90%;
-}
-
-input.error_input,
-textarea.error_input {
-  border: 2px solid #e90202;
+  input.error_input,
+  textarea.error_input {
+    border: 2px solid #e90202;
+  }
 }
 </style>

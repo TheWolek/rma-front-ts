@@ -28,9 +28,14 @@ const { changeShelveForm } = storeToRefs(store);
     </div>
   </form>
 </template>
-<style scoped>
-form#changeShelveForm {
+<style scoped lang="scss">
+#changeShelveForm {
   padding: 0;
   width: 90%;
+}
+
+.topBar {
+  display: flex;
+  gap: 2em;
 }
 </style>

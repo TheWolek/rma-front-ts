@@ -110,7 +110,7 @@ const onSubmit = () => {
         </option>
       </SelectInput>
 
-      <SelectInput id="type" label="Typ zgłoszenia" v-model="type">
+      <SelectInput class="test" id="type" label="Typ zgłoszenia" v-model="type">
         <option value="" selected disabled hidden>Wybierz typ</option>
         <option value="1">gwarancja</option>
         <option value="2">płatne</option>
@@ -126,16 +126,26 @@ const onSubmit = () => {
     </form>
   </BigModal>
 </template>
-<style scoped>
-p.error {
-  opacity: 0;
-  line-height: 20px;
-  height: 20px;
-  font-size: 13px;
-  color: red;
-}
+<style scoped lang="scss">
+@import "../../../../assets/styles/form.scss";
 
-p.error.active {
-  opacity: 1;
+form {
+  width: 50%;
+
+  .submitButton {
+    width: 150px;
+  }
+
+  p.error {
+    opacity: 0;
+    line-height: 20px;
+    height: 20px;
+    font-size: 13px;
+    color: red;
+  }
+
+  p.error.active {
+    opacity: 1;
+  }
 }
 </style>

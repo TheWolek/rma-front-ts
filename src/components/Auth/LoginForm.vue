@@ -125,6 +125,8 @@ const handleSubmitResetPassword = async () => {
   </div>
 </template>
 <style>
+@import "../../assets/styles/form.scss";
+
 .loginWrap .loadingWrap.active {
   background: rgba(85, 85, 85, 0.15);
 }
@@ -148,12 +150,6 @@ const handleSubmitResetPassword = async () => {
   font-weight: bold;
   font-size: 1.7rem !important;
   margin-left: 1.1em;
-}
-
-.loginWrap .form-group,
-.loginWrap input,
-.loginWrap form {
-  width: 100% !important;
 }
 
 .loginWrap form {

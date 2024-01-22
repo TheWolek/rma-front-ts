@@ -45,16 +45,16 @@ const onSubmit = async () => {
     </form>
   </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
+@import "../../../../assets/styles/form.scss";
+
 .warehouseAddCollectPackages_wrap {
   padding: 0.5em;
 }
-
-.form-group {
-  width: 40%;
-}
-
-.submitButton {
-  width: 150px;
+form {
+  width: 25%;
+  .submitButton {
+    width: 150px;
+  }
 }
 </style>

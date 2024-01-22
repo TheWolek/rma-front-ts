@@ -32,6 +32,7 @@ function onChange(event) {
     <label :for="id">{{ label }}</label>
     <div>
       <select
+        class="selectField"
         :id="id"
         :value="modelValue"
         @change="onChange"
@@ -50,8 +51,9 @@ function onChange(event) {
     </div>
   </div>
 </template>
-<style scoped>
-select {
+<style scoped lang="scss">
+.selectField {
   padding: 0.35em;
+  width: 100%;
 }
 </style>

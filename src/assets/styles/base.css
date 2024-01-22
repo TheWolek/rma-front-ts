@@ -97,3 +97,7 @@ p.error {
 p.error.active {
   opacity: 1;
 }
+
+label {
+  color: var(--vt-c-black-mute);
+}

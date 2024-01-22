@@ -49,7 +49,7 @@ function changeShelve() {
         :options="getAccessoriesTypes"
         :disabledAll="!editMode"
       />
-      <div class="form-group">
+      <div class="form-group damageType">
         <SelectInput
           id="damageType"
           label="Stan urządzenia"
@@ -94,3 +94,8 @@ function changeShelve() {
     </div>
   </div>
 </template>
+<style scoped>
+.damageType {
+  width: 245px;
+}
+</style>

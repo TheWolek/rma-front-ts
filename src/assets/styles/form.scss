@@ -1,0 +1,65 @@
+form {
+  padding: 1em 2em;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  label {
+    color: var(--vt-c-black-mute);
+  }
+
+  textarea {
+    resize: none;
+    font-size: 14px;
+  }
+
+  select,
+  input[type="date"],
+  input[type="number"] {
+    padding: 0.35em;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+    margin-bottom: 15px;
+
+    label {
+      margin-left: 0.5em;
+    }
+  }
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input {
+  padding: 0.35em 0;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"] {
+  width: 100%;
+  padding-left: 0.5em;
+}
+
+input:disabled,
+select:disabled,
+select:disabled option,
+textarea:disabled {
+  background: rgb(209 209 209);
+  border: 1px solid #000;
+  color: var(--vt-c-black-mute);
+  cursor: not-allowed;
+}
+
+input:disabled:hover,
+select:disabled:hover,
+textarea:disabled:hover {
+  cursor: not-allowed;
+}
