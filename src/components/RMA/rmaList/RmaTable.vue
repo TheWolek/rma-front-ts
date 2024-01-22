@@ -33,7 +33,7 @@ const { rmaList, loadingRmaList } = storeToRefs(store);
   </div>
 </template>
 <style scoped lang="scss">
-@import "../../../assets/styles/table.scss";
+@import "@/assets/styles/table.scss";
 table,
 .loadingWrap {
   width: 70%;

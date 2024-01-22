@@ -28,7 +28,7 @@ const { collectList, loadingCollectList } = storeToRefs(store);
   </div>
 </template>
 <style scoped lang="scss">
-@import "../../../../assets/styles/table.scss";
+@import "@/assets/styles/table.scss";
 
 table tr th:nth-of-type(1) {
   width: 40px;

@@ -34,5 +34,5 @@ const onRefresh = () => {
   </div>
 </template>
 <style scoped lang="scss">
-@import "../../../assets/styles/actions.scss";
+@import "@/assets/styles/actions.scss";
 </style>

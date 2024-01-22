@@ -19,7 +19,7 @@ const removeItem = () => {
   </tr>
 </template>
 <style scoped lang="scss">
-@import "../../../assets/styles/table.scss";
+@import "@/assets/styles/table.scss";
 
 td .deleteIcon {
   display: block;

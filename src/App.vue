@@ -18,7 +18,7 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/base.css";
+@import "@/assets/styles/base.scss";
 
 #app {
   margin: 0;

@@ -34,5 +34,5 @@ const props = defineProps({
   </tr>
 </template>
 <style scoped lang="scss">
-@import "../../../assets/styles/table.scss";
+@import "@/assets/styles/table.scss";
 </style>

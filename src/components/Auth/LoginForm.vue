@@ -125,7 +125,8 @@ const handleSubmitResetPassword = async () => {
   </div>
 </template>
 <style>
-@import "../../assets/styles/form.scss";
+@import "@/assets/styles/form.scss";
+@import "@/assets/styles/table.scss";
 
 .loginWrap .loadingWrap.active {
   background: rgba(85, 85, 85, 0.15);

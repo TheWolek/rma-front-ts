@@ -32,7 +32,7 @@ const clearAllFilters = () => {
   </div>
 </template>
 <style scoped lang="scss">
-@import "../../../assets/styles/filters.scss";
+@import "@/assets/styles/filters.scss";
 
 .filterWrap {
   opacity: 1;

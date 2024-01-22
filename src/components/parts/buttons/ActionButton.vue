@@ -20,5 +20,5 @@ const getIcon = computed(() => require(`../../../assets/${props.icon}`));
   </button>
 </template>
 <style scoped lang="scss">
-@import "../../../assets/styles/actionButton.scss";
+@import "@/assets/styles/actionButton.scss";
 </style>

@@ -42,7 +42,7 @@ function onClick() {
   </tr>
 </template>
 <style scoped lang="scss">
-@import "../../../assets/styles/table.scss";
+@import "@/assets/styles/table.scss";
 
 td {
   height: 42px;

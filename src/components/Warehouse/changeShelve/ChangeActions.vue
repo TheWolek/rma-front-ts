@@ -56,7 +56,7 @@ const cancel = () => {
   </div>
 </template>
 <style scoped lang="scss">
-@import "../../../assets/styles/actions.scss";
+@import "@/assets/styles/actions.scss";
 
 #changeShelveResponse-msg {
   font-size: 1em;

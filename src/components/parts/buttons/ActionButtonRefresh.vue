@@ -13,7 +13,7 @@ defineProps({
   </button>
 </template>
 <style scoped lang="scss">
-@import "../../../assets/styles/actionButton.scss";
+@import "@/assets/styles/actionButton.scss";
 .refreshBtn {
   &:hover img {
     transform: rotate(90deg);

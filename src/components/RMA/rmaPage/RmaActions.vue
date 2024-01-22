@@ -218,5 +218,5 @@ const toggleHistoryModal = () => {
   </div>
 </template>
 <style scoped lang="scss">
-@import "../../../assets/styles/actions.scss";
+@import "@/assets/styles/actions.scss";
 </style>

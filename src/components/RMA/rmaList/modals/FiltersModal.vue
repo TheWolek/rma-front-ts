@@ -127,7 +127,7 @@ const onSubmit = () => {
   </BigModal>
 </template>
 <style scoped lang="scss">
-@import "../../../../assets/styles/form.scss";
+@import "@/assets/styles/form.scss";
 
 form {
   width: 50%;

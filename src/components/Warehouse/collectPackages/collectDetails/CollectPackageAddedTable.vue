@@ -17,5 +17,5 @@ const { collectItems } = storeToRefs(store);
   </table>
 </template>
 <style scoped lang="scss">
-@import "../../../../assets/styles/table.scss";
+@import "@/assets/styles/table.scss";
 </style>

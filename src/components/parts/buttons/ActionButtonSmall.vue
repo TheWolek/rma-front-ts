@@ -26,5 +26,5 @@ function getIcon() {
   </button>
 </template>
 <style scoped>
-@import "../../../assets/styles/actionButton.scss";
+@import "@/assets/styles/actionButton.scss";
 </style>

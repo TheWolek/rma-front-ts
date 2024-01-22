@@ -22,7 +22,7 @@ const getDate = computed(() => formatDateAndHours(props.item.created));
   </tr>
 </template>
 <style scoped lang="scss">
-@import "../../../../assets/styles/table.scss";
+@import "@/assets/styles/table.scss";
 
 table tr td:nth-of-type(1) {
   width: 40px;

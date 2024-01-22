@@ -31,7 +31,7 @@ const { loadingItemsList, itemsList } = storeToRefs(store);
   </div>
 </template>
 <style scoped lang="scss">
-@import "../../../assets/styles/table.scss";
+@import "@/assets/styles/table.scss";
 
 .itemsTable table tr th,
 .itemsTable table tr td {

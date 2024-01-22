@@ -307,7 +307,7 @@ function formatPostCode() {
   </div>
 </template>
 <style scoped lang="scss">
-@import "../../../assets/styles/form.scss";
+@import "@/assets/styles/form.scss";
 
 form {
   display: grid;

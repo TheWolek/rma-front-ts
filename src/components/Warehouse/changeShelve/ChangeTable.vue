@@ -23,7 +23,7 @@ const { changeShelveItems } = storeToRefs(store);
   </table>
 </template>
 <style scoped lang="scss">
-@import "../../../assets/styles/table.scss";
+@import "@/assets/styles/table.scss";
 
 table#changeShelve tr th:nth-child(1),
 table#changeShelve tr td:nth-child(1) {

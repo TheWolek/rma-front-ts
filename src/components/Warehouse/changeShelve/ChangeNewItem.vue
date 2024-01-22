@@ -64,7 +64,7 @@ const clearFail = () => {
   </tr>
 </template>
 <style scoped lang="scss">
-@import "../../../assets/styles/table.scss";
+@import "@/assets/styles/table.scss";
 td.addInput {
   padding: 0.2em 0;
   position: relative;
