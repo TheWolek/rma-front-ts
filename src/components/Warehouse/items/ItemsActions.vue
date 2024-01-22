@@ -39,12 +39,9 @@ const onRefresh = () => {
 <style scoped lang="scss">
 @import "@/assets/styles/actions.scss";
 
-form {
-  width: 100%;
-}
-
-.inlineEdit:nth-of-type(1) {
-  width: 25%;
+.inlineEdit:nth-of-type(1),
+.inlineEdit:nth-of-type(2) {
+  width: 400px;
 }
 
 .inlineEdit + .inlineEdit {
