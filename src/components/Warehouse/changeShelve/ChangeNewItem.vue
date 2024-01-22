@@ -63,35 +63,36 @@ const clearFail = () => {
     </td>
   </tr>
 </template>
-<style scoped>
-input#addInput {
-  width: 100% !important;
-}
-
+<style scoped lang="scss">
+@import "../../../assets/styles/table.scss";
 td.addInput {
   padding: 0.2em 0;
   position: relative;
+
+  &::after {
+    content: attr(data-after);
+    display: block;
+    height: 25px;
+    background: rgb(235, 97, 88);
+    position: absolute;
+    top: 2.5em;
+    left: 0.3em;
+    border-radius: 5px;
+    border: 1px solid red;
+    padding: 0 0.4em;
+    opacity: var(--changeShelve-input-error-opacity);
+  }
 }
 
-input#addInput.fail:focus,
-input#addInput.fail {
-  color: red;
-  outline: none !important;
-  border: 2px solid red;
-  box-shadow: 0 0 10px #719ece;
-}
+input#addInput {
+  width: 100%;
 
-td.addInput::after {
-  content: attr(data-after);
-  display: block;
-  height: 25px;
-  background: rgb(235, 97, 88);
-  position: absolute;
-  top: 2.5em;
-  left: 0.3em;
-  border-radius: 5px;
-  border: 1px solid red;
-  padding: 0 0.4em;
-  opacity: var(--changeShelve-input-error-opacity);
+  &.fail,
+  &.fail:focus {
+    color: red;
+    outline: none !important;
+    border: 2px solid red;
+    box-shadow: 0 0 10px #719ece;
+  }
 }
 </style>

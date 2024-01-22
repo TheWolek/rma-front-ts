@@ -41,15 +41,11 @@ function onClick() {
     </td>
   </tr>
 </template>
-<style scoped>
+<style scoped lang="scss">
+@import "../../../assets/styles/table.scss";
+
 td {
   height: 42px;
-  width: 100%;
-}
-.left {
-  text-align: left;
-  padding-right: 1em;
-  width: 2%;
 }
 .right {
   display: flex;
@@ -60,6 +56,5 @@ td {
 .actionBtn {
   margin-right: 1em;
   margin-left: 2em;
-  cursor: pointer;
 }
 </style>

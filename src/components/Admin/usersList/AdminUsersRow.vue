@@ -23,11 +23,6 @@ defineProps({
     </td>
   </tr>
 </template>
-<style scoped>
-a {
-  color: var(--vt-c-black-mute);
-  font-weight: bold;
-  display: block;
-  width: 100%;
-}
+<style scoped lang="scss">
+@import "../../../assets/styles/table.scss";
 </style>

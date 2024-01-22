@@ -32,24 +32,29 @@ const { rmaList, loadingRmaList } = storeToRefs(store);
     </table>
   </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
+@import "../../../assets/styles/table.scss";
 table,
 .loadingWrap {
   width: 70%;
 }
 #checkboxCol {
-  width: 4%;
+  width: 32px;
 }
 #ticketIdCol {
-  width: 15%;
+  width: 190px;
 }
 #catCol {
-  width: 14%;
-}
-#typeCol {
-  width: 13%;
+  width: 200px;
 }
 #statusCol {
-  width: 15%;
+  width: 180px;
+}
+#typeCol {
+  width: 100px;
+}
+#createdCol,
+#lastUpdateCol {
+  width: 130px;
 }
 </style>

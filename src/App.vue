@@ -19,7 +19,7 @@ onMounted(() => {
 
 <style lang="scss">
 @import "@/assets/styles/base.css";
-@import "@/assets/styles/table.css";
+// @import "@/assets/styles/table.css";
 @import "@/assets/styles/actions.css";
 @import "@/assets/styles/filters.css";
 // @import "@/assets/styles/form.css";

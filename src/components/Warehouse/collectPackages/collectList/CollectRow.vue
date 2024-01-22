@@ -21,13 +21,8 @@ const getDate = computed(() => formatDateAndHours(props.item.created));
     <td>{{ item.status }}</td>
   </tr>
 </template>
-<style scoped>
-a {
-  color: var(--vt-c-black-mute);
-  font-weight: bold;
-  display: block;
-  width: 100%;
-}
+<style scoped lang="scss">
+@import "../../../../assets/styles/table.scss";
 
 table tr td:nth-of-type(1) {
   width: 40px;

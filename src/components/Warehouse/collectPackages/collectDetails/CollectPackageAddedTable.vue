@@ -16,3 +16,6 @@ const { collectItems } = storeToRefs(store);
     <PackageRow v-for="item in collectItems" :key="item.waybill" :item="item" />
   </table>
 </template>
+<style scoped lang="scss">
+@import "../../../../assets/styles/table.scss";
+</style>

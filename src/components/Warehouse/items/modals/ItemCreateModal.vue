@@ -67,3 +67,12 @@ const onSubmit = () => {
     </form>
   </BigModal>
 </template>
+<style scoped lang="scss">
+form {
+  width: 50%;
+
+  .submitButton {
+    width: 150px;
+  }
+}
+</style>

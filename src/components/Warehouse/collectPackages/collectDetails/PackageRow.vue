@@ -18,10 +18,6 @@ defineProps({
     </td>
   </tr>
 </template>
-<style scoped>
-a,
-a:visited {
-  color: #000;
-  font-weight: bold;
-}
+<style scoped lang="scss">
+@import "../../../../assets/styles/table.scss";
 </style>

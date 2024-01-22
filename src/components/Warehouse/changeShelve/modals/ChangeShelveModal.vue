@@ -119,6 +119,7 @@ form {
   width: 50%;
 
   .submitButton {
+    margin-top: 24px;
     width: 150px;
   }
 }

@@ -146,36 +146,40 @@ const onSubmit = async () => {
     </div>
   </BigModal>
 </template>
-<style scoped>
-.form-group,
-select {
-  width: 100%;
-}
+<style scoped lang="scss">
+@import "../../../../assets/styles/form.scss";
 
-.messageWrap {
-  min-height: 50px;
-}
+form {
+  width: 50%;
 
-.formMessage {
-  display: none;
-  border-radius: 5px;
-  padding: 0.3em;
-  color: #000;
-  text-transform: none;
-}
+  .submitButton {
+    width: 150px;
+  }
+  .messageWrap {
+    min-height: 50px;
 
-.formMessage.active {
-  display: block;
-  margin-bottom: 12px;
-}
+    .formMessage {
+      display: none;
+      border-radius: 5px;
+      padding: 0.3em;
+      color: #000;
+      text-transform: none;
 
-.formMessage.fail {
-  background-color: rgb(238, 130, 130);
-  border: 2px solid #f00;
-}
+      &.active {
+        display: block;
+        margin-bottom: 12px;
+      }
 
-.formMessage.succ {
-  background-color: rgb(130, 238, 184);
-  border: 2px solid rgb(0, 167, 97);
+      &.fail {
+        background-color: rgb(238, 130, 130);
+        border: 2px solid #f00;
+      }
+
+      &.succ {
+        background-color: rgb(130, 238, 184);
+        border: 2px solid rgb(0, 167, 97);
+      }
+    }
+  }
 }
 </style>

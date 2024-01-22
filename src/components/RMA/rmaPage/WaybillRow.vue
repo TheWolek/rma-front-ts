@@ -43,7 +43,9 @@ const openEditModal = (id: number) => {
     </td>
   </tr>
 </template>
-<style scoped>
+<style scoped lang="scss">
+@import "../../../assets/styles/table.scss";
+
 img {
   width: 20px;
   cursor: pointer;

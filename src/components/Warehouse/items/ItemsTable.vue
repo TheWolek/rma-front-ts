@@ -30,7 +30,9 @@ const { loadingItemsList, itemsList } = storeToRefs(store);
     </table>
   </div>
 </template>
-<style>
+<style scoped lang="scss">
+@import "../../../assets/styles/table.scss";
+
 .itemsTable table tr th,
 .itemsTable table tr td {
   padding: 0.5em 0 0.5em 0.7em;
@@ -44,7 +46,6 @@ const { loadingItemsList, itemsList } = storeToRefs(store);
 .itemsTable table tr th:nth-child(2),
 .itemsTable table tr td:nth-child(2) {
   width: 160px;
-  /* padding: 0.3em; */
 }
 
 .itemsTable table tr th:nth-child(3),

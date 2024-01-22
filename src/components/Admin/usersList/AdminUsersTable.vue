@@ -28,7 +28,9 @@ const { loadingUsersList, userList } = storeToRefs(store);
     </table>
   </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
+@import "../../../assets/styles/table.scss";
+
 table tr th:nth-child(1),
 table tr td:nth-child(1) {
   width: 170px;

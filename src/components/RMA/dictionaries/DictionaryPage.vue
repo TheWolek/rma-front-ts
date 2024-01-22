@@ -42,7 +42,6 @@ watch(route, (to) => {
     <h1>{{ displayName }}</h1>
     <DictionaryTable
       :data="store.dictionaries.find((dict) => dict.name === name)?.items"
-      :headers="['id', 'nazwa']"
       :name="name"
     />
   </div>

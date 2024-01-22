@@ -66,7 +66,7 @@ const onBack = () => {
         <b>{{ formatDateAndHours(userDetails.last_login_date) }}</b>
       </h3>
       <form @submit.prevent="onSave">
-        <div>
+        <div class="roleWrap">
           <SelectInput id="role" label="Rola" v-model="userDetails.role">
             <option value="Admin">Admin</option>
             <option value="CC">CC</option>
@@ -89,9 +89,13 @@ const onBack = () => {
     </div>
   </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
 .detailsWrap {
   padding: 16px;
+}
+
+.roleWrap {
+  width: 10%;
 }
 
 .detailsWrap form {
@@ -110,6 +114,7 @@ const onBack = () => {
 
 .submitButton {
   width: 100px;
+  margin: 12px 0;
 }
 
 input[type="checkbox"] {

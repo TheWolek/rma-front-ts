@@ -46,12 +46,8 @@ const getFormattedUpdateDate = computed(() => {
     <td>{{ getFormattedUpdateDate }}</td>
   </tr>
 </template>
-<style scoped>
-a,
-a:visited {
-  color: #000;
-  font-weight: bold;
-}
+<style scoped lang="scss">
+@import "../../../assets/styles/table.scss";
 
 tr:hover td {
   background-color: rgb(223, 223, 223);

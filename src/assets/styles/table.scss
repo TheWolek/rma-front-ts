@@ -1,0 +1,115 @@
+table {
+  position: relative;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  table-layout: fixed;
+  color: var(--vt-c-black);
+
+  a,
+  a:visited {
+    color: var(--vt-c-black-mute);
+    font-weight: bold;
+    display: block;
+    width: 100%;
+  }
+
+  td,
+  th {
+    padding: 0.3em 0 0.3em 0.7em;
+    border-right: 1px solid rgb(146, 146, 146);
+  }
+
+  th:last-of-type,
+  td:last-of-type {
+    border-right: 0px;
+  }
+
+  tr {
+    border-bottom: 1px solid #ddd;
+
+    &:nth-of-type(even) {
+      background: #f3f3f3;
+    }
+
+    &:last-of-type {
+      border-bottom: 2px solid rgb(31, 125, 212);
+    }
+  }
+
+  th {
+    text-align: left;
+    background: #dadada;
+    font-weight: bold;
+  }
+
+  .actionCell {
+    position: relative;
+
+    .burger {
+      width: 25px;
+      height: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      justify-content: center;
+      cursor: pointer;
+      margin: 0 auto;
+
+      span {
+        background: #000;
+        display: block;
+        width: 100%;
+        height: 4px;
+        border-radius: 5px;
+      }
+    }
+
+    .menu {
+      position: absolute;
+      top: 20%;
+      right: -140px;
+      width: 150px;
+      border: 1px solid rgb(9, 40, 68);
+      border-radius: 4px;
+      display: none;
+      z-index: 10;
+
+      &.active {
+        display: block;
+      }
+
+      ul li {
+        padding: 0.3em 0.5em;
+        background: rgb(25, 103, 175);
+        color: #fff;
+        transition: 0.2s ease-out;
+
+        &:hover {
+          cursor: pointer;
+          background: rgb(19, 82, 141);
+        }
+      }
+
+      ul li + li {
+        border-top: 1px solid var(--vt-c-black-mute);
+      }
+    }
+  }
+}
+
+.loadingWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+
+  &.active {
+    display: block;
+    background: rgba(85, 85, 85, 0.322);
+    z-index: 2;
+  }
+}

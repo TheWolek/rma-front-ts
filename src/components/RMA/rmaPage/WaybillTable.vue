@@ -33,12 +33,14 @@ const { waybills } = storeToRefs(store);
     />
   </table>
 </template>
-<style scoped>
+<style scoped lang="scss">
+@import "../../../assets/styles/table.scss";
+
 table {
   width: 100%;
 }
 
 .edit_col {
-  width: 6%;
+  width: 38px;
 }
 </style>
