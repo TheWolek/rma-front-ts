@@ -18,12 +18,21 @@ const onRefresh = () => {
 <template>
   <div class="actions">
     <ActionButton :event="toggleNewModal" display="Nowy" :icon="`add.svg`" />
-    <InlineEditInput
-      id="loginFilter"
-      label="Login"
-      v-model="filterLogin"
-      :disabled="false"
-    />
-    <ActionButton :event="onRefresh" display="Szukaj" />
+    <form @submit.prevent="">
+      <InlineEditInput
+        id="loginFilter"
+        label="Login"
+        v-model="filterLogin"
+        :disabled="false"
+      />
+      <ActionButton :event="onRefresh" display="Szukaj" />
+    </form>
   </div>
 </template>
+<style scoped lang="scss">
+@import "../../../assets/styles/actions.scss";
+
+form {
+  width: 500px;
+}
+</style>

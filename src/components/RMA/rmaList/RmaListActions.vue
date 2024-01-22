@@ -33,3 +33,6 @@ const onRefresh = () => {
     <ActionButtonRefresh :event="onRefresh" :loading="loadingRmaList" />
   </div>
 </template>
+<style scoped lang="scss">
+@import "../../../assets/styles/actions.scss";
+</style>

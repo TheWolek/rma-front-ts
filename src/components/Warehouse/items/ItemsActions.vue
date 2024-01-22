@@ -36,28 +36,18 @@ const onRefresh = () => {
     </form>
   </div>
 </template>
-<style>
-.actions form {
-  flex-direction: row;
-  padding: 0;
+<style scoped lang="scss">
+@import "../../../assets/styles/actions.scss";
+
+form {
   width: 100%;
 }
 
-.actions input[type="text"] {
-  width: 100%;
-}
-
-.actions .inlineEdit {
-  width: 18%;
-  align-items: center;
-  grid-template-columns: auto 1fr 0;
-}
-
-.actions .inlineEdit:nth-of-type(1) {
+.inlineEdit:nth-of-type(1) {
   width: 25%;
 }
 
-.actions .inlineEdit + .inlineEdit {
+.inlineEdit + .inlineEdit {
   margin-top: 0;
 }
 </style>
