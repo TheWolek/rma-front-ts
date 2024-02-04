@@ -55,6 +55,8 @@ export const useRmaStore = defineStore("RMA", {
     },
     loadingRmaList: false,
     rmaList: [] as Ticket[],
+    rmaListCurrentPage: 0,
+    rmaListMaxPage: 0,
     historyModalActive: false,
     history: [],
   }),
@@ -221,6 +223,8 @@ export const useRmaStore = defineStore("RMA", {
     clearAllFilters() {
       this.appliedFilter.filters = [];
       this.appliedFilter.active = false;
+      this.rmaListCurrentPage = 0;
+      this.rmaListMaxPage = 0;
     },
 
     clearFilter(filterToDelete: Filter) {
@@ -237,39 +241,27 @@ export const useRmaStore = defineStore("RMA", {
         this.loadingRmaList = false;
         return;
       }
-      let url = `${endpoints.rmaList}?`;
+      let url = `${endpoints.rmaList}?pageNumber=${this.rmaListCurrentPage}`;
       const filters: Filter[] = this.appliedFilter.filters;
-      let q = 0;
 
       filters.forEach((filter) => {
         if (filter.name === "zgłoszenie") {
-          url += `barcode=${filter.value}`;
-          q++;
+          url += `&barcode=${filter.value}`;
         }
         if (filter.name === "list") {
-          if (q > 0) url += "&";
-          url += `waybill=${filter.value}`;
-          q++;
+          url += `&waybill=${filter.value}`;
         }
         if (filter.name === "status") {
-          if (q > 0) url += "&";
-          url += `status=${filter.value}`;
-          q++;
+          url += `&status=${filter.value}`;
         }
         if (filter.name === "typ") {
-          if (q > 0) url += "&";
-          url += `type=${filter.value}`;
-          q++;
+          url += `&type=${filter.value}`;
         }
         if (filter.name === "sn") {
-          if (q > 0) url += "&";
-          url += `sn=${filter.value}`;
-          q++;
+          url += `&sn=${filter.value}`;
         }
         if (filter.name === "producent") {
-          if (q > 0) url += "&";
-          url += `deviceProducer=${filter.value}`;
-          q++;
+          url += `&deviceProducer=${filter.value}`;
         }
       });
 
@@ -277,7 +269,9 @@ export const useRmaStore = defineStore("RMA", {
         const response = await axiosInstance(true).get(url);
 
         if (response.status === 200) {
-          this.rmaList = response.data;
+          this.rmaList = response.data.items;
+          this.rmaListMaxPage = response.data.pageCount;
+          this.rmaListCurrentPage = response.data.currentPage;
         }
 
         this.loadingRmaList = false;

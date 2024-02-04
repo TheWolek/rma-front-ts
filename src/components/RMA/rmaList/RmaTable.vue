@@ -1,19 +1,43 @@
 <script setup lang="ts">
 import { useRmaStore } from "@/stores/RMA";
-import LoadingDots from "@/components/parts/LoadingDots.vue";
-import RmaRow from "./RmaRow.vue";
 import { storeToRefs } from "pinia";
+import TableWithPagination from "@/components/parts/TableWithPagination.vue";
+import RmaRow from "./RmaRow.vue";
 
 const store = useRmaStore();
 
-const { rmaList, loadingRmaList } = storeToRefs(store);
+const { rmaList, loadingRmaList, rmaListCurrentPage, rmaListMaxPage } =
+  storeToRefs(store);
+
+const changePagePrev = () => {
+  rmaListCurrentPage.value = rmaListCurrentPage.value - 1;
+
+  if (rmaListCurrentPage.value <= 0) {
+    rmaListCurrentPage.value = 1;
+  }
+
+  store.fetchTicketListByFilters();
+};
+
+const changePageNext = () => {
+  rmaListCurrentPage.value = rmaListCurrentPage.value + 1;
+
+  if (rmaListCurrentPage.value > rmaListMaxPage.value) {
+    rmaListCurrentPage.value = rmaListMaxPage.value;
+  }
+
+  store.fetchTicketListByFilters();
+};
 </script>
 <template>
-  <div class="ticketsTable">
-    <div class="loadingWrap" :class="{ active: loadingRmaList }">
-      <LoadingDots :active="loadingRmaList" />
-    </div>
-    <table>
+  <TableWithPagination
+    :pageNumber="rmaListCurrentPage"
+    :maxPage="rmaListMaxPage"
+    :onPrevPage="changePagePrev"
+    :onNextPage="changePageNext"
+    :loading="loadingRmaList"
+  >
+    <template v-slot:theader>
       <tr>
         <th id="checkboxCol"></th>
         <th id="ticketIdCol">Kod kreskowy</th>
@@ -24,16 +48,17 @@ const { rmaList, loadingRmaList } = storeToRefs(store);
         <th id="createdCol">utworzono</th>
         <th id="lastUpdateCol">ostatnia zmiana statusu</th>
       </tr>
+    </template>
+    <template v-slot:tbody>
       <RmaRow
         v-for="ticket in rmaList"
         :key="ticket.ticket_id.toString()"
         :data="ticket"
       />
-    </table>
-  </div>
+    </template>
+  </TableWithPagination>
 </template>
 <style scoped lang="scss">
-@import "@/assets/styles/table.scss";
 table,
 .loadingWrap {
   width: 70%;
@@ -45,6 +70,9 @@ table,
   width: 190px;
 }
 #catCol {
+  width: 200px;
+}
+#modelCol {
   width: 200px;
 }
 #statusCol {

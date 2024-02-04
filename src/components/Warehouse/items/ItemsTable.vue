@@ -1,79 +1,89 @@
 <script setup lang="ts">
 import { useWarehouseStore } from "@/stores/warehouse";
 import { storeToRefs } from "pinia";
-import LoadingDots from "@/components/parts/LoadingDots.vue";
+import TableWithPagination from "@/components/parts/TableWithPagination.vue";
 import ItemsRow from "./ItemsRow.vue";
 
 const store = useWarehouseStore();
-const { loadingItemsList, itemsList } = storeToRefs(store);
+const { loadingItemsList, itemsList, itemsListCurrentPage, itemsListMaxPage } =
+  storeToRefs(store);
+
+const changePagePrev = () => {
+  itemsListCurrentPage.value = itemsListCurrentPage.value - 1;
+
+  if (itemsListCurrentPage.value <= 0) {
+    itemsListCurrentPage.value = 1;
+  }
+
+  store.fetchByFilters();
+};
+
+const changePageNext = () => {
+  itemsListCurrentPage.value = itemsListCurrentPage.value + 1;
+
+  if (itemsListCurrentPage.value > itemsListMaxPage.value) {
+    itemsListCurrentPage.value = itemsListMaxPage.value;
+  }
+
+  store.fetchByFilters();
+};
 </script>
 <template>
-  <div class="itemsTable">
-    <div class="loadingWrap" :class="{ active: loadingItemsList }">
-      <LoadingDots />
-    </div>
-    <table>
+  <TableWithPagination
+    :pageNumber="itemsListCurrentPage"
+    :maxPage="itemsListMaxPage"
+    :onPrevPage="changePagePrev"
+    :onNextPage="changePageNext"
+    :loading="loadingItemsList"
+  >
+    <template v-slot:theader>
       <tr>
-        <th></th>
-        <th>Kod kreskowy</th>
-        <th>Kategoria</th>
-        <th>Model</th>
-        <th>Lokalizacja</th>
-        <th>SN</th>
-        <th>Akcje</th>
+        <th id="checkBoxCol"></th>
+        <th id="barcodeCol">Kod kreskowy</th>
+        <th id="categoryCol">Kategoria</th>
+        <th id="modelCol">Model</th>
+        <th id="shelveCol">Lokalizacja</th>
+        <th id="snCol">SN</th>
+        <th id="actionCol">Akcje</th>
       </tr>
+    </template>
+    <template v-slot:tbody>
       <ItemsRow
         v-for="item in itemsList"
         :key="item.item_id.toString()"
         :data="item"
-      />
-    </table>
-  </div>
+    /></template>
+  </TableWithPagination>
 </template>
 <style scoped lang="scss">
-@import "@/assets/styles/table.scss";
-
-.itemsTable table tr th,
-.itemsTable table tr td {
-  padding: 0.5em 0 0.5em 0.7em;
-}
-
-.itemsTable table tr th:nth-child(1),
-.itemsTable table tr td:nth-child(1) {
+#checkBoxCol {
   width: 32px;
 }
 
-.itemsTable table tr th:nth-child(2),
-.itemsTable table tr td:nth-child(2) {
+#barcodeCol {
   width: 160px;
 }
 
-.itemsTable table tr th:nth-child(3),
-.itemsTable table tr td:nth-child(3) {
+#categoryCol {
   width: 185px;
 }
 
-.itemsTable table tr th:nth-child(4),
-.itemsTable table tr td:nth-child(4) {
+#modelCol {
   width: 210px;
 }
-
-.itemsTable table tr th:nth-child(5),
-.itemsTable table tr td:nth-child(5) {
+#shelveCol {
   width: 180px;
 }
 
-.itemsTable table tr th:nth-child(6),
-.itemsTable table tr td:nth-child(6) {
+#shelveCol {
   width: 180px;
 }
 
-.itemsTable table tr th:last-of-type,
-.itemsTable table tr td:last-of-type {
+#snCol {
+  width: 200px;
+}
+
+#actionCol {
   width: 52px;
-}
-
-.itemsTable .actionCell {
-  padding: 0;
 }
 </style>

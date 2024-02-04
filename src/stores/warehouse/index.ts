@@ -21,6 +21,8 @@ export const useWarehouseStore = defineStore("Warehouse", {
       shelve: "",
     },
     itemsList: [] as ItemRow[],
+    itemsListCurrentPage: 0,
+    itemsListMaxPage: 0,
     shelves: [] as Shelve[],
     changeShelveModalActive: false,
     changeShelveForm: {
@@ -70,10 +72,10 @@ export const useWarehouseStore = defineStore("Warehouse", {
 
     async fetchByFilters() {
       this.loadingItemsList = true;
-      let query = "?";
+      let query = `?pageNumber=${this.itemsListCurrentPage}`;
 
       if (this.filters.barcode) {
-        query += `barcode=${this.filters.barcode}`;
+        query += `&barcode=${this.filters.barcode}`;
       }
 
       if (this.filters.shelve) {
@@ -82,9 +84,7 @@ export const useWarehouseStore = defineStore("Warehouse", {
         )?.shelve_id;
 
         if (shelveId !== undefined) {
-          this.filters.barcode
-            ? (query += `&shelve=${shelveId}`)
-            : (query += `shelve=${shelveId}`);
+          query += `&shelve=${shelveId}`;
         }
       }
 
@@ -94,7 +94,9 @@ export const useWarehouseStore = defineStore("Warehouse", {
         );
 
         if (response.status === 200) {
-          this.itemsList = response.data;
+          this.itemsList = response.data.items;
+          this.itemsListCurrentPage = response.data.currentPage;
+          this.itemsListMaxPage = response.data.pageCount;
           this.loadingItemsList = false;
         }
       } catch (error) {

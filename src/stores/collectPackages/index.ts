@@ -15,6 +15,8 @@ export const useCollectStore = defineStore("CollectStore", {
     collectItems: [] as CollectItem[],
     waybillError: "",
     collectList: [] as Collect[],
+    collectListCurrentPage: 0,
+    collectListMaxPage: 0,
     loadingCollectList: false,
     filter: {
       refName: "",
@@ -86,25 +88,18 @@ export const useCollectStore = defineStore("CollectStore", {
 
     async fetchCollectListByFilters() {
       this.loadingCollectList = true;
-      let query = "?";
+      let query = `?pageNumber=${this.collectListCurrentPage}`;
 
       if (this.filter.refName !== "") {
-        query += `refName=${this.filter.refName}`;
+        query += `&refName=${this.filter.refName}`;
       }
 
       if (this.filter.created !== "") {
-        if (this.filter.refName !== "") {
-          query += "&";
-        }
-        query += `created=${this.filter.created}`;
+        query += `&created=${this.filter.created}`;
       }
 
       if (this.filter.status !== null) {
-        if (this.filter.refName !== "" || this.filter.created !== "") {
-          query += "&";
-        }
-
-        query += `status=${this.filter.status}`;
+        query += `&status=${this.filter.status}`;
       }
 
       try {
@@ -113,7 +108,9 @@ export const useCollectStore = defineStore("CollectStore", {
         );
 
         if (response.status === 200) {
-          this.collectList = response.data;
+          this.collectList = response.data.items;
+          this.collectListCurrentPage = response.data.currentPage;
+          this.collectListMaxPage = response.data.pageCount;
           this.loadingCollectList = false;
         }
       } catch (error) {

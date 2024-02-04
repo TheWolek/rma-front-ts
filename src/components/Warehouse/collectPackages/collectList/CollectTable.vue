@@ -1,45 +1,73 @@
 <script setup lang="ts">
 import { useCollectStore } from "@/stores/collectPackages";
 import { storeToRefs } from "pinia";
-import LoadingDots from "@/components/parts/LoadingDots.vue";
+import TableWithPagination from "@/components/parts/TableWithPagination.vue";
 import CollectRow from "./CollectRow.vue";
 
 const store = useCollectStore();
-const { collectList, loadingCollectList } = storeToRefs(store);
+const {
+  collectList,
+  loadingCollectList,
+  collectListCurrentPage,
+  collectListMaxPage,
+} = storeToRefs(store);
+
+const changePagePrev = () => {
+  collectListCurrentPage.value = collectListCurrentPage.value - 1;
+
+  if (collectListCurrentPage.value <= 0) {
+    collectListCurrentPage.value = 1;
+  }
+
+  store.fetchCollectListByFilters();
+};
+
+const changePageNext = () => {
+  collectListCurrentPage.value = collectListCurrentPage.value + 1;
+
+  if (collectListCurrentPage.value > collectListMaxPage.value) {
+    collectListCurrentPage.value = collectListMaxPage.value;
+  }
+
+  store.fetchCollectListByFilters();
+};
 </script>
 <template>
-  <div>
-    <table>
-      <div class="loadingWrap" :class="{ active: loadingCollectList }">
-        <LoadingDots :active="loadingCollectList" />
-      </div>
+  <TableWithPagination
+    :pageNumber="collectListCurrentPage"
+    :maxPage="collectListMaxPage"
+    :onPrevPage="changePagePrev"
+    :onNextPage="changePageNext"
+    :loading="loadingCollectList"
+  >
+    <template v-slot:theader>
       <tr>
-        <th>ID</th>
-        <th>Numer zbiorczy</th>
-        <th>Data utworzenia</th>
-        <th>Status</th>
+        <th id="idCol">ID</th>
+        <th id="refNumberCol">Numer zbiorczy</th>
+        <th id="createdCol">Data utworzenia</th>
+        <th id="statusCol">Status</th>
       </tr>
+    </template>
+    <template v-slot:tbody>
       <CollectRow
         v-for="item in collectList"
         :key="item.id.toString()"
         :item="item"
       />
-    </table>
-  </div>
+    </template>
+  </TableWithPagination>
 </template>
 <style scoped lang="scss">
-@import "@/assets/styles/table.scss";
-
-table tr th:nth-of-type(1) {
+#idCol {
   width: 40px;
 }
 
-table tr th:nth-of-type(2) {
+#refNumberCol {
   width: 180px;
 }
 
-table tr th:nth-of-type(3),
-table tr th:nth-of-type(4) {
+#createdCol,
+#statusCol {
   width: 130px;
 }
 </style>
