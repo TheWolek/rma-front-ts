@@ -45,6 +45,7 @@ onMounted(async () => {
     storeDict.dictionaries.find((dict) => dict.name === "resultTypes")
   );
   await store.fetchTicketAccessories(Number(route.params.id));
+  await store.fetchTicketActions(Number(route.params.id));
   await store.fetchTicketWaybills(Number(route.params.id));
   await store.fetchTicketHistory(Number(route.params.id));
 

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import SelectInput from "@/components/parts/inputs/SelectInput.vue";
 import { useRmaStore } from "@/stores/RMA";
 import { useDictionaryStore } from "@/stores/dictionary";
 import { storeToRefs } from "pinia";
+import SelectInput from "@/components/parts/inputs/SelectInput.vue";
+import RmaActionsSection from "./RmaActionsSection.vue";
 
 const store = useRmaStore();
 const storeDict = useDictionaryStore();
@@ -55,6 +56,7 @@ const getResultTypes = computed(() => {
           rows="10"
           :disabled="!editMode"
         ></textarea>
+        <RmaActionsSection />
       </div>
     </div>
   </div>

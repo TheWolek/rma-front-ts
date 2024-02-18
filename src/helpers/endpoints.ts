@@ -8,6 +8,7 @@ export default {
   rmaDictionaryStatusesTypes: "rma/dictionary/getDict/statuses",
   rmaDictionaryResultTypes: "rma/dictionary/getDict/results",
   rmaAccessories: "rma/accessories",
+  rmaActions: "rma/actions",
   rmaWaybills: "rma/waybills",
   rmaCreate: "rma/create",
   rmaPage: "rma/details",

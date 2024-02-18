@@ -7,6 +7,7 @@ import {
   Waybill,
   Ticket,
   ChangeTicketStatusData,
+  TicketAction,
 } from "./constants";
 
 export const useRmaStore = defineStore("RMA", {
@@ -39,8 +40,14 @@ export const useRmaStore = defineStore("RMA", {
       result_type: null,
       result_description: null as string, //string
     },
+    newActionName: "",
+    newActionPrice: "",
     waybills: [] as Waybill[],
     deviceAccessories: [] as number[],
+    actions: [] as TicketAction[],
+    actionsTotalPrice: 0,
+    actionFormMode: 0,
+    actionEditId: 0,
     editMode: false,
     loadingRmaPage: true,
     shipmentModalActive: false,
@@ -87,6 +94,15 @@ export const useRmaStore = defineStore("RMA", {
       this.deviceAccessories = response.data.map(({ id }) => id);
     },
 
+    async fetchTicketActions(ticketId: number) {
+      const response = await axiosInstance(true).get(
+        `${endpoints.rmaActions}/${ticketId}`
+      );
+
+      this.actions = response.data.actions;
+      this.actionsTotalPrice = response.data.totalPrice;
+    },
+
     async fetchTicketWaybills(ticketId: number) {
       const response = await axiosInstance(true).get(
         `${endpoints.rmaWaybills}?ticketId=${ticketId}`
@@ -127,6 +143,61 @@ export const useRmaStore = defineStore("RMA", {
 
         if (response.status === 200) {
           this.fetchTicketWaybills(data.ticket_id);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async addAction() {
+      try {
+        const response = await axiosInstance(true).post(endpoints.rmaActions, {
+          actionName: this.newActionName,
+          actionPrice: parseFloat(this.newActionPrice),
+          ticketId: this.rmaPage.ticket_id,
+        });
+
+        if (response.status === 200) {
+          this.actionFormMode = 0;
+          this.newActionName = "";
+          this.newActionPrice = "";
+          this.fetchTicketActions(this.rmaPage.ticket_id);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async editAction(data: TicketAction) {
+      try {
+        const response = await axiosInstance(true).put(
+          `${endpoints.rmaActions}/${data.action_id}`,
+          {
+            actionName: data.action_name,
+            actionPrice: data.action_price,
+            ticketId: this.rmaPage.ticket_id,
+          }
+        );
+
+        if (response.status === 200) {
+          this.actionFormMode = 0;
+          this.newActionName = "";
+          this.newActionPrice = "";
+          this.fetchTicketActions(this.rmaPage.ticket_id);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async removeAction(id: number) {
+      try {
+        const response = await axiosInstance(true).delete(
+          `${endpoints.rmaActions}/${id}`
+        );
+
+        if (response.status === 200) {
+          this.fetchTicketActions(this.rmaPage.ticket_id);
         }
       } catch (error) {
         console.log(error);

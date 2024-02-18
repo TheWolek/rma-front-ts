@@ -57,3 +57,13 @@ export interface HistoryRow {
   user_id: number;
   ticket_id: number;
 }
+
+export interface CreateActionData {
+  action_name: string;
+  action_price: number;
+  ticket_id: number;
+}
+
+export interface TicketAction extends CreateActionData {
+  action_id: number;
+}
