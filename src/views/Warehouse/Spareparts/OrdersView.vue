@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
 #warehouseSparepartsOrders {
   display: flex;
   flex-direction: column;

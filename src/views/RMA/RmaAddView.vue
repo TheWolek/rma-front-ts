@@ -7,7 +7,7 @@ import RmaAdd from "@/components/RMA/rmaAdd/RmaAdd.vue";
     <RmaAdd />
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 .wrap {
   padding: 0.5em;
 }

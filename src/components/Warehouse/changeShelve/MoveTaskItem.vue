@@ -9,7 +9,7 @@ defineProps({
 <template>
   <li>{{ item.barcode }}</li>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 li {
   color: var(--vt-c-black-mute);
   padding: 0.2em 0 0.2em 0.4em;

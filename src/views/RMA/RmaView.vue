@@ -29,7 +29,7 @@ const isDefaultView = computed(() => useRoute().name === "rma");
     <RouterView name="innerView" v-if="!isDefaultView" />
   </div>
 </template>
-<style>
+<style lang="scss">
 #rma {
   display: grid;
   grid-template-columns: 10% 1fr;

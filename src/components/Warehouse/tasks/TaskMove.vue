@@ -20,7 +20,7 @@ onMounted(async () => {
     <TasksList :list="tasksList" />
   </div>
 </template>
-<style>
+<style lang="scss">
 .warehouseTasksMove_wrap {
   padding: 0.5em;
 }

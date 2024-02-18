@@ -44,7 +44,7 @@ const isDefaultView = computed(() => useRoute().name === "warehouse");
     <RouterView name="innerView" v-if="!isDefaultView" />
   </div>
 </template>
-<style>
+<style lang="scss">
 #warehouse {
   display: grid;
   grid-template-columns: 10% 1fr;

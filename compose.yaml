@@ -1,0 +1,13 @@
+services:
+  api:
+    image: rma-api
+    ports:
+      - "3000:3000"
+    env_file:
+      - "../rma/.env"
+  front:
+    image: rma-front
+    ports:
+      - "8080:80"
+    env_file:
+      - .env 

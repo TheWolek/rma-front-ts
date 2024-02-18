@@ -18,7 +18,7 @@ defineProps({
     </div>
   </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
 h1 {
   color: var(--vt-c-black-mute);
 }

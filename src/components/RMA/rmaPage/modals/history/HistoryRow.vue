@@ -21,7 +21,7 @@ const getDate = computed(() => formatDateAndHours(props.row.created));
     <hr />
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 .historyRow {
   padding: 8px 0 8px 22px;
 }

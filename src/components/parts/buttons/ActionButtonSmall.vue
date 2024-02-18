@@ -25,6 +25,6 @@ function getIcon() {
     <img v-if="icon" :src="getIcon" /> {{ display }}
   </button>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 @import "@/assets/styles/actionButton.scss";
 </style>

@@ -94,7 +94,7 @@ function changeShelve() {
     </div>
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 .damageType {
   width: 245px;
 }

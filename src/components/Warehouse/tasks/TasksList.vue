@@ -12,7 +12,7 @@ defineProps({
     <TaskTile v-for="item in list" :key="item.name" :item="item" />
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 .tasksList {
   width: 70%;
   display: flex;

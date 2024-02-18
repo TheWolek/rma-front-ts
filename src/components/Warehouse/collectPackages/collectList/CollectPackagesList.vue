@@ -9,7 +9,7 @@ import CollectFilters from "./CollectFilters.vue";
     <CollectTable />
   </div>
 </template>
-<style>
+<style lang="scss">
 .warehouseCollectPackagesList_wrap {
   padding: 0.5em;
 }

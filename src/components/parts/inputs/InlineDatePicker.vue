@@ -38,7 +38,7 @@ function onChange(event) {
     </div>
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 label {
   color: var(--vt-c-black-mute);
   line-height: 26px;

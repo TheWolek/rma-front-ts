@@ -47,7 +47,7 @@ const getFormattedStatusDate = computed(() => {
     </h3>
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 .ticketDetails {
   margin-bottom: 1em;
   padding: 0 0 8px 8px;

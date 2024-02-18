@@ -11,7 +11,7 @@ const { userLogin } = storeToRefs(store);
     <div class="bagde">{{ userLogin[0].toUpperCase() }}</div>
   </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
 .badgeWrap {
   display: flex;
   align-items: center;

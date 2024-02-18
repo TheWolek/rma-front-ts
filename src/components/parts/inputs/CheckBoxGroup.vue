@@ -60,7 +60,7 @@ function check(optionId, checked) {
     </p>
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 .checkbox-group {
   display: flex;
   flex-direction: column;

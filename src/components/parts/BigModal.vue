@@ -22,6 +22,6 @@ defineProps({
     </div>
   </div>
 </template>
-<style>
+<style lang="scss">
 @import "@/assets/styles/bigModal.scss";
 </style>

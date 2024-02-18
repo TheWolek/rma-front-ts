@@ -4,7 +4,7 @@ import RmaPage from "@/components/RMA/rmaPage/RmaPage.vue";
 <template>
   <RmaPage />
 </template>
-<style>
+<style lang="scss">
 .rmaPage_wrap {
   padding: 0.5em;
 }

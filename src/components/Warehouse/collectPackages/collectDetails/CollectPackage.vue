@@ -43,7 +43,7 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 .loadingWrap {
   position: relative;
   display: block;

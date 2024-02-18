@@ -25,7 +25,7 @@ const onApprove = () => {
     </div>
   </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
 .dialogOverlay {
   position: absolute;
   top: 0;

@@ -55,7 +55,7 @@ const sparepartsAvailable = computed(
     </ul>
   </div>
 </template>
-<style>
+<style lang="scss">
 .moduleNav {
   width: 100%;
   padding: 1em 0;

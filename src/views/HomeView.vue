@@ -32,7 +32,7 @@ const linkList = ref([
     <TilesLinks :links="linkList" />
   </main>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 main {
   margin: 1em 5em;
 }

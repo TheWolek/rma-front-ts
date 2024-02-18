@@ -6,7 +6,7 @@ import ChangeShelve from "@/components/Warehouse/changeShelve/ChangeShelve.vue";
     <ChangeShelve />
   </div>
 </template>
-<style>
+<style lang="scss">
 #warehouseItemsChangeShelve {
   min-height: 94vh;
   display: flex;

@@ -35,7 +35,7 @@ const dictionariesAvailable = computed(() => "Admin" === userRole.value);
     </ul>
   </div>
 </template>
-<style>
+<style lang="scss">
 .moduleNav {
   width: 100%;
   padding: 1em 0;

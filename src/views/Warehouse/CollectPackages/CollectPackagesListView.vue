@@ -6,7 +6,7 @@ import CollectPackagesList from "@/components/Warehouse/collectPackages/collectL
     <CollectPackagesList />
   </div>
 </template>
-<style>
+<style lang="scss">
 #warehouseCollectPackagesList {
   min-height: 94vh;
   display: flex;

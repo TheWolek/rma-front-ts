@@ -56,7 +56,7 @@ const onClick = async () => {
     </div>
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 .taskTile {
   padding: 0.5em 1em 1em 0.5em;
   border: 1px solid #000;

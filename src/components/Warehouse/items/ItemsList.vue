@@ -19,7 +19,7 @@ onMounted(() => {
     <ItemsTable />
   </div>
 </template>
-<style>
+<style lang="scss">
 .warehouseItems_wrap {
   padding: 0.5em;
 }

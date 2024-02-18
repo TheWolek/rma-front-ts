@@ -23,7 +23,7 @@ onMounted(() => {
     </div>
   </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
 .dateWrap {
   width: 100%;
   padding: 1em 3em;

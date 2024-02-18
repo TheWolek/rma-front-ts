@@ -29,7 +29,7 @@ const emit = defineEmits(["update:checked"]);
     {{ label }}
   </label>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 .checkbox-tile {
   padding: 0.4em 1em;
   display: flex;

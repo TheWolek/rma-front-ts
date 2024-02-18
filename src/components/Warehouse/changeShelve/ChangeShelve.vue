@@ -25,7 +25,7 @@ onMounted(() => {
     </div>
   </div>
 </template>
-<style>
+<style lang="scss">
 .warehouseItemsChangeShelve_wrap {
   padding: 0.5em;
 }

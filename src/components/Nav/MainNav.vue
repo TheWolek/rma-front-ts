@@ -54,7 +54,7 @@ const logoutAction = () => {
     </div>
   </div>
 </template>
-<style>
+<style lang="scss">
 .account {
   display: flex;
   align-items: center;

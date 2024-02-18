@@ -82,7 +82,7 @@ const copyIssue = () => {
     </div>
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 .issueWrap {
   .actionBtn {
     margin-bottom: 12px;

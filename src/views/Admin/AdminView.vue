@@ -25,7 +25,7 @@ const isDefaultView = computed(() => useRoute().name === "admin");
     <RouterView name="innerView" v-if="!isDefaultView" />
   </div>
 </template>
-<style>
+<style lang="scss">
 #adminPanel {
   display: grid;
   grid-template-columns: 10% 1fr;

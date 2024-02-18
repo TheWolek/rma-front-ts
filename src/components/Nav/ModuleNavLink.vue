@@ -33,7 +33,7 @@ function toggleExpand(el) {
     </div>
   </li>
 </template>
-<style>
+<style lang="scss">
 .links {
   padding: 0;
   overflow: hidden;

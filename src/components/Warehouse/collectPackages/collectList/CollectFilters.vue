@@ -44,7 +44,7 @@ const onClear = () => {
     <ActionButton display="Wyczyść" :event="onClear" />
   </div>
 </template>
-<style>
+<style lang="scss">
 .filters {
   display: flex;
   align-items: center;

@@ -6,7 +6,7 @@ import TaskMove from "@/components/Warehouse/tasks/TaskMove.vue";
     <TaskMove />
   </div>
 </template>
-<style>
+<style lang="scss">
 #warehouseTasksMove {
   min-height: 94vh;
   display: flex;

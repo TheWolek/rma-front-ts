@@ -119,12 +119,12 @@ const handleSubmitResetPassword = async () => {
           v-model="repeatPassword"
           :error="error_newPassword"
         />
-        <SubmitButton labe="Zmień hasło i zaloguj się" />
+        <SubmitButton label="Zmień hasło i zaloguj się" />
       </form>
     </div>
   </div>
 </template>
-<style>
+<style lang="scss" scoped>
 @import "@/assets/styles/form.scss";
 @import "@/assets/styles/table.scss";
 

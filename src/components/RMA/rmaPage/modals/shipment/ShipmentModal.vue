@@ -55,7 +55,7 @@ const toggleModal_addWaybill = () => {
     </div>
   </BigModal>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 .tableWrap {
   padding: 0.5em 0.8em;
   width: 100%;

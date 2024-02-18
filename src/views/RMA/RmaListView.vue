@@ -6,7 +6,7 @@ import RmaList from "@/components/RMA/rmaList/RmaList.vue";
     <RmaList />
   </div>
 </template>
-<style>
+<style lang="scss">
 .rmaList_wrap {
   padding: 0.5em;
 }

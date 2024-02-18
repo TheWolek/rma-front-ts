@@ -6,7 +6,7 @@ import ItemsList from "@/components/Warehouse/items/ItemsList.vue";
     <ItemsList />
   </div>
 </template>
-<style>
+<style lang="scss">
 #warehouseItems {
   min-height: 94vh;
   display: flex;

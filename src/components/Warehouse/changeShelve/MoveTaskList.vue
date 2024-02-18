@@ -14,7 +14,7 @@ const { taskList } = storeToRefs(store);
     </ul>
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 h3 {
   font-weight: bold;
 }

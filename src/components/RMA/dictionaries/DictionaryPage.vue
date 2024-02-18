@@ -46,7 +46,7 @@ watch(route, (to) => {
     />
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 .tableWrap {
   width: 100%;
   padding: 1em;

@@ -12,7 +12,7 @@ defineProps({
     <div class="loadingDots-dot" :class="{ active: active }"></div>
   </div>
 </template>
-<style>
+<style lang="scss">
 .loadingDots-wrap {
   width: 100%;
   height: 100%;

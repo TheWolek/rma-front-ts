@@ -18,8 +18,15 @@ const props = defineProps({
     required: true,
   },
   change: Function as PropType<CommonEventHandler>,
-  error: String,
-  min: String,
+  error: {
+    type: String,
+    required: false,
+    default: "",
+  },
+  min: {
+    type: String,
+    required: false,
+  },
   disabled: {
     type: Boolean,
     default: false,
@@ -28,8 +35,8 @@ const props = defineProps({
     type: Function as PropType<KeyboardEventHandler>,
     default: null,
   },
-  input: Function as PropType<CommonEventHandler>,
-  max: String,
+  input: { type: Function as PropType<CommonEventHandler>, required: false },
+  max: { type: String, required: false },
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -66,7 +73,7 @@ function onInput(event) {
       <p
         :id="`error_${id}`"
         class="error"
-        :class="{ active: this.error !== '' }"
+        :class="{ active: props.error !== '' }"
       >
         {{ error }}
       </p>
