@@ -32,18 +32,21 @@ onMounted(async () => {
     return;
   }
 
-  await storeDict.fetchDictionary(
-    storeDict.dictionaries.find((dict) => dict.name === "accessoriesTypes")
-  );
-  await storeDict.fetchDictionary(
-    storeDict.dictionaries.find((dict) => dict.name === "damageTypes")
-  );
-  await storeDict.fetchDictionary(
-    storeDict.dictionaries.find((dict) => dict.name === "statusesTypes")
-  );
-  await storeDict.fetchDictionary(
-    storeDict.dictionaries.find((dict) => dict.name === "resultTypes")
-  );
+  if (storeDict.checkIfEmpty("accessoriesTypes")) {
+    await storeDict.fetchDictionary(
+      storeDict.dictionaries.find((dict) => dict.name === "accessoriesTypes")
+    );
+    await storeDict.fetchDictionary(
+      storeDict.dictionaries.find((dict) => dict.name === "damageTypes")
+    );
+    await storeDict.fetchDictionary(
+      storeDict.dictionaries.find((dict) => dict.name === "statusesTypes")
+    );
+    await storeDict.fetchDictionary(
+      storeDict.dictionaries.find((dict) => dict.name === "resultTypes")
+    );
+  }
+
   await store.fetchTicketAccessories(Number(route.params.id));
   await store.fetchTicketActions(Number(route.params.id));
   await store.fetchTicketWaybills(Number(route.params.id));

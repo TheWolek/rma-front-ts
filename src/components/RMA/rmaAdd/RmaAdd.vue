@@ -15,8 +15,10 @@ const accessoriesDict = store.getDictionaryByName("accessoriesTypes");
 const damagesDict = store.getDictionaryByName("damageTypes");
 
 onMounted(async () => {
-  await store.fetchDictionary(accessoriesDict);
-  await store.fetchDictionary(damagesDict);
+  if (store.checkIfEmpty("accessoriesTypes")) {
+    await store.fetchDictionary(accessoriesDict);
+    await store.fetchDictionary(damagesDict);
+  }
 });
 
 const formData = ref({

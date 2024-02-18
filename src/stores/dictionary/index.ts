@@ -20,7 +20,7 @@ export const useDictionaryStore = defineStore("Dictionary", {
         displayName: "Typy stanu urządzenia",
         url: endpoints.rmaDictionaryDamageTypes,
         mutation: "setDamageTypes",
-        items: [],
+        items: [] as DictionaryItem[],
       },
       {
         id: 3,
@@ -28,7 +28,7 @@ export const useDictionaryStore = defineStore("Dictionary", {
         displayName: "Statusy zgłoszeń",
         url: endpoints.rmaDictionaryStatusesTypes,
         mutation: "setStatusesTypes",
-        items: [],
+        items: [] as DictionaryItem[],
       },
       {
         id: 4,
@@ -36,7 +36,7 @@ export const useDictionaryStore = defineStore("Dictionary", {
         displayName: "Typy rezultatów zgłoszeń",
         url: endpoints.rmaDictionaryResultTypes,
         mutation: "setResultTypes",
-        items: [],
+        items: [] as DictionaryItem[],
       },
     ],
   }),
@@ -55,6 +55,10 @@ export const useDictionaryStore = defineStore("Dictionary", {
       state.dictionaries.find(
         (d) => d.name.toLowerCase() === name.toLowerCase()
       ),
+    checkIfEmpty: (state) => (name: string) =>
+      state.dictionaries.find(
+        (d) => d.name.toLowerCase() === name.toLowerCase()
+      ).items.length === 0,
   },
   actions: {
     async fetchDictionary(dict) {
