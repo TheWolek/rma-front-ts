@@ -124,7 +124,7 @@ const handleSubmitResetPassword = async () => {
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/assets/styles/form.scss";
 @import "@/assets/styles/table.scss";
 

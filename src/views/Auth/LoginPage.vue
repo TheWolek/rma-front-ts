@@ -6,7 +6,7 @@ import LoginForm from "../../components/Auth/LoginForm.vue";
     <LoginForm />
   </div>
 </template>
-<style lang="scss" scoped>
+<style lang="scss">
 #loginPage {
   width: 100%;
   height: calc(100vh - 10vh);

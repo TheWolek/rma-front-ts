@@ -6,7 +6,7 @@
   background: rgba(184, 184, 184, 0.8);
   display: none;
   justify-content: flex-end;
-  
+
   &.active {
     display: flex;
   }
@@ -15,12 +15,12 @@
     width: 100%;
     display: flex;
     align-items: center;
-    padding: .5em 0 0 .5em;
+    padding: 0.5em 0 0 0.5em;
     gap: 1em;
 
     h4 {
       font-size: 18px;
-      color: var(--vt-c-black-mute)
+      color: var(--vt-c-black-mute);
     }
   }
 
@@ -35,16 +35,15 @@
       font-size: 18px;
       width: 30px;
       height: 30px;
+      display: grid;
+      place-items: center;
 
       &:hover {
         cursor: pointer;
       }
 
-      &::after {
-        display: inline-block;
-        content: "\00d7";
-        font-size: 35px;
-        transform: translateY(-28%) translateX(10%);
+      img {
+        width: 90%;
       }
     }
   }
@@ -54,7 +53,7 @@
     padding: 0;
     margin: 0;
     color: red;
-    font-size: .9em;
+    font-size: 0.9em;
 
     &.active {
       opacity: 1;
