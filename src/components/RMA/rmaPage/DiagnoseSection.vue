@@ -4,6 +4,7 @@ import { useRmaStore } from "@/stores/RMA";
 import { useDictionaryStore } from "@/stores/dictionary";
 import { storeToRefs } from "pinia";
 import SelectInput from "@/components/parts/inputs/SelectInput.vue";
+import ActionButton from "@/components/parts/buttons/ActionButton.vue";
 import RmaActionsSection from "./RmaActionsSection.vue";
 
 const store = useRmaStore();
@@ -15,16 +16,36 @@ const getResultTypes = computed(() => {
   return storeDict.dictionaries.find((dict) => dict.name === "resultTypes")
     .items;
 });
+
+const copyIssue = () => {
+  if (!editMode.value) return;
+  rmaPage.value.diagnose = rmaPage.value.issue;
+};
 </script>
 <template>
   <div class="issue">
     <h2>Diagnoza</h2>
     <div class="sectionWrap">
       <div class="issueWrap">
+        <h3>Opis zgłoszenia</h3>
         <textarea
           name="issue"
           id="issue"
           v-model="rmaPage.issue"
+          cols="70"
+          rows="10"
+          :disabled="!editMode"
+        ></textarea>
+        <h3>Diagnoza</h3>
+        <ActionButton
+          display="Kopiuj opis"
+          :event="copyIssue"
+          :disabled="!editMode"
+        />
+        <textarea
+          name="diagnose"
+          id="diagnose"
+          v-model="rmaPage.diagnose"
           cols="70"
           rows="10"
           :disabled="!editMode"
@@ -62,11 +83,16 @@ const getResultTypes = computed(() => {
   </div>
 </template>
 <style scoped>
-.resultWrap {
-  padding: 0.5em;
+.issueWrap {
+  .actionBtn {
+    margin-bottom: 12px;
+  }
 }
 
-.resultWrap h3 {
-  margin-top: 8px;
+.resultWrap {
+  margin-top: 32px;
+  h3 {
+    margin-top: 8px;
+  }
 }
 </style>
