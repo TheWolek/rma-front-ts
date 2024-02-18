@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
 
-defineProps({
+const props = defineProps({
   label: String,
   fieldId: {
     type: String,
@@ -17,7 +17,7 @@ const emit = defineEmits(["update:checked"]);
   <label
     :for="fieldId.toString()"
     class="checkbox-tile"
-    :class="{ disabled: this.disabled }"
+    :class="{ disabled: props.disabled }"
   >
     <input
       type="checkbox"

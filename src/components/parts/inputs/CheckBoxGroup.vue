@@ -54,7 +54,7 @@ function check(optionId, checked) {
     <p
       :id="`error_${name}`"
       class="error"
-      :class="{ active: this.error !== '' }"
+      :class="{ active: props.error !== '' }"
     >
       {{ error }}
     </p>

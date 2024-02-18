@@ -44,7 +44,7 @@ function onChange(event) {
       <p
         :id="`error_${id}`"
         class="error"
-        :class="{ active: this.error !== '' }"
+        :class="{ active: props.error !== '' }"
       >
         {{ error }}
       </p>

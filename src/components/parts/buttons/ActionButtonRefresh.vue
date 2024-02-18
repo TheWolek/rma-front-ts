@@ -2,14 +2,14 @@
 import { PropType, defineProps } from "vue";
 import { MouseEventHandler } from "../constants";
 
-defineProps({
+const props = defineProps({
   event: Function as PropType<MouseEventHandler>,
   loading: Boolean,
 });
 </script>
 <template>
   <button class="actionBtn refreshBtn" @click="event">
-    <img src="@/assets/refresh.svg" :class="{ active: this.loading }" />
+    <img src="@/assets/refresh.svg" :class="{ active: props.loading }" />
   </button>
 </template>
 <style scoped lang="scss">
