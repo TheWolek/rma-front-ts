@@ -5,9 +5,13 @@ import { storeToRefs } from "pinia";
 import ActionButton from "@/components/parts/buttons/ActionButton.vue";
 
 const store = useWarehouseStore();
-const { changeShelveForm, changeShelveMessage } = storeToRefs(store);
+const { changeShelveForm, changeShelveMessage, changeShelveItems } =
+  storeToRefs(store);
 
-const isSubmitActive = computed(() => changeShelveForm.value.active);
+const isSubmitActive = computed(
+  () => changeShelveForm.value.active && changeShelveItems.value.length > 0
+);
+const isCancelActive = computed(() => changeShelveForm.value.active);
 const notificationVisible = computed(() => ({
   active: changeShelveMessage.value.type !== "",
   succ: changeShelveMessage.value.type === "Success",
@@ -29,7 +33,7 @@ const dismissNotification = () => {
 };
 
 const cancel = () => {
-  if (isSubmitActive.value) {
+  if (isCancelActive.value) {
     store.clearChangeShelveData();
   }
 };
@@ -41,7 +45,7 @@ const cancel = () => {
       :event="cancel"
       display="Anuluj"
       :icon="`cancel.svg`"
-      :disabled="!isSubmitActive"
+      :disabled="!isCancelActive"
     />
     <ActionButton
       :event="submit"

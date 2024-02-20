@@ -112,11 +112,11 @@ export const useWarehouseStore = defineStore("Warehouse", {
 
       try {
         const response = await axiosInstance(true).get(
-          `${endpoints.warehouseItems}?shelve=${activeShelve}`
+          `${endpoints.warehouseItems}?shelve=${activeShelve}&showAll=true`
         );
 
         if (response.status === 200) {
-          this.changeShelveAllowedItems = response.data.map(
+          this.changeShelveAllowedItems = response.data.items.map(
             (item: ItemRow) => item.barcode
           );
           this.changeShelveFetching = false;
