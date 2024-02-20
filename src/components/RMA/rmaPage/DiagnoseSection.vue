@@ -36,20 +36,22 @@ const copyIssue = () => {
           rows="10"
           :disabled="!editMode"
         ></textarea>
-        <h3>Diagnoza</h3>
-        <ActionButton
-          display="Kopiuj opis"
-          :event="copyIssue"
-          :disabled="!editMode"
-        />
-        <textarea
-          name="diagnose"
-          id="diagnose"
-          v-model="rmaPage.diagnose"
-          cols="70"
-          rows="10"
-          :disabled="!editMode"
-        ></textarea>
+        <div v-if="rmaPage.status >= 5">
+          <h3>Diagnoza</h3>
+          <ActionButton
+            display="Kopiuj opis"
+            :event="copyIssue"
+            :disabled="!editMode"
+          />
+          <textarea
+            name="diagnose"
+            id="diagnose"
+            v-model="rmaPage.diagnose"
+            cols="70"
+            rows="10"
+            :disabled="!editMode"
+          ></textarea>
+        </div>
       </div>
       <div class="resultWrap" v-if="rmaPage.status >= 5">
         <div class="form-group">
