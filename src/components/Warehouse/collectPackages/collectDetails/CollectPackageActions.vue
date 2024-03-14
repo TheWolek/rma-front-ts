@@ -27,10 +27,15 @@ const onRefresh = () => {
 </script>
 <template>
   <div class="actions">
-    <ActionButton :event="onBack" display="Cofnij" :icon="`back-arrow.png`" />
+    <ActionButton 
+      display="Cofnij" 
+      :event="onBack" 
+      :icon="`back-arrow.png`" 
+    />
     <ActionButton
-      :event="onSubmit"
       display="Zakończ odbiór"
+      width="145px"
+      :event="onSubmit"
       :icon="`gear.svg`"
       :disabled="!ableToFinish"
     />

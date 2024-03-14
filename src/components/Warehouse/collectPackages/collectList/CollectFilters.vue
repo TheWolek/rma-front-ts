@@ -50,9 +50,7 @@ const onClear = () => {
   align-items: center;
   gap: 0.8em;
 }
-.filters .actionBtn {
-  width: fit-content;
-}
+
 
 .filters .form-group {
   display: flex;

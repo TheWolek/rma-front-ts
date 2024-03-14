@@ -47,9 +47,16 @@ const logoutAction = () => {
     </nav>
     <div class="account" v-if="isLoggedIn">
       <AccountBadge />
-      <ActionButton display="Wyloguj" :event="logoutAction" />
+      <ActionButton 
+        display="Wyloguj"
+        width="95px"
+        :event="logoutAction"
+      />
       <RouterLink to="/admin" v-if="adminPanelAvailable">
-        <ActionButton display="Admin Panel" />
+        <ActionButton 
+          display="Admin Panel"
+          width="95px"
+        />
       </RouterLink>
     </div>
   </div>

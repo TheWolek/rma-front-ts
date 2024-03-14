@@ -10,6 +10,14 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  width: {
+    type: String,
+    default: "80px",
+  },
+  justifyContent: {
+    type: String,
+    default: "center",
+  }
 });
 
 const getIcon = computed(() => require(`../../../assets/${props.icon}`));
@@ -21,4 +29,9 @@ const getIcon = computed(() => require(`../../../assets/${props.icon}`));
 </template>
 <style scoped lang="scss">
 @import "@/assets/styles/actionButton.scss";
+
+.actionBtn {
+  width: v-bind(width);
+  justify-content: v-bind(justifyContent);
+}
 </style>

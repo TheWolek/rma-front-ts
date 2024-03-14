@@ -40,16 +40,20 @@ const cancel = () => {
 </script>
 <template>
   <div class="actions">
-    <ActionButton :event="toggleChangeModal" display="Nowy" :icon="`add.svg`" />
+    <ActionButton 
+      display="Nowy" 
+      :event="toggleChangeModal" 
+      :icon="`add.svg`" />
     <ActionButton
-      :event="cancel"
       display="Anuluj"
+      :event="cancel"
       :icon="`cancel.svg`"
       :disabled="!isCancelActive"
     />
     <ActionButton
-      :event="submit"
       display="Przetwarzaj"
+      width="120px"
+      :event="submit"
       :icon="`gear.svg`"
       :disabled="!isSubmitActive"
     />

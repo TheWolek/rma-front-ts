@@ -40,6 +40,7 @@ const copyIssue = () => {
           <h3>Diagnoza</h3>
           <ActionButton
             display="Kopiuj opis"
+            width="90px"
             :event="copyIssue"
             :disabled="!editMode"
           />

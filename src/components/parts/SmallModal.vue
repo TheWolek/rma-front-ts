@@ -15,7 +15,9 @@ defineProps({
   <div class="smallModal" :class="{ active: modalActive }">
     <div class="formWrap">
       <div class="header">
-        <div id="close" @click="toggleAction"></div>
+        <div id="close" @click="toggleAction">
+          <img :src="require(`../../assets/close.svg`)" alt="close" />
+        </div>
         <h4>{{ modalTitle }}</h4>
       </div>
       <slot></slot>

@@ -45,6 +45,7 @@ const nextPage = () => {
     <div class="paginationWrap">
       <div class="pagination">
         <ActionButton
+          width="30px"
           :icon="`leftChevron.svg`"
           :event="prevPage"
           :disabled="!prevPageAvailable"
@@ -59,6 +60,7 @@ const nextPage = () => {
         />
         <span>z {{ maxPage }}</span>
         <ActionButton
+          width="30px"
           :icon="`rightChevron.svg`"
           :event="nextPage"
           :disabled="!nextPageAvailable"

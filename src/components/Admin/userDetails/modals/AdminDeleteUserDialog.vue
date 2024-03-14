@@ -19,8 +19,14 @@ const onApprove = () => {
     <div class="dialog">
       <h1>Czy na pewno chcesz usunąć użytkownika?</h1>
       <div class="buttons">
-        <ActionButton display="Anuluj" :event="onClose" />
-        <ActionButton display="Usuń" :event="onApprove" />
+        <ActionButton 
+          display="Anuluj" 
+          :event="onClose" 
+        />
+        <ActionButton 
+          display="Usuń"
+          :event="onApprove"
+        />
       </div>
     </div>
   </div>
@@ -48,10 +54,5 @@ const onApprove = () => {
   display: flex;
   justify-content: space-between;
   margin-top: 16px;
-}
-
-.dialog .buttons .actionBtn {
-  width: 80px;
-  justify-content: center;
 }
 </style>

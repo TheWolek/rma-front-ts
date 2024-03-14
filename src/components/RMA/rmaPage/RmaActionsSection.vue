@@ -60,6 +60,7 @@ const formActionSubmit = () => {
         :disabled="!editMode"
       />
       <ActionButton
+        width="35px"
         :icon="getIcon"
         :event="formActionSubmit"
         :disabled="!editMode"

@@ -48,6 +48,7 @@ const editBtnIcon = computed(() =>
 const editBtnText = computed(() =>
   editMode.value ? "Anuluj edycję" : "Edytuj"
 );
+const editBtnWidth = computed(() => editMode.value ? "130px" : "80px");
 const nextSteps = computed(NextSteps);
 
 const onBack = () => {
@@ -109,39 +110,43 @@ const toggleHistoryModal = () => {
     <div class="row">
       <ActionButton :event="onBack" display="Cofnij" :icon="`back-arrow.png`" />
       <ActionButton
+        :width="editBtnWidth"
         :event="onEdit"
         :display="editBtnText"
         :icon="editBtnIcon"
         :disabled="!isEditBtnActive"
       />
       <ActionButton
-        :event="onSave"
         display="Zapisz"
+        :event="onSave"
         :icon="`save.svg`"
         :disabled="!isSaveBtnActive"
       />
       <ActionButton
-        :event="toggleShipmentModal"
         display="Przesyłka"
+        width="100px"
+        :event="toggleShipmentModal"
         :icon="`box.svg`"
         :disabled="!isShipmentBtnActive"
       />
       <ActionButton
-        :event="openBarcodeFile"
         display="Kod QR"
+        width="100px"
+        :event="openBarcodeFile"
         :icon="`barcode.svg`"
         :disabled="!isBarcodeBtnActive"
       />
       <ActionButton
         v-if="isSparepartsModule"
-        :event="toggleProcessModal"
         display="Procesuj"
+        :event="toggleProcessModal"
         :icon="`gear.svg`"
         :disabled="!isProcessBtnActive"
       />
       <ActionButton
-        :event="toggleHistoryModal"
         display="Dziennik zdarzeń"
+        width="150px"
+        :event="toggleHistoryModal"
         :icon="`form.svg`"
       />
       <ActionButtonRefresh :event="onRefresh" :loading="loading" />
@@ -154,6 +159,7 @@ const toggleHistoryModal = () => {
       />
       <ActionButton
         display="Do serwisu"
+        width="95px"
         :event="() => actions('toService')"
         v-if="nextSteps.includes('toService')"
       />
@@ -164,11 +170,13 @@ const toggleHistoryModal = () => {
       />
       <ActionButton
         display="Do diagnozy"
+        width="95px"
         :event="() => actions('toDiagnose')"
         v-if="nextSteps.includes('toDiagnose')"
       />
       <ActionButton
         display="Zleć kontakt"
+        width="95px"
         :event="() => actions('contact')"
         v-if="nextSteps.includes('contact')"
       />
@@ -179,6 +187,7 @@ const toggleHistoryModal = () => {
       />
       <ActionButton
         display="Zakończone"
+        width="90"
         :event="() => actions('endRepair')"
         :disabled="!isResult"
         v-if="nextSteps.includes('endRepair')"
@@ -195,6 +204,7 @@ const toggleHistoryModal = () => {
       />
       <ActionButton
         display="Do wysyłki anulowanych"
+        width="180px"
         :event="() => actions('sendCanceled')"
         v-if="nextSteps.includes('sendCanceled')"
       />

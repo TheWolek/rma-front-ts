@@ -107,10 +107,7 @@ const onBack = () => {
   align-items: center;
 }
 
-.actionBtn {
-  width: 100px;
-  justify-content: center;
-}
+
 
 .submitButton {
   width: 100px;

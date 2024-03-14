@@ -7,7 +7,7 @@
   background: rgba(184, 184, 184, 0.8);
   display: none;
   justify-content: flex-end;
-  
+
   &.active {
     display: flex;
   }
@@ -32,5 +32,11 @@
 
   input[type="submit"] {
     margin-top: 18px;
+  }
+
+  #close {
+    img {
+      width: 90%;
+    }
   }
 }

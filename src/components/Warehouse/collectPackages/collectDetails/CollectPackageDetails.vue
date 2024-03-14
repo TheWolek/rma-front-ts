@@ -20,7 +20,5 @@ const isClosed = computed(() => collectPage.value.status === "Odebrany");
   </div>
 </template>
 <style lang="scss" scoped>
-.actionBtn {
-  width: fit-content;
-}
+
 </style>

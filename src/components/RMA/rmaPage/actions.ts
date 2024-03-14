@@ -116,7 +116,7 @@ export default (action: string) => {
       });
       break;
 
-    case "sendCancelled":
+    case "sendCanceled":
       store.changeTicketStatus({
         ticketId: store.rmaPage.ticket_id,
         status: 12,
