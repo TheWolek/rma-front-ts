@@ -110,7 +110,6 @@ const onBack = () => {
 
 
 .submitButton {
-  width: 100px;
   margin: 12px 0;
 }
 

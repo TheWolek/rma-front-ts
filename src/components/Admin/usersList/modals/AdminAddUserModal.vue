@@ -141,7 +141,10 @@ const onSubmit = async () => {
             {{ error || message }}
           </p>
         </div>
-        <SubmitButton label="Dodaj" />
+        <SubmitButton 
+          label="Dodaj"
+          width="150px"
+        />
       </form>
     </div>
   </BigModal>
@@ -151,10 +154,6 @@ const onSubmit = async () => {
 
 form {
   width: 50%;
-
-  .submitButton {
-    width: 150px;
-  }
   .messageWrap {
     min-height: 50px;
 

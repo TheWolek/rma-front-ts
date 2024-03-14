@@ -122,7 +122,10 @@ const onSubmit = () => {
       <p class="error" :class="{ active: error_form !== '' }">
         {{ error_form }}
       </p>
-      <SubmitButton label="Zastosuj" />
+      <SubmitButton
+        width="150px"
+        label="Zastosuj" 
+      />
     </form>
   </BigModal>
 </template>
@@ -131,10 +134,6 @@ const onSubmit = () => {
 
 form {
   width: 50%;
-
-  .submitButton {
-    width: 150px;
-  }
 
   p.error {
     opacity: 0;

@@ -7,6 +7,10 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  width: {
+    type: String,
+    default: "80px",
+  },
 });
 </script>
 <template>
@@ -25,5 +29,6 @@ defineProps({
   border: 0px;
   outline: 0;
   padding: 8px;
+  width: v-bind(width);
 }
 </style>

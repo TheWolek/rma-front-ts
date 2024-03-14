@@ -41,7 +41,10 @@ const onSubmit = async () => {
         v-model="refName"
         :err="error_refName"
       />
-      <SubmitButton label="Utwórz" />
+      <SubmitButton
+        width="150px"
+        label="Utwórz" 
+      />
     </form>
   </div>
 </template>
@@ -53,8 +56,5 @@ const onSubmit = async () => {
 }
 form {
   width: 25%;
-  .submitButton {
-    width: 150px;
-  }
 }
 </style>

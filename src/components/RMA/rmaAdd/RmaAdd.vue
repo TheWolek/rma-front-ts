@@ -303,7 +303,10 @@ function formatPostCode() {
             {{ formErros.err_issue }}
           </p>
         </div>
-        <SubmitButton label="Dodaj" />
+        <SubmitButton
+          width="150px"
+          label="Dodaj"
+        />
       </div>
     </form>
   </div>
@@ -320,7 +323,6 @@ form {
   gap: 12px 32px;
 
   .submitButton {
-    width: 150px;
     margin-top: 12px;
   }
 

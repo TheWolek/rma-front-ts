@@ -108,7 +108,10 @@ const handleSubmit = async () => {
         v-model="new_code"
         :error="error_new_code"
       />
-      <SubmitButton label="Dodaj" />
+      <SubmitButton 
+        width="100px"
+        label="Dodaj" 
+      />
     </form>
   </BigModal>
 </template>
@@ -120,7 +123,6 @@ form {
 
   .submitButton {
     margin-top: 24px;
-    width: 150px;
   }
 }
 </style>

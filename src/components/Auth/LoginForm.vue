@@ -100,7 +100,10 @@ const handleSubmitResetPassword = async () => {
           label="Hasło"
           v-model="password"
         />
-        <SubmitButton label="Zaloguj się" />
+        <SubmitButton
+          width="310px"
+          label="Zaloguj się"
+        />
       </form>
       <form
         @submit.prevent="handleSubmitResetPassword"
@@ -119,7 +122,10 @@ const handleSubmitResetPassword = async () => {
           v-model="repeatPassword"
           :error="error_newPassword"
         />
-        <SubmitButton label="Zmień hasło i zaloguj się" />
+        <SubmitButton 
+          width="310px"
+          label="Zmień hasło i zaloguj się" 
+        />
       </form>
     </div>
   </div>

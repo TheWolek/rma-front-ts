@@ -63,16 +63,15 @@ const onSubmit = () => {
         :error="error_barcode"
       />
       <TextInput id="sn" label="Numer seryjny" v-model="sn" :error="error_sn" />
-      <SubmitButton label="Dodaj" />
+      <SubmitButton 
+        width="100px"
+        label="Dodaj"
+      />
     </form>
   </BigModal>
 </template>
 <style scoped lang="scss">
 form {
   width: 50%;
-
-  .submitButton {
-    width: 150px;
-  }
 }
 </style>
