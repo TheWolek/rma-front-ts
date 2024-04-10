@@ -8,10 +8,33 @@ import {
   Ticket,
   ChangeTicketStatusData,
   TicketAction,
+  CreateTicketData,
 } from "./constants";
 
 export const useRmaStore = defineStore("RMA", {
   state: () => ({
+    addFormData: {
+      firstStep: {
+        deviceCategory: "",
+        deviceProducer: "",
+        deviceName: "",
+        deviceSn: "",
+      },
+      secondStep: {
+        type: "1",
+        issue: "",
+      },
+      thirdStep: {
+        name: "",
+        phone: "",
+        email: "",
+      },
+      addressSection: {
+        lines: "",
+        postCode: "",
+        city: "",
+      },
+    } as CreateTicketData,
     rmaPage: {
       ticket_id: 0,
       barcode: "",
@@ -351,6 +374,31 @@ export const useRmaStore = defineStore("RMA", {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    clearAddFormData() {
+      this.addFormData = {
+        firstStep: {
+          deviceCategory: "",
+          deviceProducer: "",
+          deviceName: "",
+          deviceSn: "",
+        },
+        secondStep: {
+          type: "1",
+          issue: "",
+        },
+        thirdStep: {
+          name: "",
+          phone: "",
+          email: "",
+        },
+        addressSection: {
+          lines: "",
+          postCode: "",
+          city: "",
+        },
+      };
     },
   },
 });

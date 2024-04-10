@@ -19,6 +19,40 @@ form {
     padding: 0.35em;
   }
 
+  .buttons { 
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+    margin-top: 24px;
+
+    .actionBtn {
+      height: auto;
+    }
+  }
+
+  .checkbox {
+    display: block;
+    width: fit-content;
+    padding: 0.3em 0.8em;
+    margin-bottom: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(209 209 209);
+    }
+
+    input, label {
+      cursor: pointer;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
   .form-group {
     display: flex;
     flex-direction: column;

@@ -1,0 +1,85 @@
+<script setup lang="ts">
+import { ref, toRaw, defineEmits } from "vue";
+import { useRmaStore } from "@/stores/RMA";
+import RadioCell from "@/components/parts/inputs/RadioCell.vue";
+import ActionButton from "@/components/parts/buttons/ActionButton.vue";
+import SubmitButton from "@/components/parts/buttons/SubmitButton.vue";
+import { validate, validator } from "../validation";
+
+const emit = defineEmits(["changeStep"]);
+
+const stepData = useRmaStore().addFormData.secondStep;
+const formErrors = ref({
+  issue: "",
+});
+
+function showError(field: string, message: string) {
+  formErrors.value[field] = message;
+}
+
+function clearErrors() {
+  Object.keys(formErrors.value).forEach((error) => {
+    formErrors.value[error] = "";
+  });
+}
+
+function onSubmit() {
+  clearErrors();
+  const isFormValid = validate(
+    toRaw(stepData),
+    validator.secondStep,
+    showError
+  );
+  if (isFormValid) {
+    emit("changeStep", 3);
+  }
+}
+
+function onBack() {
+  emit("changeStep", 1);
+}
+</script>
+<template>
+  <div class="step">
+    <h1>#2 Dane zgłoszenia</h1>
+    <form @submit.prevent="onSubmit">
+      <div class="form-group">
+        <RadioCell
+          id="gw"
+          label="Naprawa gwarancyjna"
+          value="1"
+          v-model="stepData.type"
+        />
+        <RadioCell
+          id="np"
+          label="Naprawa płatna"
+          value="2"
+          v-model="stepData.type"
+        />
+      </div>
+      <div class="form-group">
+        <label for="issue">Opis problemu</label>
+        <textarea
+          name="issue"
+          id="issue"
+          v-model="stepData.issue"
+          cols="30"
+          rows="10"
+        ></textarea>
+        <p class="error" :class="{ active: formErrors.issue !== '' }">
+          {{ formErrors.issue }}
+        </p>
+      </div>
+      <div class="buttons">
+        <ActionButton :icon="`leftChevron.svg`" width="35px" :event="onBack" />
+        <SubmitButton label="Kontynuuj" />
+      </div>
+    </form>
+  </div>
+</template>
+<style scoped lang="scss">
+.error {
+  display: block;
+  bottom: -22px;
+}
+</style>

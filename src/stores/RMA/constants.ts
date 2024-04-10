@@ -67,3 +67,34 @@ export interface CreateActionData {
 export interface TicketAction extends CreateActionData {
   action_id: number;
 }
+
+export interface CreateTicketDeviceData {
+  deviceCategory: string;
+  deviceProducer: string;
+  deviceName: string;
+  deviceSn: string;
+}
+
+export interface CreateTicketRequesterData {
+  name: string;
+  phone: string;
+  email: string;
+}
+
+export interface CreateTicketIssueData {
+  type: string;
+  issue: string;
+}
+
+export interface CreateTicketAddressData {
+  lines: string;
+  postCode: string;
+  city: string;
+}
+
+export interface CreateTicketData {
+  firstStep: CreateTicketDeviceData;
+  secondStep: CreateTicketIssueData;
+  thirdStep: CreateTicketRequesterData;
+  addressSection: CreateTicketAddressData;
+}

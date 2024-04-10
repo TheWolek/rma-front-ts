@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import RmaAdd from "@/components/RMA/rmaAdd/RmaAdd.vue";
+import addForm from "@/components/RMA/rmaAdd/form/addForm.vue";
 </script>
 <template>
   <div class="wrap">
-    <h1>Dodawanie nowego zgłoszenia serwisowego</h1>
-    <RmaAdd />
+    <addForm />
   </div>
 </template>
 <style lang="scss" scoped>
