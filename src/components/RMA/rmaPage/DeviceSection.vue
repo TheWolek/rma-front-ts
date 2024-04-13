@@ -23,6 +23,13 @@ const getDamageTypes = computed(() => {
     .items;
 });
 
+const isOnService = computed(
+  () =>
+    storeDict.processes["InService"].includes(rmaPage.value.status) ||
+    storeDict.processes["AfterService"].includes(rmaPage.value.status) ||
+    storeDict.processes["Closed"].includes(rmaPage.value.status)
+);
+
 function changeShelve() {
   console.log("change shelve");
 }
@@ -44,12 +51,13 @@ function changeShelve() {
         :disabled="!editMode"
       />
       <CheckBoxGroup
+        v-if="isOnService"
         v-model="deviceAccessories"
         name="accessories"
         :options="getAccessoriesTypes"
         :disabledAll="!editMode"
       />
-      <div class="form-group damageType">
+      <div class="form-group damageType" v-if="isOnService">
         <SelectInput
           id="damageType"
           label="Stan urządzenia"
@@ -65,15 +73,17 @@ function changeShelve() {
           </option>
         </SelectInput>
       </div>
-      <h3>Opis stanu technicznego</h3>
-      <textarea
-        name="damageDescription"
-        id="damageDescription"
-        v-model="rmaPage.damage_description"
-        cols="30"
-        rows="5"
-        :disabled="!editMode"
-      ></textarea>
+      <div v-if="isOnService">
+        <h3>Opis stanu technicznego</h3>
+        <textarea
+          name="damageDescription"
+          id="damageDescription"
+          v-model="rmaPage.damage_description"
+          cols="30"
+          rows="5"
+          :disabled="!editMode"
+        ></textarea>
+      </div>
 
       <div class="barcode" v-if="store.rmaPage.inWarehouse">
         <h3>

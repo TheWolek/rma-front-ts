@@ -2,6 +2,7 @@
 import { ref, computed } from "vue";
 import router from "@/router";
 import { useRmaStore } from "@/stores/RMA";
+import { useDictionaryStore } from "@/stores/dictionary";
 import ActionButtonRefresh from "@/components/parts/buttons/ActionButtonRefresh.vue";
 import ActionButton from "@/components/parts/buttons/ActionButton.vue";
 import actions from "./actions";
@@ -9,6 +10,7 @@ import NextSteps from "./nextSteps";
 import { storeToRefs } from "pinia";
 
 const store = useRmaStore();
+const dictStore = useDictionaryStore();
 
 const {
   editMode,
@@ -29,13 +31,13 @@ const isSparepartsModule =
 const isSaveBtnActive = computed(() => editMode.value && !loadingRmaPage.value);
 
 const isEditBtnActive = computed(
-  () => ![9, 10, 11].includes(rmaPage.value.status)
+  () => !dictStore.processes["Closed"].includes(rmaPage.value.status)
 );
 
 const isProcessBtnActive = computed(() => rmaPage.value.status === 5);
 
 const isShipmentBtnActive = computed(
-  () => ![10].includes(rmaPage.value.status)
+  () => !dictStore.processes["Closed"].includes(rmaPage.value.status)
 );
 
 const isBarcodeBtnActive = computed(() => rmaPage.value.barcodeURL !== null);
@@ -48,7 +50,7 @@ const editBtnIcon = computed(() =>
 const editBtnText = computed(() =>
   editMode.value ? "Anuluj edycję" : "Edytuj"
 );
-const editBtnWidth = computed(() => editMode.value ? "130px" : "80px");
+const editBtnWidth = computed(() => (editMode.value ? "130px" : "80px"));
 const nextSteps = computed(NextSteps);
 
 const onBack = () => {
@@ -199,6 +201,7 @@ const toggleHistoryModal = () => {
       />
       <ActionButton
         display="Do wysyłki"
+        width="90px"
         :event="() => actions('send')"
         v-if="nextSteps.includes('send')"
       />

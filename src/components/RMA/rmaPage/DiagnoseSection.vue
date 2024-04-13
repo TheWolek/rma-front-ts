@@ -17,6 +17,13 @@ const getResultTypes = computed(() => {
     .items;
 });
 
+const isDiagnoseVisible = computed(
+  () =>
+    storeDict.processes["InService"].includes(rmaPage.value.status) ||
+    storeDict.processes["AfterService"].includes(rmaPage.value.status) ||
+    storeDict.processes["Closed"].includes(rmaPage.value.status)
+);
+
 const copyIssue = () => {
   if (!editMode.value) return;
   rmaPage.value.diagnose = rmaPage.value.issue;
@@ -36,7 +43,7 @@ const copyIssue = () => {
           rows="10"
           :disabled="!editMode"
         ></textarea>
-        <div v-if="rmaPage.status >= 5">
+        <div v-if="isDiagnoseVisible">
           <h3>Diagnoza</h3>
           <ActionButton
             display="Kopiuj opis"
@@ -54,7 +61,7 @@ const copyIssue = () => {
           ></textarea>
         </div>
       </div>
-      <div class="resultWrap" v-if="rmaPage.status >= 5">
+      <div class="resultWrap" v-if="isDiagnoseVisible">
         <div class="form-group">
           <SelectInput
             id="result_type"

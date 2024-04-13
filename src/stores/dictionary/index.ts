@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import endpoints from "@/helpers/endpoints";
 import axiosInstance from "@/helpers/axiosInstance";
-import { DictionaryItem } from "./constants";
+import { Dictionary, Processes } from "./constants";
 
 export const useDictionaryStore = defineStore("Dictionary", {
   state: () => ({
@@ -12,7 +12,7 @@ export const useDictionaryStore = defineStore("Dictionary", {
         displayName: "Typy akcesoriów",
         url: endpoints.rmaDictionaryAccessoriesTypes,
         mutation: "setAccessoriesTypes",
-        items: [] as DictionaryItem[],
+        items: [],
       },
       {
         id: 2,
@@ -20,7 +20,7 @@ export const useDictionaryStore = defineStore("Dictionary", {
         displayName: "Typy stanu urządzenia",
         url: endpoints.rmaDictionaryDamageTypes,
         mutation: "setDamageTypes",
-        items: [] as DictionaryItem[],
+        items: [],
       },
       {
         id: 3,
@@ -28,7 +28,7 @@ export const useDictionaryStore = defineStore("Dictionary", {
         displayName: "Statusy zgłoszeń",
         url: endpoints.rmaDictionaryStatusesTypes,
         mutation: "setStatusesTypes",
-        items: [] as DictionaryItem[],
+        items: [],
       },
       {
         id: 4,
@@ -36,9 +36,10 @@ export const useDictionaryStore = defineStore("Dictionary", {
         displayName: "Typy rezultatów zgłoszeń",
         url: endpoints.rmaDictionaryResultTypes,
         mutation: "setResultTypes",
-        items: [] as DictionaryItem[],
+        items: [],
       },
-    ],
+    ] as Dictionary[],
+    processes: {} as Processes,
   }),
   getters: {
     findDictionaryByName: (state) => (name: string) => {
@@ -61,10 +62,19 @@ export const useDictionaryStore = defineStore("Dictionary", {
       ).items.length === 0,
   },
   actions: {
-    async fetchDictionary(dict) {
+    async fetchDictionary(dict: Dictionary) {
       const response = await axiosInstance(true).get(dict.url);
 
-      this.dictionaries.find((d) => d.id === dict.id).items = response.data;
+      if (dict.name === "statusesTypes") {
+        (this.dictionaries as Dictionary[]).find(
+          (d: Dictionary) => d.id === dict.id
+        ).items = response.data.items;
+        (this.processes as Processes) = response.data.processes;
+      } else {
+        (this.dictionaries as Dictionary[]).find(
+          (d: Dictionary) => d.id === dict.id
+        ).items = response.data;
+      }
     },
   },
 });

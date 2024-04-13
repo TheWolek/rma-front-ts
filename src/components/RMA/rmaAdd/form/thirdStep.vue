@@ -34,7 +34,12 @@ function clearErrors() {
 
 function onSubmit() {
   clearErrors();
-  const isFormValid = validate(toRaw(stepData), validator.thirdStep, showError);
+  let isFormValid = validate(toRaw(stepData), validator.thirdStep, showError);
+  if (stepData.email === "" && stepData.phone === "") {
+    isFormValid = false;
+    showError("email", "Podaj adres email lub numer telefonu");
+    showError("phone", "Podaj adres email lub numer telefonu");
+  }
   let isAddressFormValid = true;
 
   if (isAddressFormActive.value) {

@@ -15,9 +15,9 @@ const error_waybill = ref("");
 const type = ref(null);
 const error_type = ref("");
 
-const incommingActive = computed(() => rmaPage.value.status <= 2);
+const incommingActive = computed(() => rmaPage.value.status <= 1);
 const outcomingActive = computed(
-  () => rmaPage.value.status === 9 || rmaPage.value.status === 11
+  () => rmaPage.value.status === 6 || rmaPage.value.status === 8
 );
 
 const toggleModal_addWaybill = () => {

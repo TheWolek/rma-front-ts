@@ -28,11 +28,12 @@ export const validator = {
     name: Joi.string().required().messages({
       "string.empty": "name#Wpisz imię i nazwisko",
     }),
-    phone: Joi.string().required().messages({
-      "string.empty": "phone#Wpisz numer telefonu",
+    phone: Joi.string().required().allow("").length(9).messages({
+      // "string.empty": "phone#Wpisz numer telefonu",
+      "string.length": "phone#Wpisz poprawny numer telefonu",
     }),
-    email: Joi.string().required().regex(regEmail).messages({
-      "string.empty": "email#Wpisz adres email",
+    email: Joi.string().required().allow("").regex(regEmail).messages({
+      // "string.empty": "email#Wpisz adres email",
       "string.pattern.base": "email#Niepoprawny adres email",
     }),
   }),
@@ -41,7 +42,7 @@ export const validator = {
       "string.empty": "lines#Wpisz ulicę i numer",
       "string.pattern.base": "lines#Wpisz ulicę i numer",
     }),
-    postCode: Joi.string().required().messages({
+    postCode: Joi.string().required().length(6).messages({
       "string.empty": "postCode#Wpisz kod pocztowy",
     }),
     city: Joi.string().required().messages({
@@ -61,6 +62,7 @@ export const validate = (
     const errorList = error.toString().split(":")[1].split(".");
 
     errorList.forEach((error) => {
+      console.log(error);
       const field = error.split("#")[0].trim();
       const message = error.split("#")[1].trim();
       cb(field, message);
