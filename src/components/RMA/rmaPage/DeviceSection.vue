@@ -11,7 +11,8 @@ import { storeToRefs } from "pinia";
 const store = useRmaStore();
 const storeDict = useDictionaryStore();
 
-const { editMode, rmaPage, deviceAccessories } = storeToRefs(store);
+const { editMode, rmaPage, deviceAccessories, rmaPageErrors } =
+  storeToRefs(store);
 
 const getAccessoriesTypes = computed(() => {
   return storeDict.dictionaries.find((dict) => dict.name === "accessoriesTypes")
@@ -24,10 +25,7 @@ const getDamageTypes = computed(() => {
 });
 
 const isOnService = computed(
-  () =>
-    storeDict.processes["InService"].includes(rmaPage.value.status) ||
-    storeDict.processes["AfterService"].includes(rmaPage.value.status) ||
-    storeDict.processes["Closed"].includes(rmaPage.value.status)
+  () => !storeDict.processes["New"].includes(rmaPage.value.status)
 );
 
 function changeShelve() {
@@ -49,6 +47,7 @@ function changeShelve() {
         label="SN:"
         v-model="rmaPage.device_sn"
         :disabled="!editMode"
+        :error="rmaPageErrors.sn"
       />
       <CheckBoxGroup
         v-if="isOnService"
@@ -57,6 +56,13 @@ function changeShelve() {
         :options="getAccessoriesTypes"
         :disabledAll="!editMode"
       />
+      <p
+        v-if="isOnService"
+        class="error"
+        :class="{ active: rmaPageErrors.accessories }"
+      >
+        {{ rmaPageErrors.accessories }}
+      </p>
       <div class="form-group damageType" v-if="isOnService">
         <SelectInput
           id="damageType"
@@ -72,8 +78,11 @@ function changeShelve() {
             {{ el.name }}
           </option>
         </SelectInput>
+        <p class="error" :class="{ active: rmaPageErrors.damageType }">
+          {{ rmaPageErrors.damageType }}
+        </p>
       </div>
-      <div v-if="isOnService">
+      <div v-if="isOnService" class="damageDescription">
         <h3>Opis stanu technicznego</h3>
         <textarea
           name="damageDescription"
@@ -107,5 +116,15 @@ function changeShelve() {
 <style lang="scss" scoped>
 .damageType {
   width: 245px;
+  margin-top: 24px;
+}
+
+.damageDescription {
+  margin-top: 24px;
+}
+
+.checkbox-group {
+  margin-top: 24px;
+  margin-bottom: 4px;
 }
 </style>

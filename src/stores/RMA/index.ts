@@ -64,6 +64,15 @@ export const useRmaStore = defineStore("RMA", {
       result_type: null,
       result_description: null as string, //string
     },
+    rmaPageErrors: {
+      sn: "",
+      accessories: "",
+      damageType: "",
+      diagnose: "",
+      resultType: "",
+      resultDescription: "",
+      actions: "",
+    },
     newActionName: "",
     newActionPrice: "",
     waybills: [] as Waybill[],
@@ -98,6 +107,7 @@ export const useRmaStore = defineStore("RMA", {
   },
   actions: {
     async fetchTicketById(ticketId: number) {
+      this.clearRmaPageErrors();
       const response = await axiosInstance(true).get(
         `${endpoints.rmaPage}?ticketId=${ticketId}`
       );
@@ -287,7 +297,14 @@ export const useRmaStore = defineStore("RMA", {
           }
         );
 
-        if (response.status === 200) {
+        const accResponse = await axiosInstance(true).put(
+          `${endpoints.rmaAccessories}/${this.rmaPage.ticket_id}`,
+          {
+            deviceAccessories: this.deviceAccessories,
+          }
+        );
+
+        if (response.status === 200 && accResponse.status === 200) {
           this.fetchTicketById(this.rmaPage.ticket_id);
           this.fetchTicketAccessories(this.rmaPage.ticket_id);
           this.loadingRmaPage = false;
@@ -398,6 +415,18 @@ export const useRmaStore = defineStore("RMA", {
           postCode: "",
           city: "",
         },
+      };
+    },
+
+    clearRmaPageErrors() {
+      this.rmaPageErrors = {
+        sn: "",
+        accessories: "",
+        damageType: "",
+        diagnose: "",
+        resultType: "",
+        resultDescription: "",
+        actions: "",
       };
     },
   },

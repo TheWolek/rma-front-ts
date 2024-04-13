@@ -17,6 +17,7 @@ const {
   actions,
   actionsTotalPrice,
   rmaPage,
+  rmaPageErrors,
 } = storeToRefs(store);
 
 const getPrice = computed(() => `${actionsTotalPrice.value.toFixed(2)}zł`);
@@ -69,29 +70,34 @@ const formActionSubmit = () => {
     <h3 class="priceHeader">
       Całkowity koszt naprawy: <b>{{ getPrice }}</b>
     </h3>
-    <ResultsTable>
-      <template v-slot:theader>
-        <tr>
-          <th id="actionNameCol">Nazwa</th>
-          <th id="actionPriceCol">Cena</th>
-          <th id="actionsCol">Akcje</th>
-        </tr>
-      </template>
-      <template v-slot:tbody>
-        <RmaActionsRow
-          v-for="action in actions"
-          :key="action.action_id"
-          :data="action"
-        />
-      </template>
-    </ResultsTable>
+    <div>
+      <ResultsTable>
+        <template v-slot:theader>
+          <tr>
+            <th id="actionNameCol">Nazwa</th>
+            <th id="actionPriceCol">Cena</th>
+            <th id="actionsCol">Akcje</th>
+          </tr>
+        </template>
+        <template v-slot:tbody>
+          <RmaActionsRow
+            v-for="action in actions"
+            :key="action.action_id"
+            :data="action"
+          />
+        </template>
+      </ResultsTable>
+      <p class="error" :class="{ active: rmaPageErrors.actions }">
+        {{ rmaPageErrors.actions }}
+      </p>
+    </div>
   </div>
 </template>
 <style scoped lang="scss">
 .wrap {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
   .actionsAddWrap {
     width: 100%;
     display: flex;
@@ -118,5 +124,9 @@ const formActionSubmit = () => {
 
 #actionsCol {
   width: 40px;
+}
+
+.error {
+  display: block;
 }
 </style>

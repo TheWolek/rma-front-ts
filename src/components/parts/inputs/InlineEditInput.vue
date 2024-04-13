@@ -18,6 +18,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  error: {
+    type: String,
+    default: "",
+  },
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -40,6 +44,13 @@ function onChange(event) {
         @change="onChange"
         :disabled="disabled"
       />
+      <p
+        :id="`error_${id}`"
+        class="error"
+        :class="{ active: $props.error !== '' }"
+      >
+        {{ error }}
+      </p>
     </div>
   </div>
 </template>

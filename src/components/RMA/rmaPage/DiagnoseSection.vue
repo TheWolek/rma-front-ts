@@ -10,7 +10,7 @@ import RmaActionsSection from "./RmaActionsSection.vue";
 const store = useRmaStore();
 const storeDict = useDictionaryStore();
 
-const { rmaPage, editMode } = storeToRefs(store);
+const { rmaPage, editMode, rmaPageErrors } = storeToRefs(store);
 
 const getResultTypes = computed(() => {
   return storeDict.dictionaries.find((dict) => dict.name === "resultTypes")
@@ -18,10 +18,7 @@ const getResultTypes = computed(() => {
 });
 
 const isDiagnoseVisible = computed(
-  () =>
-    storeDict.processes["InService"].includes(rmaPage.value.status) ||
-    storeDict.processes["AfterService"].includes(rmaPage.value.status) ||
-    storeDict.processes["Closed"].includes(rmaPage.value.status)
+  () => !storeDict.processes["New"].includes(rmaPage.value.status)
 );
 
 const copyIssue = () => {
@@ -59,12 +56,15 @@ const copyIssue = () => {
             rows="10"
             :disabled="!editMode"
           ></textarea>
+          <p class="error" :class="{ active: rmaPageErrors.diagnose }">
+            {{ rmaPageErrors.diagnose }}
+          </p>
         </div>
       </div>
       <div class="resultWrap" v-if="isDiagnoseVisible">
         <div class="form-group">
           <SelectInput
-            id="result_type"
+            id="resultType"
             label="Rezultat zgłoszenia"
             v-model="rmaPage.result_type"
             :disabled="!editMode"
@@ -77,16 +77,24 @@ const copyIssue = () => {
               {{ el.name }}
             </option>
           </SelectInput>
+          <p class="error" :class="{ active: rmaPageErrors.resultType }">
+            {{ rmaPageErrors.resultType }}
+          </p>
         </div>
-        <h3>Opis rezultatu zgłoszenia</h3>
-        <textarea
-          name="resultDescription"
-          id="resultDescription"
-          v-model="rmaPage.result_description"
-          cols="70"
-          rows="10"
-          :disabled="!editMode"
-        ></textarea>
+        <div class="resultDescription">
+          <h3>Opis rezultatu zgłoszenia</h3>
+          <textarea
+            name="resultDescription"
+            id="resultDescription"
+            v-model="rmaPage.result_description"
+            cols="70"
+            rows="10"
+            :disabled="!editMode"
+          ></textarea>
+          <p class="error" :class="{ active: rmaPageErrors.resultDescription }">
+            {{ rmaPageErrors.resultDescription }}
+          </p>
+        </div>
         <RmaActionsSection />
       </div>
     </div>
@@ -104,5 +112,9 @@ const copyIssue = () => {
   h3 {
     margin-top: 8px;
   }
+}
+
+.resultDescription {
+  margin: 24px 0;
 }
 </style>

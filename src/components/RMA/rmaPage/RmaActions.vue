@@ -19,6 +19,8 @@ const {
   shipmentModalActive,
   processModalActive,
   historyModalActive,
+  rmaPageErrors,
+  deviceAccessories,
 } = storeToRefs(store);
 const loading = ref(false);
 
@@ -42,7 +44,9 @@ const isShipmentBtnActive = computed(
 
 const isBarcodeBtnActive = computed(() => rmaPage.value.barcodeURL !== null);
 
-const isResult = computed(() => rmaPage.value.result_description !== null);
+const isResult = computed(
+  () => rmaPage.value.result_description !== null && store.actions.length !== 0
+);
 
 const editBtnIcon = computed(() =>
   editMode.value ? "cancel.svg" : "edit.svg"
@@ -57,9 +61,62 @@ const onBack = () => {
   router.go(-1);
 };
 
+const validate = () => {
+  store.clearRmaPageErrors();
+  let good = true;
+  if (
+    !dictStore.processes["Closed"].includes(rmaPage.value.status) &&
+    !dictStore.processes["New"].includes(rmaPage.value.status)
+  ) {
+    if (rmaPage.value.device_sn === "") {
+      rmaPageErrors.value.sn = "Wpisz numer seryjny";
+      good = false;
+    }
+
+    if (deviceAccessories.value.length === 0) {
+      rmaPageErrors.value.accessories = "Wybierz akcesoria";
+      good = false;
+    }
+
+    if (rmaPage.value.damage_type === null) {
+      rmaPageErrors.value.damageType = "Uzupełnij stan techniczny";
+      good = false;
+    }
+
+    if (rmaPage.value.diagnose === "" || rmaPage.value.diagnose === null) {
+      rmaPageErrors.value.diagnose = "Uzupełnij diagnozę";
+      good = false;
+    }
+  }
+
+  if (dictStore.processes["AfterDiagnose"].includes(rmaPage.value.status)) {
+    if (rmaPage.value.result_type === null) {
+      rmaPageErrors.value.resultType = "Uzupełnij rezultat";
+      good = false;
+    }
+
+    if (
+      rmaPage.value.result_description === "" ||
+      rmaPage.value.result_description === null
+    ) {
+      rmaPageErrors.value.resultDescription = "Uzupełnij rezultat";
+      good = false;
+    }
+
+    if (store.actions.length === 0) {
+      rmaPageErrors.value.actions = "Uzupełnij czynności";
+      good = false;
+    }
+  }
+
+  return good;
+};
+
 const onSave = () => {
   if (isSaveBtnActive.value) {
-    store.saveTicketData();
+    if (validate()) {
+      store.saveTicketData();
+    }
     return;
   }
 };
@@ -226,6 +283,12 @@ const toggleHistoryModal = () => {
         :event="() => actions('toCancel')"
         :disabled="!isResult"
         v-if="nextSteps.includes('toCancel')"
+      />
+      <ActionButton
+        display="Wizyta u klienta"
+        width="120px"
+        :event="() => actions('visit')"
+        v-if="nextSteps.includes('visit')"
       />
     </div>
   </div>
