@@ -50,7 +50,6 @@ onMounted(async () => {
   await store.fetchTicketAccessories(Number(route.params.id));
   await store.fetchTicketActions(Number(route.params.id));
   await store.fetchTicketWaybills(Number(route.params.id));
-  await store.fetchTicketHistory(Number(route.params.id));
 
   loadingRmaPage.value = false;
 });

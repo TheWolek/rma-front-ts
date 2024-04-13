@@ -49,12 +49,12 @@ export interface ChangeTicketStatusData {
 }
 
 export interface HistoryRow {
-  action: string;
-  log: string;
-  created: Date | string;
   log_id: number;
+  created: Date | string;
+  action: string;
+  log_before: string | null;
+  log_after: string;
   login: string;
-  user_id: number;
   ticket_id: number;
 }
 

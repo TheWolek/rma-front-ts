@@ -160,8 +160,11 @@ const toggleProcessModal = () => {
   }
 };
 
-const toggleHistoryModal = () => {
+const toggleHistoryModal = async () => {
+  document.querySelector<HTMLElement>("#rma").style.overflow = "hidden";
+  await store.fetchTicketHistory(rmaPage.value.ticket_id);
   historyModalActive.value = !historyModalActive.value;
+  store.loadingRmaPage = false;
 };
 </script>
 <template>
