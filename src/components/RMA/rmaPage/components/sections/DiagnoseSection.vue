@@ -5,7 +5,7 @@ import { useDictionaryStore } from "@/stores/dictionary";
 import { storeToRefs } from "pinia";
 import SelectInput from "@/components/parts/inputs/SelectInput.vue";
 import ActionButton from "@/components/parts/buttons/ActionButton.vue";
-import RmaActionsSection from "./RmaActionsSection.vue";
+import RmaActionsSection from "./actions/RmaActionsSection.vue";
 
 const store = useRmaStore();
 const storeDict = useDictionaryStore();

@@ -4,7 +4,7 @@ import { storeToRefs } from "pinia";
 import { useRmaStore } from "@/stores/RMA";
 import BigModal from "@/components/parts/BigModal.vue";
 import ActionButton from "@/components/parts/buttons/ActionButton.vue";
-import WaybillTable from "../../WaybillTable.vue";
+import WaybillTable from "../../components/sections/shipment/WaybillTable.vue";
 import AddWaybillModal from "./AddWaybillModal.vue";
 import EditWaybillModal from "./EditWaybillModal.vue";
 
