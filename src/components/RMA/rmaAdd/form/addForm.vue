@@ -19,6 +19,7 @@ const fetching = ref(true);
 const damagesDict = dictStore.getDictionaryByName("damageTypes");
 const accessoriesDict = dictStore.getDictionaryByName("accessoriesTypes");
 const statusesTypes = dictStore.getDictionaryByName("statusesTypes");
+const resultTypes = dictStore.getDictionaryByName("resultTypes");
 
 onMounted(async () => {
   fetching.value = true;
@@ -43,6 +44,8 @@ async function handleSteps(nextStep: number) {
     const response = await axiosInstance(true).post(endpoints.rmaCreate, body);
 
     store.clearAddFormData();
+
+    dictStore.fetchDictionary(resultTypes);
 
     router.push({
       name: "rmaPage",

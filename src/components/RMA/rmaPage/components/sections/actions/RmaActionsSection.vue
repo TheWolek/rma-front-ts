@@ -1,75 +1,64 @@
 <script setup lang="ts">
-import { computed } from "vue";
 import { useRmaStore } from "@/stores/RMA";
 import { storeToRefs } from "pinia";
-import TextInput from "@/components/parts/inputs/TextInput.vue";
 import ActionButton from "@/components/parts/buttons/ActionButton.vue";
+import RmaActionsAddForm from "./RmaActionsAddForm.vue";
 import ResultsTable from "@/components/parts/ResultsTable.vue";
 import RmaActionsRow from "./RmaActionsRow.vue";
+import { computed, ref } from "vue";
+import axiosInstance from "@/helpers/axiosInstance";
+import endpoints from "@/helpers/endpoints";
+import { AxiosResponse } from "axios";
+import router from "@/router";
 
+const isFetching = ref(false);
 const store = useRmaStore();
 const {
-  editMode,
-  actionFormMode,
-  actionEditId,
-  newActionName,
-  newActionPrice,
   actions,
-  actionsTotalPrice,
   rmaPage,
   rmaPageErrors,
+  actionsTotalPrice,
+  fvNumber,
+  fvFilePath,
 } = storeToRefs(store);
 
-const getPrice = computed(() => `${actionsTotalPrice.value.toFixed(2)}zł`);
-
-const getIcon = computed(() =>
-  actionFormMode.value === 0 ? `add.svg` : `save.svg`
+const ableToGenerateFv = computed(
+  () => actionsTotalPrice.value > 0 && !isFetching.value
 );
 
-const ableToAddActions = computed(() => [5, 6].includes(rmaPage.value.status));
+const generateFv = async () => {
+  if (ableToGenerateFv.value) {
+    const response = (await axiosInstance(true).get(
+      `${endpoints.rmaGenerateFv}/${rmaPage.value.ticket_id}`
+    )) as AxiosResponse<{
+      filePath: string;
+      fvNumber: string;
+    }>;
 
-const formActionSubmit = () => {
-  if (!editMode.value) return;
+    if (response.data !== undefined) {
+      window.open(
+        `${process.env.VUE_APP_API_BASE_URL}${response.data.filePath}`,
+        "_blank"
+      );
+    }
 
-  if (actionFormMode.value === 0) {
-    store.addAction();
-  } else {
-    store.editAction({
-      action_id: actionEditId.value,
-      action_name: newActionName.value,
-      action_price: parseFloat(newActionPrice.value),
-      ticket_id: 0,
-    });
+    router.go(0);
+  }
+};
+
+const openFvFile = async () => {
+  if (ableToGenerateFv.value) {
+    window.open(
+      `${process.env.VUE_APP_API_BASE_URL}${fvFilePath.value}`,
+      "_blank"
+    );
   }
 };
 </script>
 <template>
   <div class="wrap">
     <h3>Wykonane czynności</h3>
-    <div class="actionsAddWrap" v-if="ableToAddActions">
-      <TextInput
-        id="action_name"
-        label="Nazwa"
-        v-model="newActionName"
-        :disabled="!editMode"
-      />
-      <TextInput
-        id="action_price"
-        label="Cena"
-        inputType="number"
-        v-model="newActionPrice"
-        :disabled="!editMode"
-      />
-      <ActionButton
-        width="35px"
-        :icon="getIcon"
-        :event="formActionSubmit"
-        :disabled="!editMode"
-      />
-    </div>
-    <h3 class="priceHeader">
-      Całkowity koszt naprawy: <b>{{ getPrice }}</b>
-    </h3>
+    <RmaActionsAddForm />
     <div>
       <ResultsTable>
         <template v-slot:theader>
@@ -91,6 +80,23 @@ const formActionSubmit = () => {
         {{ rmaPageErrors.actions }}
       </p>
     </div>
+    <div class="fvWrap">
+      <div class="fv" v-if="fvNumber">
+        Ostatnia wygenerowana faktura:
+        <ActionButton
+          width="185px"
+          :event="openFvFile"
+          :display="`Pobierz: ${fvNumber}`"
+        />
+      </div>
+      <ActionButton
+        width="185px"
+        display="Generuj nową fakturę"
+        :icon="`invoice.svg`"
+        :event="generateFv"
+        :disabled="!ableToGenerateFv"
+      />
+    </div>
   </div>
 </template>
 <style scoped lang="scss">
@@ -98,19 +104,15 @@ const formActionSubmit = () => {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  .actionsAddWrap {
-    width: 100%;
+
+  .fvWrap {
     display: flex;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column;
+    gap: 12px;
 
-    .actionBtn {
-      align-self: flex-end;
+    .fv {
+      color: var(--vt-c-black-mute);
     }
-  }
-
-  .priceHeader {
-    text-transform: none;
   }
 }
 

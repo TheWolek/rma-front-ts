@@ -82,6 +82,8 @@ export const useRmaStore = defineStore("RMA", {
     actionFormMode: 0,
     actionEditId: 0,
     editMode: false,
+    fvNumber: "",
+    fvFilePath: "",
     loadingRmaPage: true,
     shipmentModalActive: false,
     editWaybillModalActive: false,
@@ -135,6 +137,15 @@ export const useRmaStore = defineStore("RMA", {
 
       this.actions = response.data.actions;
       this.actionsTotalPrice = response.data.totalPrice;
+    },
+
+    async fetchTicketFv(ticketId: number) {
+      const response = await axiosInstance(true).get(
+        `${endpoints.rmaFv}/${ticketId}`
+      );
+
+      this.fvNumber = response.data.fvNumber;
+      this.fvFilePath = response.data.filePath;
     },
 
     async fetchTicketWaybills(ticketId: number) {

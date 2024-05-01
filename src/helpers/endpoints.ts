@@ -12,6 +12,8 @@ export default {
   rmaWaybills: "rma/waybills",
   rmaCreate: "rma/create",
   rmaPage: "rma/details",
+  rmaFv: "rma/fv",
+  rmaGenerateFv: "rma/generateFv",
   rmaChangeStatus: "rma/changeState",
   rmaEdit: "rma",
   rmaRegisterItem: "rma/register",
