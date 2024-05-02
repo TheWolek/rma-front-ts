@@ -81,7 +81,6 @@ const isInfo = computed(() => rmaPageSnackbar.value.color === "Info");
 
     h3 {
       font-weight: normal;
-      text-transform: none;
     }
   }
 }

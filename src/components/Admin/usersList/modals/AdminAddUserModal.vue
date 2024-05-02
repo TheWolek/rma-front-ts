@@ -141,10 +141,7 @@ const onSubmit = async () => {
             {{ error || message }}
           </p>
         </div>
-        <SubmitButton 
-          label="Dodaj"
-          width="150px"
-        />
+        <SubmitButton label="Dodaj" width="150px" />
       </form>
     </div>
   </BigModal>
@@ -162,7 +159,6 @@ form {
       border-radius: 5px;
       padding: 0.3em;
       color: #000;
-      text-transform: none;
 
       &.active {
         display: block;

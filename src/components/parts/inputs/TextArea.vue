@@ -73,8 +73,4 @@ textarea {
   display: block;
   bottom: -22px;
 }
-
-h3 {
-  text-transform: none;
-}
 </style>

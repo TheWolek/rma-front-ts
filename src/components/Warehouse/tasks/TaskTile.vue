@@ -104,10 +104,6 @@ const onClick = async () => {
   border-radius: 16px;
 }
 
-h3 {
-  text-transform: none;
-}
-
 h4 {
   color: var(--vt-c-black-mute);
   font-size: 13px;

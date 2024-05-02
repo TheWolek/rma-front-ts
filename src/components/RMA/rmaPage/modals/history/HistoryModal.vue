@@ -30,7 +30,6 @@ const toggleModal_history = () => {
   margin: 22px 0 0 22px;
 
   h3 {
-    text-transform: none;
     font-size: 16px;
     text-align: center;
   }

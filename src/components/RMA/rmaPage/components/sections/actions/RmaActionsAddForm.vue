@@ -77,8 +77,4 @@ const formActionSubmit = () => {
     align-self: flex-end;
   }
 }
-
-.priceHeader {
-  text-transform: none;
-}
 </style>

@@ -66,15 +66,4 @@ h3 {
   font-size: 1em;
   margin-bottom: 2px;
 }
-
-h3.email {
-  text-transform: none;
-}
-
-h2,
-h3,
-p {
-  color: var(--vt-c-black-mute);
-  text-transform: capitalize;
-}
 </style>

@@ -63,7 +63,6 @@ const formData = useRmaStore().addFormData;
     .bold {
       font-weight: bold;
       margin-left: 8px;
-      text-transform: none;
     }
   }
 }
