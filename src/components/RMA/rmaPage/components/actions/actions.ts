@@ -55,29 +55,21 @@ export default (action: string) => {
     //zleć kontakt -> status na Kontakt z klientem (10)
     //dopisac modal kontaktu
     case "contact":
-      store.changeTicketStatus({
-        ticketId: store.rmaPage.ticket_id,
-        status: 10,
-      });
-
-      // if (warehouseModuleActive) {
-      //   warehouseStore.changeItemShevle({
-      //     from: "SH_INDIN_1",
-      //     to: "SH_OUTDIN_1",
-      //     item: [store.rmaPage.barcode],
-      //   });
-      // }
-      break;
-
-    //anuluj (w serwisie) -> status do anulowania (8)
-    //dopisac modal powodu anulowania
-    case "toCancel":
-      let toCancelError = false;
-      if (store.rmaPage.result_type === null) {
-        store.rmaPageErrors.resultType = "Uzupełnij rezultat";
-        toCancelError = true;
+      let contactError = false;
+      if (store.rmaPage.device_sn === "") {
+        store.rmaPageErrors.sn = "Uzupełnij numer seryjny";
+        contactError = true;
       }
-      if (toCancelError) {
+      if (store.deviceAccessories.length === 0) {
+        store.rmaPageErrors.accessories = "Uzupełnij akcesoria";
+        contactError = true;
+      }
+      if (store.rmaPage.damage_type === null) {
+        store.rmaPageErrors.damageType = "Uzupełnij stan techniczy";
+        contactError = true;
+      }
+
+      if (contactError) {
         store.showSnackBar({
           text: "Uzupełnij wymagane pola",
           color: "Warning",
@@ -85,9 +77,43 @@ export default (action: string) => {
       } else {
         store.changeTicketStatus({
           ticketId: store.rmaPage.ticket_id,
-          status: 8,
+          status: 10,
         });
+        // if (warehouseModuleActive) {
+        //   warehouseStore.changeItemShevle({
+        //     from: "SH_INDIN_1",
+        //     to: "SH_OUTDIN_1",
+        //     item: [store.rmaPage.barcode],
+        //   });
+        // }
+      }
 
+      break;
+
+    //anuluj (w serwisie) -> status do anulowania (8)
+    //dopisac modal powodu anulowania
+    case "toCancel":
+      let toCancelError = false;
+      if (store.rmaPage.device_sn === "") {
+        store.rmaPageErrors.sn = "Uzupełnij numer seryjny";
+        toCancelError = true;
+      }
+      if (store.deviceAccessories.length === 0) {
+        store.rmaPageErrors.accessories = "Uzupełnij akcesoria";
+        toCancelError = true;
+      }
+      if (store.rmaPage.damage_type === null) {
+        store.rmaPageErrors.damageType = "Uzupełnij stan techniczy";
+        toCancelError = true;
+      }
+
+      if (toCancelError) {
+        store.showSnackBar({
+          text: "Uzupełnij wymagane pola",
+          color: "Warning",
+        });
+      } else {
+        store.cancelReasonModalActive = true;
         // if (warehouseModuleActive) {
         //   warehouseStore.changeItemShevle({
         //     from: "SH_INWER_1",
@@ -95,7 +121,9 @@ export default (action: string) => {
         //     item: [store.rmaPage.barcode],
         //   });
         // }
+        // }
       }
+
       break;
 
     //naprawa -> status na W realizacji (5)
@@ -221,10 +249,7 @@ export default (action: string) => {
 
     //Anuluj - status na Anulowano (9)
     case "cancel":
-      store.changeTicketStatus({
-        ticketId: store.rmaPage.ticket_id,
-        status: 9,
-      });
+      store.cancelReasonModalActive = true;
       break;
   }
 };

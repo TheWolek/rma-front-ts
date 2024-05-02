@@ -16,6 +16,7 @@ import ShipmentModal from "./modals/shipment/ShipmentModal.vue";
 import LoadingDots from "@/components/parts/LoadingDots.vue";
 import SnackBar from "@/components/parts/SnackBar.vue";
 import HistoryModal from "./modals/history/HistoryModal.vue";
+import CancelReasonModal from "./modals/cancelReason/CancelReasonModal.vue";
 
 const route = useRoute();
 const store = useRmaStore();
@@ -73,6 +74,7 @@ onMounted(async () => {
       <LoadingDots :active="loadingRmaPage" />
     </div>
     <div v-if="!loadingRmaPage">
+      <CancelReasonModal />
       <ShipmentModal />
       <HistoryModal />
       <RmaActions />

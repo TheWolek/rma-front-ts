@@ -109,6 +109,7 @@ export const useRmaStore = defineStore("RMA", {
       color: "",
       icon: "",
     },
+    cancelReasonModalActive: false,
   }),
   getters: {
     getActiveFilters(): Filter[] {

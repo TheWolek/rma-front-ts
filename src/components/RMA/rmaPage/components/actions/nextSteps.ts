@@ -84,9 +84,9 @@ export default (): string[] => {
   }
 
   // //status: Brakujące informacje (12)
-  // if (status === 12 && ["CC", "Admin"].includes(userRole)) {
-  //   output.push("")
-  // }
+  if (status === 12 && ["CC", "Admin"].includes(userRole)) {
+    output.push("cancel");
+  }
 
   return output;
 };
