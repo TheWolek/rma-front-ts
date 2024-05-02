@@ -6,6 +6,7 @@ import InlineEditInput from "@/components/parts/inputs/InlineEditInput.vue";
 import CheckBoxGroup from "@/components/parts/inputs/CheckBoxGroup.vue";
 import SelectInput from "@/components/parts/inputs/SelectInput.vue";
 import ActionButton from "@/components/parts/buttons/ActionButton.vue";
+import TextArea from "@/components/parts/inputs/TextArea.vue";
 import { storeToRefs } from "pinia";
 
 const store = useRmaStore();
@@ -55,20 +56,15 @@ function changeShelve() {
         name="accessories"
         :options="getAccessoriesTypes"
         :disabledAll="!editMode"
+        :error="rmaPageErrors.accessories"
       />
-      <p
-        v-if="isOnService"
-        class="error"
-        :class="{ active: rmaPageErrors.accessories }"
-      >
-        {{ rmaPageErrors.accessories }}
-      </p>
-      <div class="form-group damageType" v-if="isOnService">
+      <div class="damageType" v-if="isOnService">
         <SelectInput
           id="damageType"
           label="Stan urządzenia"
           v-model="rmaPage.damage_type"
           :disabled="!editMode"
+          :error="rmaPageErrors.damageType"
         >
           <option
             v-for="el in getDamageTypes"
@@ -78,20 +74,16 @@ function changeShelve() {
             {{ el.name }}
           </option>
         </SelectInput>
-        <p class="error" :class="{ active: rmaPageErrors.damageType }">
-          {{ rmaPageErrors.damageType }}
-        </p>
       </div>
       <div v-if="isOnService" class="damageDescription">
-        <h3>Opis stanu technicznego</h3>
-        <textarea
-          name="damageDescription"
+        <TextArea
           id="damageDescription"
+          label="Opis stanu technicznego"
           v-model="rmaPage.damage_description"
-          cols="30"
-          rows="5"
+          cols="34"
+          rows="4"
           :disabled="!editMode"
-        ></textarea>
+        />
       </div>
 
       <div class="barcode" v-if="store.rmaPage.inWarehouse">

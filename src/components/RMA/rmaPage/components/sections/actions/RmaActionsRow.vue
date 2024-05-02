@@ -18,7 +18,7 @@ const {
   newActionPrice,
 } = storeToRefs(store);
 
-const getPrice = computed(() => `${props.data.action_price.toFixed(2)}zł`);
+const getPrice = computed(() => `${props.data.action_price.toFixed(2)} zł`);
 
 const remove = () => {
   if (!editMode.value) return;

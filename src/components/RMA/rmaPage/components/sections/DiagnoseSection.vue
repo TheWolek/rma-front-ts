@@ -5,6 +5,7 @@ import { useDictionaryStore } from "@/stores/dictionary";
 import { storeToRefs } from "pinia";
 import SelectInput from "@/components/parts/inputs/SelectInput.vue";
 import ActionButton from "@/components/parts/buttons/ActionButton.vue";
+import TextArea from "@/components/parts/inputs/TextArea.vue";
 import RmaActionsSection from "./actions/RmaActionsSection.vue";
 
 const store = useRmaStore();
@@ -31,69 +32,58 @@ const copyIssue = () => {
     <h2>Diagnoza</h2>
     <div class="sectionWrap">
       <div class="issueWrap">
-        <h3>Opis zgłoszenia</h3>
-        <textarea
-          name="issue"
+        <TextArea
           id="issue"
+          label="Opis zgłoszenia"
           v-model="rmaPage.issue"
-          cols="70"
-          rows="10"
+          cols="80"
+          rows="8"
           :disabled="!editMode"
-        ></textarea>
+        />
         <div v-if="isDiagnoseVisible">
-          <h3>Diagnoza</h3>
           <ActionButton
             display="Kopiuj opis"
             width="90px"
             :event="copyIssue"
             :disabled="!editMode"
           />
-          <textarea
-            name="diagnose"
+          <TextArea
             id="diagnose"
+            label="Diagnoza"
             v-model="rmaPage.diagnose"
-            cols="70"
-            rows="10"
+            cols="80"
+            rows="8"
             :disabled="!editMode"
-          ></textarea>
-          <p class="error" :class="{ active: rmaPageErrors.diagnose }">
-            {{ rmaPageErrors.diagnose }}
-          </p>
+            :error="rmaPageErrors.diagnose"
+          />
         </div>
       </div>
       <div class="resultWrap" v-if="isDiagnoseVisible">
-        <div class="form-group">
-          <SelectInput
-            id="resultType"
-            label="Rezultat zgłoszenia"
-            v-model="rmaPage.result_type"
-            :disabled="!editMode"
+        <SelectInput
+          id="resultType"
+          label="Rezultat zgłoszenia"
+          v-model="rmaPage.result_type"
+          :disabled="!editMode"
+          :error="rmaPageErrors.resultType"
+        >
+          <option
+            v-for="el in getResultTypes"
+            :key="el.id.toString()"
+            :value="el.id"
           >
-            <option
-              v-for="el in getResultTypes"
-              :key="el.id.toString()"
-              :value="el.id"
-            >
-              {{ el.name }}
-            </option>
-          </SelectInput>
-          <p class="error" :class="{ active: rmaPageErrors.resultType }">
-            {{ rmaPageErrors.resultType }}
-          </p>
-        </div>
+            {{ el.name }}
+          </option>
+        </SelectInput>
         <div class="resultDescription">
-          <h3>Opis rezultatu zgłoszenia</h3>
-          <textarea
-            name="resultDescription"
+          <TextArea
             id="resultDescription"
+            label="Opis rezultatu zgłoszenia"
             v-model="rmaPage.result_description"
-            cols="70"
-            rows="10"
+            cols="80"
+            rows="8"
             :disabled="!editMode"
-          ></textarea>
-          <p class="error" :class="{ active: rmaPageErrors.resultDescription }">
-            {{ rmaPageErrors.resultDescription }}
-          </p>
+            :error="rmaPageErrors.resultDescription"
+          />
         </div>
         <RmaActionsSection />
       </div>
@@ -102,12 +92,14 @@ const copyIssue = () => {
 </template>
 <style lang="scss" scoped>
 .issueWrap {
+  width: 540px;
   .actionBtn {
     margin-bottom: 12px;
   }
 }
 
 .resultWrap {
+  width: 540px;
   margin-top: 32px;
   h3 {
     margin-top: 8px;

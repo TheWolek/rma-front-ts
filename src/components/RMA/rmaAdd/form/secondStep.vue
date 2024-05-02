@@ -4,6 +4,7 @@ import { useRmaStore } from "@/stores/RMA";
 import RadioCell from "@/components/parts/inputs/RadioCell.vue";
 import ActionButton from "@/components/parts/buttons/ActionButton.vue";
 import SubmitButton from "@/components/parts/buttons/SubmitButton.vue";
+import TextArea from "@/components/parts/inputs/TextArea.vue";
 import { validate, validator } from "../validation";
 
 const emit = defineEmits(["changeStep"]);
@@ -58,17 +59,14 @@ function onBack() {
         />
       </div>
       <div class="form-group">
-        <label for="issue">Opis problemu</label>
-        <textarea
-          name="issue"
+        <TextArea
           id="issue"
+          label="Opis problemu"
           v-model="stepData.issue"
           cols="30"
           rows="10"
-        ></textarea>
-        <p class="error" :class="{ active: formErrors.issue !== '' }">
-          {{ formErrors.issue }}
-        </p>
+          :error="formErrors.issue"
+        />
       </div>
       <div class="buttons">
         <ActionButton :icon="`leftChevron.svg`" width="35px" :event="onBack" />
@@ -77,9 +75,3 @@ function onBack() {
     </form>
   </div>
 </template>
-<style scoped lang="scss">
-.error {
-  display: block;
-  bottom: -22px;
-}
-</style>

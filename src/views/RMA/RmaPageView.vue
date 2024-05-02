@@ -53,14 +53,6 @@ import RmaPage from "@/components/RMA/rmaPage/RmaPage.vue";
   width: 100%;
 }
 
-textarea {
-  resize: none;
-}
-
-textarea:disabled {
-  cursor: default !important;
-}
-
 h1 {
   font-size: 1.3em !important;
 }
