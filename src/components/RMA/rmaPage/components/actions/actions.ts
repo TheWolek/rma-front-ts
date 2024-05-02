@@ -1,7 +1,7 @@
 import { useRmaStore } from "@/stores/RMA";
 // import { useWarehouseStore } from "@/stores/warehouse";
 
-export default (action: string) => {
+export default async (action: string) => {
   const store = useRmaStore();
   // const warehouseStore = useWarehouseStore();
   // const warehouseModuleActive: boolean =
@@ -24,10 +24,24 @@ export default (action: string) => {
       break;
 
     case "toDiagnose":
-      store.changeTicketStatus({
-        ticketId: store.rmaPage.ticket_id,
-        status: 3,
-      });
+      let toDiagnoseError = false;
+      if (store.rmaPage.status === 10 && !store.rmaPage.contact_response) {
+        store.rmaPageErrors.contactResponse = "Uzupełnij odpowiedź klienta";
+        toDiagnoseError = true;
+      }
+
+      if (toDiagnoseError) {
+        store.showSnackBar({
+          text: "Uzupełnij wymagane dane",
+          color: "Warning",
+        });
+      } else {
+        await store.saveTicketData();
+        await store.changeTicketStatus({
+          ticketId: store.rmaPage.ticket_id,
+          status: 3,
+        });
+      }
       break;
 
     //odbierz -> status na Diagnoza (3)
@@ -75,10 +89,7 @@ export default (action: string) => {
           color: "Warning",
         });
       } else {
-        store.changeTicketStatus({
-          ticketId: store.rmaPage.ticket_id,
-          status: 10,
-        });
+        store.contactReasonModalActive = true;
         // if (warehouseModuleActive) {
         //   warehouseStore.changeItemShevle({
         //     from: "SH_INDIN_1",
@@ -104,6 +115,13 @@ export default (action: string) => {
       }
       if (store.rmaPage.damage_type === null) {
         store.rmaPageErrors.damageType = "Uzupełnij stan techniczy";
+        toCancelError = true;
+      }
+      if (
+        store.rmaPage.status === 10 &&
+        store.rmaPage.contact_response === null
+      ) {
+        store.rmaPageErrors.contactResponse = "Uzupełnij odpowiedź klienta";
         toCancelError = true;
       }
 
@@ -184,11 +202,11 @@ export default (action: string) => {
           color: "Warning",
         });
       } else {
-        store.changeTicketStatus({
+        await store.saveTicketData();
+        await store.changeTicketStatus({
           ticketId: store.rmaPage.ticket_id,
           status: 6,
         });
-        store.saveTicketData();
 
         // if (warehouseModuleActive) {
         //   warehouseStore.changeItemShevle({

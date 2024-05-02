@@ -64,6 +64,8 @@ export const useRmaStore = defineStore("RMA", {
       damage_type: 0,
       result_type: null,
       result_description: null as string, //string
+      contact_reason: null as string, //string
+      contact_response: null as string, //string
     },
     rmaPageErrors: {
       sn: "",
@@ -74,6 +76,7 @@ export const useRmaStore = defineStore("RMA", {
       resultDescription: "",
       invoice: "",
       actions: "",
+      contactResponse: "",
     },
     newActionName: "",
     newActionPrice: "",
@@ -110,6 +113,7 @@ export const useRmaStore = defineStore("RMA", {
       icon: "",
     },
     cancelReasonModalActive: false,
+    contactReasonModalActive: false,
   }),
   getters: {
     getActiveFilters(): Filter[] {
@@ -314,6 +318,8 @@ export const useRmaStore = defineStore("RMA", {
             damage_description: this.rmaPage.damage_description,
             result_type: this.rmaPage.result_type,
             result_description: this.rmaPage.result_description,
+            contact_reason: this.rmaPage.contact_reason,
+            contact_response: this.rmaPage.contact_response,
           }
         );
 
