@@ -66,4 +66,10 @@ h3 {
   font-size: 1em;
   margin-bottom: 2px;
 }
+
+h2,
+h3,
+p {
+  color: var(--vt-c-black-mute);
+}
 </style>
