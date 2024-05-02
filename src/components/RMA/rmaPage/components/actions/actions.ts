@@ -78,7 +78,10 @@ export default (action: string) => {
         toCancelError = true;
       }
       if (toCancelError) {
-        store.showSnackBar("Uzupełnij wymagane pola");
+        store.showSnackBar({
+          text: "Uzupełnij wymagane pola",
+          color: "Warning",
+        });
       } else {
         store.changeTicketStatus({
           ticketId: store.rmaPage.ticket_id,
@@ -114,7 +117,10 @@ export default (action: string) => {
       }
 
       if (diagError) {
-        store.showSnackBar("Uzupełnij wymagane pola");
+        store.showSnackBar({
+          text: "Uzupełnij wymagane pola",
+          color: "Warning",
+        });
       } else {
         store.changeTicketStatus({
           ticketId: store.rmaPage.ticket_id,
@@ -145,7 +151,10 @@ export default (action: string) => {
       }
 
       if (endRepairError) {
-        store.showSnackBar("Uzupełnij wymagane pola");
+        store.showSnackBar({
+          text: "Uzupełnij wymagane pola",
+          color: "Warning",
+        });
       } else {
         store.changeTicketStatus({
           ticketId: store.rmaPage.ticket_id,

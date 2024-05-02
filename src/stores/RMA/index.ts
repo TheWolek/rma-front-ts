@@ -9,6 +9,7 @@ import {
   ChangeTicketStatusData,
   TicketAction,
   CreateTicketData,
+  SnackBarProps,
 } from "./constants";
 
 export const useRmaStore = defineStore("RMA", {
@@ -102,8 +103,12 @@ export const useRmaStore = defineStore("RMA", {
     rmaListMaxPage: 0,
     historyModalActive: false,
     history: [],
-    rmaPageSnackbarActive: false,
-    rmaPageSnackbarText: "",
+    rmaPageSnackbar: {
+      active: false,
+      text: "",
+      color: "",
+      icon: "",
+    },
   }),
   getters: {
     getActiveFilters(): Filter[] {
@@ -444,14 +449,29 @@ export const useRmaStore = defineStore("RMA", {
       };
     },
 
-    showSnackBar(text: string) {
-      if (!this.rmaPageSnackbarActive) {
-        this.rmaPageSnackbarText = text;
-        this.rmaPageSnackbarActive = true;
+    showSnackBar({
+      text,
+      color = "Warning",
+      icon = "close.svg",
+    }: SnackBarProps) {
+      if (!this.rmaPageSnackbar.active) {
+        this.rmaPageSnackbar.text = text;
+        this.rmaPageSnackbar.color = color;
+        this.rmaPageSnackbar.icon = icon;
 
         setTimeout(() => {
-          this.rmaPageSnackbarActive = false;
+          this.rmaPageSnackbar.active = true;
+        }, 100);
+
+        setTimeout(() => {
+          this.rmaPageSnackbar.active = false;
         }, 2000);
+
+        setTimeout(() => {
+          this.rmaPageSnackbar.text = "";
+          this.rmaPageSnackbar.color = "";
+          this.rmaPageSnackbar.icon = "";
+        }, 2200);
       }
     },
   },

@@ -2,6 +2,8 @@ export type WaybillStatus = "potwierdzony" | "odebrany" | "anulowany";
 
 export type WaybillType = "przychodzący" | "wychodzący";
 
+export type SnackBarColor = "Warning" | "Info";
+
 export type FilterType =
   | "zgłoszenie"
   | "status"
@@ -97,4 +99,10 @@ export interface CreateTicketData {
   secondStep: CreateTicketIssueData;
   thirdStep: CreateTicketRequesterData;
   addressSection: CreateTicketAddressData;
+}
+
+export interface SnackBarProps {
+  text: string;
+  color?: SnackBarColor;
+  icon?: string;
 }

@@ -21,7 +21,7 @@ const route = useRoute();
 const store = useRmaStore();
 const storeDict = useDictionaryStore();
 
-const { editMode, loadingRmaPage } = storeToRefs(store);
+const { editMode, loadingRmaPage, rmaPage } = storeToRefs(store);
 
 onMounted(async () => {
   if (isNaN(parseInt(String(route.params.id)))) {
@@ -56,6 +56,14 @@ onMounted(async () => {
   await store.fetchTicketWaybills(Number(route.params.id));
 
   loadingRmaPage.value = false;
+
+  if (rmaPage.value.status === 12) {
+    store.showSnackBar({
+      text: "Zgłoszenie wymaga dodatkowych danych",
+      color: "Info",
+      icon: "form.svg",
+    });
+  }
 });
 </script>
 <template>

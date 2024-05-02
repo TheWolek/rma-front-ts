@@ -4,15 +4,29 @@ import { storeToRefs } from "pinia";
 import { useRmaStore } from "@/stores/RMA";
 
 const store = useRmaStore();
-const { rmaPageSnackbarActive, rmaPageSnackbarText } = storeToRefs(store);
+const { rmaPageSnackbar } = storeToRefs(store);
 
-const getIcon = computed(() => require(`../../assets/close.svg`));
+const getIcon = computed(() =>
+  rmaPageSnackbar.value.icon === ""
+    ? ""
+    : require(`../../assets/${rmaPageSnackbar.value.icon}`)
+);
+
+const isWarning = computed(() => rmaPageSnackbar.value.color === "Warning");
+const isInfo = computed(() => rmaPageSnackbar.value.color === "Info");
 </script>
 <template>
   <div class="snackbarWrap">
-    <div class="snackbar" :class="{ active: rmaPageSnackbarActive }">
+    <div
+      class="snackbar"
+      :class="{
+        active: rmaPageSnackbar.active,
+        waring: isWarning,
+        info: isInfo,
+      }"
+    >
       <img :src="getIcon" />
-      <h3>{{ rmaPageSnackbarText }}</h3>
+      <h3>{{ rmaPageSnackbar.text }}</h3>
     </div>
   </div>
 </template>
@@ -26,7 +40,7 @@ const getIcon = computed(() => require(`../../assets/close.svg`));
   .snackbar {
     position: absolute;
     top: 30px;
-    right: -280px;
+    right: -380px;
     z-index: 100;
     min-width: 280px;
     display: flex;
@@ -35,12 +49,30 @@ const getIcon = computed(() => require(`../../assets/close.svg`));
     border-radius: 6px;
     border: 2px solid red;
     background-color: rgb(253, 88, 88);
-    padding: 10px;
+    padding: 10px 12px;
     cursor: pointer;
     transition: ease 0.15s;
 
     &.active {
-      transform: translateX(-300px);
+      transform: translateX(-400px);
+    }
+
+    &.warning {
+      border: 2px solid red;
+      background-color: rgb(253, 88, 88);
+    }
+
+    &.info {
+      border: 2px solid rgb(0, 0, 0);
+      background-color: rgb(0, 0, 0);
+
+      h3 {
+        color: #fff;
+      }
+
+      img {
+        filter: invert(1);
+      }
     }
 
     img {
@@ -48,7 +80,8 @@ const getIcon = computed(() => require(`../../assets/close.svg`));
     }
 
     h3 {
-      font-weight: 600;
+      font-weight: normal;
+      text-transform: none;
     }
   }
 }
