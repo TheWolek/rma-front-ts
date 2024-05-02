@@ -44,10 +44,6 @@ const isShipmentBtnActive = computed(
 
 const isBarcodeBtnActive = computed(() => rmaPage.value.barcodeURL !== null);
 
-const isResult = computed(
-  () => rmaPage.value.result_description !== null && store.actions.length !== 0
-);
-
 const editBtnIcon = computed(() =>
   editMode.value ? "cancel.svg" : "edit.svg"
 );
@@ -251,7 +247,6 @@ const toggleHistoryModal = async () => {
         display="Zakończone"
         width="90"
         :event="() => actions('endRepair')"
-        :disabled="!isResult"
         v-if="nextSteps.includes('endRepair')"
       />
       <ActionButton
@@ -284,7 +279,6 @@ const toggleHistoryModal = async () => {
       <ActionButton
         display="Anuluj"
         :event="() => actions('toCancel')"
-        :disabled="!isResult"
         v-if="nextSteps.includes('toCancel')"
       />
       <ActionButton

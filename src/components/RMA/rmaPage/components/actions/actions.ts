@@ -72,7 +72,14 @@ export default (action: string) => {
     //anuluj (w serwisie) -> status do anulowania (8)
     //dopisac modal powodu anulowania
     case "toCancel":
-      if (store.rmaPage.result_description !== null) {
+      let toCancelError = false;
+      if (store.rmaPage.result_type === null) {
+        store.rmaPageErrors.resultType = "Uzupełnij rezultat";
+        toCancelError = true;
+      }
+      if (toCancelError) {
+        store.showSnackBar("Uzupełnij wymagane pola");
+      } else {
         store.changeTicketStatus({
           ticketId: store.rmaPage.ticket_id,
           status: 8,
@@ -90,15 +97,56 @@ export default (action: string) => {
 
     //naprawa -> status na W realizacji (5)
     case "repair":
-      store.changeTicketStatus({
-        ticketId: store.rmaPage.ticket_id,
-        status: 5,
-      });
+      let diagError = false;
+      if (store.rmaPage.device_sn === "") {
+        store.rmaPageErrors.sn = "Uzupełnij numer seryjny";
+        diagError = true;
+      }
+
+      if (store.deviceAccessories.length === 0) {
+        store.rmaPageErrors.accessories = "Uzupełnij akcesoria";
+        diagError = true;
+      }
+
+      if (store.rmaPage.damage_type === null) {
+        store.rmaPageErrors.damageType = "Uzupełnij stan techniczny";
+        diagError = true;
+      }
+
+      if (diagError) {
+        store.showSnackBar("Uzupełnij wymagane pola");
+      } else {
+        store.changeTicketStatus({
+          ticketId: store.rmaPage.ticket_id,
+          status: 5,
+        });
+      }
+
       break;
 
     //zakończ -> status na Przekazano do odesłania (6)
     case "endRepair":
-      if (store.rmaPage.result_description !== null) {
+      let endRepairError = false;
+      if (store.rmaPage.result_type === null) {
+        store.rmaPageErrors.resultType = "Uzupełnij rezultat";
+        endRepairError = true;
+      }
+      if (store.rmaPage.result_description === null) {
+        store.rmaPageErrors.resultDescription = "Uzupełnij opis rezultatu";
+        endRepairError = true;
+      }
+      if (store.actions.length === 0) {
+        store.rmaPageErrors.actions = "Uzupełnij wykonane czynności";
+        endRepairError = true;
+      }
+      if (store.actionsTotalPrice > 0 && !store.fvNumber) {
+        store.rmaPageErrors.invoice = "Wygeneruj fakturę";
+        endRepairError = true;
+      }
+
+      if (endRepairError) {
+        store.showSnackBar("Uzupełnij wymagane pola");
+      } else {
         store.changeTicketStatus({
           ticketId: store.rmaPage.ticket_id,
           status: 6,

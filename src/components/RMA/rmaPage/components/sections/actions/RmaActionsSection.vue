@@ -23,7 +23,10 @@ const {
 } = storeToRefs(store);
 
 const ableToGenerateFv = computed(
-  () => actionsTotalPrice.value > 0 && !isFetching.value
+  () =>
+    actionsTotalPrice.value > 0 &&
+    !isFetching.value &&
+    [3, 4, 5, 8, 10].includes(rmaPage.value.status)
 );
 
 const generateFv = async () => {
@@ -42,17 +45,16 @@ const generateFv = async () => {
       );
     }
 
+    store.saveTicketData();
     router.go(0);
   }
 };
 
 const openFvFile = async () => {
-  if (ableToGenerateFv.value) {
-    window.open(
-      `${process.env.VUE_APP_API_BASE_URL}${fvFilePath.value}`,
-      "_blank"
-    );
-  }
+  window.open(
+    `${process.env.VUE_APP_API_BASE_URL}${fvFilePath.value}`,
+    "_blank"
+  );
 };
 </script>
 <template>
@@ -92,10 +94,12 @@ const openFvFile = async () => {
       <ActionButton
         width="185px"
         display="Generuj nową fakturę"
-        :icon="`invoice.svg`"
         :event="generateFv"
         :disabled="!ableToGenerateFv"
       />
+      <p class="error" :class="{ active: rmaPageErrors.invoice }">
+        {{ rmaPageErrors.invoice }}
+      </p>
     </div>
   </div>
 </template>
@@ -106,6 +110,7 @@ const openFvFile = async () => {
   gap: 6px;
 
   .fvWrap {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -113,6 +118,10 @@ const openFvFile = async () => {
     .fv {
       color: var(--vt-c-black-mute);
     }
+  }
+
+  .error {
+    bottom: -20px;
   }
 }
 

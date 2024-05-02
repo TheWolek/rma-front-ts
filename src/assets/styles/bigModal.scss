@@ -28,7 +28,7 @@
     background: #fff;
     width: 40%;
     border-left: 1px solid #444;
-    height: 100%;
+    height: calc(100vh - 5vh);
     overflow-y: scroll;
 
     #close {

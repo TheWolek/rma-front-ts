@@ -14,6 +14,7 @@ import ShipmentDataSection from "./components/sections/shipment/ShipmentDataSect
 import RmaActions from "./components/actions/RmaActions.vue";
 import ShipmentModal from "./modals/shipment/ShipmentModal.vue";
 import LoadingDots from "@/components/parts/LoadingDots.vue";
+import SnackBar from "@/components/parts/SnackBar.vue";
 import HistoryModal from "./modals/history/HistoryModal.vue";
 
 const route = useRoute();
@@ -59,6 +60,7 @@ onMounted(async () => {
 </script>
 <template>
   <div id="rmaPage">
+    <SnackBar />
     <div class="loadingWrap" v-if="loadingRmaPage">
       <LoadingDots :active="loadingRmaPage" />
     </div>

@@ -71,6 +71,7 @@ export const useRmaStore = defineStore("RMA", {
       diagnose: "",
       resultType: "",
       resultDescription: "",
+      invoice: "",
       actions: "",
     },
     newActionName: "",
@@ -101,6 +102,8 @@ export const useRmaStore = defineStore("RMA", {
     rmaListMaxPage: 0,
     historyModalActive: false,
     history: [],
+    rmaPageSnackbarActive: false,
+    rmaPageSnackbarText: "",
   }),
   getters: {
     getActiveFilters(): Filter[] {
@@ -439,6 +442,17 @@ export const useRmaStore = defineStore("RMA", {
         resultDescription: "",
         actions: "",
       };
+    },
+
+    showSnackBar(text: string) {
+      if (!this.rmaPageSnackbarActive) {
+        this.rmaPageSnackbarText = text;
+        this.rmaPageSnackbarActive = true;
+
+        setTimeout(() => {
+          this.rmaPageSnackbarActive = false;
+        }, 2000);
+      }
     },
   },
 });
