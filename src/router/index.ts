@@ -19,6 +19,8 @@ import TaskMoveView from "@/views/Warehouse/Tasks/TaskMoveView.vue";
 import AdminView from "@/views/Admin/AdminView.vue";
 import AdminUsersView from "@/views/Admin/AdminUsersView.vue";
 import AdminUserDetailsView from "@/views/Admin/AdminUserDetailsView.vue";
+import ClientPanelView from "@/views/clientPanel/ClientPanelView.vue";
+import CreateRmaView from "@/views/clientPanel/CreateRmaView.vue";
 import decodeToken from "@/helpers/decodeToken";
 
 declare module "vue-router" {
@@ -37,6 +39,22 @@ const warehouseLSRoles = ["Admin", "LS"];
 const adminRoles = ["Admin"];
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: "/panel-klienta",
+    name: "clientPanel",
+    component: ClientPanelView,
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: "/dodaj-zgloszenie",
+    name: "createRma",
+    component: CreateRmaView,
+    meta: {
+      requiresAuth: false,
+    },
+  },
   {
     path: "/",
     name: "home",

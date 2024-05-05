@@ -1,13 +1,27 @@
 <script setup lang="ts">
-import { ref, toRaw, defineEmits } from "vue";
+import { ref, toRaw, defineEmits, defineProps } from "vue";
 import { useRmaStore } from "@/stores/RMA";
 import TextInput from "@/components/parts/inputs/TextInput.vue";
 import SubmitButton from "@/components/parts/buttons/SubmitButton.vue";
 import { validator, validate } from "../validation";
+import { useClientStore } from "@/stores/clientStore";
+
+const props = defineProps({
+  isClient: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 const emit = defineEmits(["changeStep"]);
 
-const stepData = useRmaStore().addFormData.firstStep;
+let stepData: { [key: string]: string };
+
+if (props.isClient) {
+  stepData = useClientStore().addFormData.firstStep;
+} else {
+  stepData = useRmaStore().addFormData.firstStep;
+}
 const formErrors = ref({
   deviceProducer: "",
   deviceName: "",

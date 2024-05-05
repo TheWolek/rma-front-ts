@@ -11,6 +11,7 @@ export default {
   rmaActions: "rma/actions",
   rmaWaybills: "rma/waybills",
   rmaCreate: "rma/create",
+  rmaCreateClient: "rma/clientcreate",
   rmaPage: "rma/details",
   rmaFv: "rma/fv",
   rmaGenerateFv: "rma/generateFv",

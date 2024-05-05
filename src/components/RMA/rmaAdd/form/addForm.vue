@@ -31,8 +31,7 @@ onMounted(async () => {
   fetching.value = false;
 });
 
-async function handleSteps(nextStep: number) {
-  console.log(nextStep);
+const handleSteps = async (nextStep: number) => {
   if (nextStep === 4) {
     const data = toRaw(store.addFormData);
     const body = {
@@ -56,7 +55,7 @@ async function handleSteps(nextStep: number) {
   } else {
     activeStep.value = nextStep;
   }
-}
+};
 </script>
 <template>
   <div class="loadingWrap" :class="{ active: fetching }" v-if="fetching">

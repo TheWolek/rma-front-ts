@@ -1,18 +1,37 @@
 <script setup lang="ts">
-import { ref, defineEmits, toRaw } from "vue";
+import { ref, defineEmits, toRaw, defineProps } from "vue";
 import { useRmaStore } from "@/stores/RMA";
 import TextInput from "@/components/parts/inputs/TextInput.vue";
 import CheckBox from "@/components/parts/inputs/CheckBox.vue";
 import ActionButton from "@/components/parts/buttons/ActionButton.vue";
 import SubmitButton from "@/components/parts/buttons/SubmitButton.vue";
 import { validate, validator } from "../validation";
+import { useClientStore } from "@/stores/clientStore";
 
 const emit = defineEmits(["changeStep"]);
 
-const store = useRmaStore();
-const stepData = store.addFormData.thirdStep;
-const addressSection = store.addFormData.addressSection;
+const props = defineProps({
+  isClient: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+let stepData: { [key: string]: string };
+let addressSection: { [key: string]: string };
 const isAddressFormActive = ref(false);
+
+if (props.isClient) {
+  const store = useClientStore();
+  stepData = store.addFormData.thirdStep;
+  addressSection = store.addFormData.addressSection;
+  isAddressFormActive.value = true;
+} else {
+  const store = useRmaStore();
+  stepData = store.addFormData.thirdStep;
+  addressSection = store.addFormData.addressSection;
+}
+
 const formErrors = ref({
   name: "",
   phone: "",
@@ -93,6 +112,7 @@ function formatPostCode() {
       />
 
       <CheckBox
+        v-if="!isClient"
         id="isAddressFormActive"
         label="Dodaj adres"
         v-model="isAddressFormActive"

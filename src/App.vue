@@ -1,14 +1,6 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
 import { RouterView } from "vue-router";
-import { useUserStore } from "./stores/user";
 import MainNav from "./components/Nav/MainNav.vue";
-
-const store = useUserStore();
-
-onMounted(() => {
-  store.tryToLogin();
-});
 </script>
 <template>
   <header>

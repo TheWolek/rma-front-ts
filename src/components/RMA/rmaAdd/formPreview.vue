@@ -1,12 +1,26 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
 import { useRmaStore } from "@/stores/RMA";
+import { useClientStore } from "@/stores/clientStore";
 
-defineProps({
-  activeStep: Number,
+const props = defineProps({
+  activeStep: {
+    type: Number,
+    required: true,
+  },
+  isClient: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const formData = useRmaStore().addFormData;
+let formData: { [key: string]: { [key: string]: string } };
+
+if (props.isClient) {
+  formData = useRmaStore().addFormData;
+} else {
+  formData = useClientStore().addFormData;
+}
 </script>
 <template>
   <div class="formPreview" v-if="activeStep > 1">

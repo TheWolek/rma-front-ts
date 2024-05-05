@@ -1,15 +1,30 @@
 <script setup lang="ts">
-import { ref, toRaw, defineEmits } from "vue";
+import { ref, toRaw, defineEmits, defineProps } from "vue";
 import { useRmaStore } from "@/stores/RMA";
 import RadioCell from "@/components/parts/inputs/RadioCell.vue";
 import ActionButton from "@/components/parts/buttons/ActionButton.vue";
 import SubmitButton from "@/components/parts/buttons/SubmitButton.vue";
 import TextArea from "@/components/parts/inputs/TextArea.vue";
 import { validate, validator } from "../validation";
+import { useClientStore } from "@/stores/clientStore";
 
 const emit = defineEmits(["changeStep"]);
 
-const stepData = useRmaStore().addFormData.secondStep;
+const props = defineProps({
+  isClient: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+let stepData: { [key: string]: string };
+
+if (props.isClient) {
+  stepData = useClientStore().addFormData.secondStep;
+} else {
+  stepData = useRmaStore().addFormData.secondStep;
+}
+
 const formErrors = ref({
   issue: "",
 });
