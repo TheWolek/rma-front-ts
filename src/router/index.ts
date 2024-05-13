@@ -293,12 +293,12 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
-  const warehouseModuleActive =
-    JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE) || false;
-  const sparepartsModuleActive =
-    JSON.parse(process.env.VUE_APP_MODULE_SPAREPARTS) || false;
-  const adminPanelModuleActive =
-    JSON.parse(process.env.VUE_APP_MODULE_ADMIN) || false;
+  const warehouseModuleEnv = process.env.VUE_APP_MODULE_WAREHOUSE;
+  const warehouseModuleActive = warehouseModuleEnv === "true";
+  const sparepartsModuleEnv = process.env.VUE_APP_MODULE_SPAREPARTS;
+  const sparepartsModuleActive = sparepartsModuleEnv === "true";
+  const adminPanelModuleEnv = process.env.VUE_APP_MODULE_ADMIN;
+  const adminPanelModuleActive = adminPanelModuleEnv === "true";
 
   if (to.meta.requiredModule) {
     if (to.meta.requiredModule === "warehouse" && !warehouseModuleActive) {

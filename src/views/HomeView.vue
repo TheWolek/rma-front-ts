@@ -5,8 +5,8 @@ import DateClock from "@/components/HomePage/DateClock.vue";
 import TilesLinks from "@/components/HomePage/TilesLinks.vue";
 
 const { userRole } = decodeToken();
-const warehouseModuleActive =
-  JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE) || false;
+const warehouseModuleEnv = process.env.VUE_APP_MODULE_WAREHOUSE;
+const warehouseModuleActive = warehouseModuleEnv === "true";
 const warehouseAvailable =
   warehouseModuleActive && ("Admin" === userRole || "LS" === userRole);
 

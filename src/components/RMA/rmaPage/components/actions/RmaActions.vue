@@ -24,11 +24,11 @@ const {
 } = storeToRefs(store);
 const loading = ref(false);
 
-const isWarehouseModule = JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE);
+const warehouseModuleEnv = process.env.VUE_APP_MODULE_WAREHOUSE;
+const isWarehouseModule = warehouseModuleEnv === "true";
 
-const isSparepartsModule =
-  JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE) &&
-  JSON.parse(process.env.VUE_APP_MODULE_SPAREPARTS);
+const sparepartModuleEnv = process.env.VUE_APP_MODULE_SPAREPARTS;
+const isSparepartsModule = isWarehouseModule && sparepartModuleEnv === "true";
 
 const isSaveBtnActive = computed(() => editMode.value && !loadingRmaPage.value);
 

@@ -3,10 +3,6 @@ import { useRmaStore } from "@/stores/RMA";
 
 export default async (action: string) => {
   const store = useRmaStore();
-  // const warehouseStore = useWarehouseStore();
-  // const warehouseModuleActive: boolean =
-  //   JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE) || false;
-
   store.editMode = false;
   switch (action) {
     // dodaj list (wych) -> otwarcie modala

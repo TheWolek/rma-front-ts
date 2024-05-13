@@ -18,16 +18,16 @@ const rmaAvailable = computed(
     "LS" === userRole.value
 );
 
-const warehouseModuleActive =
-  JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE) || false;
+const warehouseModuleEnv = process.env.VUE_APP_MODULE_WAREHOUSE;
+const warehouseModuleActive = warehouseModuleEnv === "true";
 const warehouseAvailable = computed(
   () =>
     warehouseModuleActive &&
     ("Admin" === userRole.value || "LS" === userRole.value)
 );
 
-const adminPanelModuleActive =
-  JSON.parse(process.env.VUE_APP_MODULE_ADMIN) || false;
+const adminPanelModuleEnv = process.env.VUE_APP_MODULE_ADMIN;
+const adminPanelModuleActive = adminPanelModuleEnv === "true";
 const adminPanelAvailable = computed(
   () => adminPanelModuleActive && "Admin" === userRole.value
 );
@@ -47,16 +47,9 @@ const logoutAction = () => {
     </nav>
     <div class="account" v-if="isLoggedIn">
       <AccountBadge />
-      <ActionButton 
-        display="Wyloguj"
-        width="95px"
-        :event="logoutAction"
-      />
+      <ActionButton display="Wyloguj" width="95px" :event="logoutAction" />
       <RouterLink to="/admin" v-if="adminPanelAvailable">
-        <ActionButton 
-          display="Admin Panel"
-          width="95px"
-        />
+        <ActionButton display="Admin Panel" width="95px" />
       </RouterLink>
     </div>
   </div>

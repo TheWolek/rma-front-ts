@@ -2,8 +2,8 @@ import { useRmaStore } from "@/stores/RMA";
 import { useUserStore } from "@/stores/user";
 
 export default (): string[] => {
-  const warehouseModuleActive =
-    JSON.parse(process.env.VUE_APP_MODULE_WAREHOUSE) || false;
+  const warehouseModuleEnv = process.env.VUE_APP_MODULE_WAREHOUSE;
+  const warehouseModuleActive = warehouseModuleEnv === "true";
   const store = useRmaStore();
   const userStore = useUserStore();
   const status = store.rmaPage.status;

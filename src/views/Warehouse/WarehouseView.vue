@@ -5,8 +5,8 @@ import TilesLinks from "../../components/HomePage/TilesLinks.vue";
 import WarehouseNav from "../../components/Warehouse/WarehouseNav.vue";
 import { ref, computed } from "vue";
 
-const sparepartsModuleActive =
-  JSON.parse(process.env.VUE_APP_MODULE_SPAREPARTS) || false;
+const sparepartsModuleEnv = process.env.VUE_APP_MODULE_SPAREPARTS;
+const sparepartsModuleActive = sparepartsModuleEnv === "true";
 
 const linkList = ref([
   {

@@ -7,8 +7,8 @@ import ModuleNavLink from "../Nav/ModuleNavLink.vue";
 const store = useUserStore();
 const { userRole } = storeToRefs(store);
 
-const sparepartsModuleActive =
-  JSON.parse(process.env.VUE_APP_MODULE_SPAREPARTS) || false;
+const sparepartsModuleEnv = process.env.VUE_APP_MODULE_SPAREPARTS;
+const sparepartsModuleActive = sparepartsModuleEnv === "true";
 const coreWarehouseAvailable = computed(
   () => "Admin" === userRole.value || "LS" === userRole.value
 );
