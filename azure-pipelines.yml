@@ -40,6 +40,7 @@ stages:
                 $(tag)
       - deployment: deployment_to_VM
         displayName: Deploy container to VM
+        dependsOn: Build
         environment: $(environmentName)
         strategy:
           runOnce:
