@@ -64,19 +64,25 @@ if (props.isClient) {
 </template>
 <style scoped lang="scss">
 .formPreview {
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  display: none;
+}
 
-  .step {
+@media (min-width: 1024px) {
+  .formPreview {
+    width: 300px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 24px;
 
-    .bold {
-      font-weight: bold;
-      margin-left: 8px;
+    .step {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .bold {
+        font-weight: bold;
+        margin-left: 8px;
+      }
     }
   }
 }

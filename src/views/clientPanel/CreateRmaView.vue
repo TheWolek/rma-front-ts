@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CreateRmaPage from "@/components/clientPanel/CreateRmaPage.vue";
+import CreateRmaPage from "@/components/clientPanel/createRmaPage/CreateRmaPage.vue";
 </script>
 <template>
   <div id="createrma">
