@@ -77,15 +77,6 @@ function onSubmit() {
 function onBack() {
   emit("changeStep", 2);
 }
-
-function formatPostCode() {
-  let code = addressSection.postCode;
-  code = code.replace(/\D/g, "");
-  if (code.length <= 5) {
-    code = code.replace(/^(\d{2})(\d{3})$/, "$1-$2");
-  }
-  addressSection.postCode = code;
-}
 </script>
 <template>
   <div class="step">
@@ -129,7 +120,6 @@ function formatPostCode() {
           v-model="addressSection.postCode"
           label="Kod pocztowy"
           :error="formErrors.postCode"
-          :input="formatPostCode"
           max="5"
         />
         <TextInput

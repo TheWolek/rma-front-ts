@@ -29,6 +29,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  max: {
+    type: String,
+    required: false,
+  },
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -38,6 +42,10 @@ function onChange(event) {
   if (props.change) {
     props.change();
   }
+}
+
+function onInput(event) {
+  emit("update:modelValue", event.target.value);
 }
 </script>
 <template>
@@ -49,7 +57,11 @@ function onChange(event) {
       :rows="rows"
       :value="modelValue"
       @change="onChange"
+      @input="onInput"
       :disabled="disabled"
+      :class="{
+        fieldError: $props.error !== '' || modelValue.length > Number(max),
+      }"
     ></textarea>
     <p
       class="error"
@@ -57,6 +69,13 @@ function onChange(event) {
       :class="{ active: $props.error !== '' }"
     >
       {{ error }}
+    </p>
+    <p
+      class="lenCounter"
+      v-if="max"
+      :class="{ counterError: modelValue.length > Number(max) }"
+    >
+      {{ modelValue.length }} / {{ max }}
     </p>
   </div>
 </template>
@@ -67,10 +86,32 @@ textarea {
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+
+  border: 1px solid #000;
+
+  &:focus-visible {
+    outline: none;
+    border: 1px solid #000;
+  }
+
+  &.fieldError {
+    border: 1px solid var(--vt-c-red);
+  }
 }
 
 .error {
   display: block;
   bottom: -22px;
+}
+
+.lenCounter {
+  position: absolute;
+  bottom: -24px;
+  right: 0;
+  font-size: 14px;
+
+  &.counterError {
+    color: red;
+  }
 }
 </style>

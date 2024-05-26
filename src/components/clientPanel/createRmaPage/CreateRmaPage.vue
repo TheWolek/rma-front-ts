@@ -67,7 +67,9 @@ const handleSteps = async (nextStep: number) => {
         </div>
       </div>
       <div class="formSummary" v-if="activeStep === 4">
-        <h1>Utworzono zgłoszenie: {{ barcode }}</h1>
+        <h1>
+          Utworzono zgłoszenie: <span class="rmaCode">{{ barcode }}</span>
+        </h1>
         <p>Skontaktujemy się z Tobą i przekażemy Ci dalsze kroki</p>
         <div class="summaryWrap">
           <div class="device">
@@ -157,11 +159,15 @@ const handleSteps = async (nextStep: number) => {
     h3 {
       font-size: 18px;
     }
+  }
 
-    .formSummary {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+  .formSummary {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .rmaCode {
+      font-weight: 600;
     }
   }
 }

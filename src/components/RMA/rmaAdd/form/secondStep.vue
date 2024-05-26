@@ -39,13 +39,13 @@ function clearErrors() {
   });
 }
 
-function onSubmit() {
+function validateStep() {
   clearErrors();
-  const isFormValid = validate(
-    toRaw(stepData),
-    validator.secondStep,
-    showError
-  );
+  return validate(toRaw(stepData), validator.secondStep, showError);
+}
+
+function onSubmit() {
+  const isFormValid = validateStep();
   if (isFormValid) {
     emit("changeStep", 3);
   }
@@ -80,7 +80,9 @@ function onBack() {
           v-model="stepData.issue"
           cols="30"
           rows="10"
+          max="1000"
           :error="formErrors.issue"
+          @update:model-value="validateStep"
         />
       </div>
       <div class="buttons">

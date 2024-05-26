@@ -20,8 +20,9 @@ export const validator = {
   }),
   secondStep: Joi.object({
     type: Joi.string().required().valid("1", "2"),
-    issue: Joi.string().required().messages({
+    issue: Joi.string().required().max(1000).messages({
       "string.empty": "issue#Wpisz opis problemu",
+      "string.max": "issue#Maksymalnie możesz wpisać 1000 znaków",
     }),
   }),
   thirdStep: Joi.object({
@@ -44,6 +45,7 @@ export const validator = {
     }),
     postCode: Joi.string().required().length(6).messages({
       "string.empty": "postCode#Wpisz kod pocztowy",
+      "string.length": "postCode#Wpisz poprawny kod pocztowy",
     }),
     city: Joi.string().required().messages({
       "string.empty": "city#Wpisz miejscowość",
@@ -62,7 +64,6 @@ export const validate = (
     const errorList = error.toString().split(":")[1].split(".");
 
     errorList.forEach((error) => {
-      console.log(error);
       const field = error.split("#")[0].trim();
       const message = error.split("#")[1].trim();
       cb(field, message);
